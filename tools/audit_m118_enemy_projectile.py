@@ -66,7 +66,7 @@ assert '!enemyAttackVisualActive &&' in main
 # sound(3) duration when Noise is enabled; later cells retain delay(2).
 for q in [
     'else if(enemyAttackVisualIndex==0)',
-    'sfx.durationMs(SfxEvent::EnemyRangedLaunch)',
+    'sfx.logicalDurationMs(SfxEvent::EnemyRangedLaunch)',
     'advance=enemyAttackVisualFramePresented && soundDone;',
     'SDL_GetTicks()-enemyAttackVisualStartedMs)>=WORLD_PROJECTILE_STEP_MS',
 ]:
@@ -77,7 +77,7 @@ for q in [
     'if(enemyAttackVisual.hit){',
     'enemyAttackHitFlash=true;',
     'if(noiseEnabled) sfx.playImmediate(SfxEvent::CombatHit);',
-    'sfx.durationMs(SfxEvent::CombatHit)',
+    'sfx.logicalDurationMs(SfxEvent::CombatHit)',
     'if(enemyAttackHitFlash)',
 ]:
     assert q in main,q
