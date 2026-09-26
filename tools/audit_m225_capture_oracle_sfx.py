@@ -29,6 +29,7 @@ for sid in range(10):
     assert f'case {sid}: return {{SOUND_{sid:02d}' in pcmc
 
 for q in [
+    'InvalidAttackWeapon      = 1',
     'CombatHit                = 2',
     'TrapTriggered             = 2',
     'PositiveEffect           = 5',
@@ -58,7 +59,7 @@ for q in [
 
 for q in ['PCM 길이와 게임 blocking 시간 분리','VehicleFire = 8','직접 녹음한 capture PCM']:
     assert q in notes,q
-assert 'Ultima I 한글화 clean-room — M225' in readme
+m=re.search(r'Ultima I 한글화 clean-room — M(\d+)',readme); assert m and int(m.group(1))>=225
 
 if len(sys.argv)>1:
     out=(Path(sys.argv[1])/'OUT.EXE').read_bytes(); assert len(out)==69858
