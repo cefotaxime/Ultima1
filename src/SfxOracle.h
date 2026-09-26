@@ -1,5 +1,10 @@
 #pragma once
 
+// M225: central original sound-event map.
+//
+// Rule: gameplay code names the original event, never a guessed numeric ID.
+// Multiple events intentionally share one ID where OUT.EXE does so.  Timing
+// and pitch calibration are deferred; this file captures only event identity.
 enum class SfxEvent : int {
     OutdoorTerrainCollision = 0,
 
@@ -7,6 +12,7 @@ enum class SfxEvent : int {
     InvalidXit               = 1,
 
     CombatHit                = 2,
+    TrapTriggered             = 2,
 
     EnemyRangedLaunch        = 3,
 
@@ -14,9 +20,12 @@ enum class SfxEvent : int {
     LocalPlayerMove          = 4,
     LocalActorMove           = 4,
 
-    VehicleFire              = 6,
+    PositiveEffect           = 5,
+    NoEffect                 = 6,
 
     PlayerAttackLaunch       = 7,
+    VehicleFire              = 8,
+    SpaceFlightPulse         = 9,
 };
 
 constexpr int sfxId(SfxEvent e) {
