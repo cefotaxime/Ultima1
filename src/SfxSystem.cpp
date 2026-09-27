@@ -38,8 +38,8 @@ bool SfxSystem::init(){
     if(!device_){ spec_=SDL_AudioSpec{}; return false; }
 
     enabled_=false;
-    renderedSamples_=0;
-    logicalBusyUntilUs_=0;
+    renderedSamples_.store(0,std::memory_order_release);
+    synchronousEndSample_.store(0,std::memory_order_release);
     voices_.clear();
     SDL_PauseAudioDevice(device_,0);
 
@@ -47,7 +47,7 @@ bool SfxSystem::init(){
               << (SDL_GetCurrentAudioDriver()?SDL_GetCurrentAudioDriver():"unknown")
               << ", freq=" << spec_.freq
               << ", samples=" << spec_.samples
-              << ", source-synchronous=M234"
+              << ", source-synchronous=M235-callback-clock"
               << ", transport=SDL-direct-callback"
               << ", app-queue=none"
               << ", trace=" << (trace_?"on":"off") << "\n";
@@ -84,7 +84,7 @@ void SfxSystem::renderCallback(std::int16_t* dst,std::size_t samples){
     std::fill(dst,dst+samples,static_cast<std::int16_t>(0));
     if(enabled_){
         for(std::size_t i=0;i<samples;++i){
-            const std::uint64_t sample=renderedSamples_+i;
+            const std::uint64_t sample=renderedSamples_.load(std::memory_order_relaxed)+i;
             std::int32_t mixed=0;
             for(const auto& v:voices_){
                 if(sample<v.startSample) continue;
@@ -97,16 +97,15 @@ void SfxSystem::renderCallback(std::int16_t* dst,std::size_t samples){
                       std::numeric_limits<std::int16_t>::max()));
         }
     }
-    renderedSamples_+=samples;
+    const auto renderedEnd=renderedSamples_.fetch_add(samples,std::memory_order_release)+samples;
     voices_.erase(std::remove_if(voices_.begin(),voices_.end(),[&](const Voice& v){
-        return v.startSample+v.samples<=renderedSamples_;
+        return v.startSample+v.samples<=renderedEnd;
     }),voices_.end());
 }
 
-void SfxSystem::waitSourceDurationUs(std::uint32_t us){
+void SfxSystem::waitFallbackDurationUs(std::uint32_t us){
     const auto start=perfUs();
     const auto end=start+us;
-    logicalBusyUntilUs_=end;
     while(true){
         const auto now=perfUs();
         if(now>=end) break;
@@ -116,18 +115,34 @@ void SfxSystem::waitSourceDurationUs(std::uint32_t us){
     }
 }
 
+void SfxSystem::waitRenderedThrough(std::uint64_t endSample,std::uint32_t watchdogUs){
+    const auto watchdogEnd=perfUs()+static_cast<std::uint64_t>(watchdogUs);
+    while(enabled_ && renderedSamples_.load(std::memory_order_acquire)<endSample){
+        if(perfUs()>=watchdogEnd){
+            std::cerr << "PC speaker emulator: callback clock stalled at "
+                      << renderedSamples_.load(std::memory_order_acquire)
+                      << " waiting for " << endSample << "\n";
+            break;
+        }
+        SDL_Delay(0);
+    }
+}
+
 void SfxSystem::play(int soundId){
     if(soundId<0 || soundId>9 || !enabled_) return;
     const auto us=speaker_.sourceDurationUs(soundId);
     if(!device_){
-        waitSourceDurationUs(us);
+        waitFallbackDurationUs(us);
         return;
     }
 
     const auto& clip=speaker_.clip(soundId);
     std::uint64_t startSample=0;
+    std::uint64_t sourceEndSample=0;
     SDL_LockAudioDevice(device_);
-    startSample=renderedSamples_;
+    startSample=renderedSamples_.load(std::memory_order_acquire);
+    sourceEndSample=startSample+static_cast<std::uint64_t>(clip.sourceSamples);
+    synchronousEndSample_.store(sourceEndSample,std::memory_order_release);
     if(!clip.pcm.empty()) voices_.push_back(Voice{clip.pcm.data(),clip.pcm.size(),startSample});
     SDL_UnlockAudioDevice(device_);
 
@@ -135,27 +150,27 @@ void SfxSystem::play(int soundId){
         std::cerr << "[SFXTRACE] t_us=" << (perfUs()-traceEpochCounter_)
                   << " play_begin id=" << soundId
                   << " rendered=" << startSample
+                  << " source_end=" << sourceEndSample
                   << " callback_frames=" << spec_.samples
                   << " app_queue_samples=0\n";
     }
 
-    waitSourceDurationUs(us);
+    waitRenderedThrough(sourceEndSample,us+1000000u);
 
     if(trace_){
-        std::uint64_t rendered=0;
-        SDL_LockAudioDevice(device_);
-        rendered=renderedSamples_;
-        SDL_UnlockAudioDevice(device_);
+        const auto rendered=renderedSamples_.load(std::memory_order_acquire);
         std::cerr << "[SFXTRACE] t_us=" << (perfUs()-traceEpochCounter_)
                   << " play_end id=" << soundId
                   << " rendered=" << rendered
+                  << " source_end=" << sourceEndSample
                   << " source_us=" << us
                   << " app_queue_samples=0\n";
     }
 }
 
 bool SfxSystem::logicalBusy() const{
-    return enabled_ && perfUs()<logicalBusyUntilUs_;
+    return enabled_ && renderedSamples_.load(std::memory_order_acquire) <
+                       synchronousEndSample_.load(std::memory_order_acquire);
 }
 
 std::uint32_t SfxSystem::logicalDurationMs(int soundId) const{
