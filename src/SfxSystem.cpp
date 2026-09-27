@@ -4,9 +4,14 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
+#include <fstream>
 #include <iostream>
 #include <limits>
 #include <string>
+
+#if !defined(_WIN32) && defined(U1_HAVE_LIBPULSE)
+#include <pulse/pulseaudio.h>
+#endif
 
 #ifdef _WIN32
 #ifndef NOMINMAX
@@ -25,6 +30,17 @@
 
 namespace {
 constexpr std::uint32_t REQUESTED_SAMPLES=64;
+constexpr std::uint32_t PULSE_TARGET_LATENCY_US=5000;
+
+void audioDiagReset(){
+    std::ofstream out("audio_runtime_m238.txt",std::ios::trunc);
+    out << "M238 canonical runtime: WSL/Linux direct PulseAudio preferred; SDL is fallback\n";
+}
+void audioDiagAppend(const std::string& line){
+    std::ofstream out("audio_runtime_m238.txt",std::ios::app);
+    out << line << "\n";
+}
+
 std::uint64_t perfUs(){
     const auto f=SDL_GetPerformanceFrequency();
     const auto c=SDL_GetPerformanceCounter();
@@ -89,11 +105,24 @@ struct SfxSystem::WinAudioState {
 };
 #endif
 
+#if !defined(_WIN32) && defined(U1_HAVE_LIBPULSE)
+struct SfxSystem::PulseAudioState {
+    pa_threaded_mainloop* mainloop=nullptr;
+    pa_context* context=nullptr;
+    pa_stream* stream=nullptr;
+    pa_buffer_attr negotiated{};
+    std::atomic<std::uint32_t> underflows{0};
+    std::atomic<bool> latencyLogged{false};
+    std::string failure;
+};
+#endif
+
 SfxSystem::~SfxSystem(){ shutdown(); }
 
 bool SfxSystem::init(){
     if(audioAvailable_) return true;
 
+    audioDiagReset();
     const char* tr=std::getenv("U1_SFX_TRACE");
     trace_=(tr && *tr && *tr!='0');
     traceEpochCounter_=perfUs();
@@ -129,6 +158,36 @@ bool SfxSystem::init(){
     winAudio_.reset();
 #endif
 
+#if !defined(_WIN32) && defined(U1_HAVE_LIBPULSE)
+    const char* forceSdl=std::getenv("U1_SFX_FORCE_SDL");
+    if(!(forceSdl && *forceSdl && *forceSdl!='0') && initPulseLowLatency()){
+        audioAvailable_=true;
+        const auto& a=pulseAudio_->negotiated;
+        const pa_sample_spec pulseSpec{PA_SAMPLE_S16LE,PcSpeakerEmulator::SAMPLE_RATE,1};
+        const std::uint64_t tlengthUs=pa_bytes_to_usec(a.tlength,&pulseSpec);
+        const std::uint64_t minreqUs=pa_bytes_to_usec(a.minreq,&pulseSpec);
+        const std::string line=std::string("PC speaker emulator: driver=pulseaudio-direct")+
+            ", freq="+std::to_string(PcSpeakerEmulator::SAMPLE_RATE)+
+            ", requested_latency_us="+std::to_string(PULSE_TARGET_LATENCY_US)+
+            ", negotiated_tlength_us="+std::to_string(tlengthUs)+
+            ", negotiated_minreq_us="+std::to_string(minreqUs)+
+            ", source-synchronous=M235-callback-clock"+
+            ", transport=M238-direct-pulse-write-callback"+
+            ", app-queue=none"+
+            ", trace="+(trace_?"on":"off");
+        std::cerr << line << "\n";
+        audioDiagAppend(line);
+        return true;
+    }
+    if(pulseAudio_ && !pulseAudio_->failure.empty()){
+        const std::string line=std::string("M238 direct PulseAudio unavailable: ")+pulseAudio_->failure+
+            "; falling back to SDL/PulseAudio";
+        std::cerr << "PC speaker emulator: " << line << "\n";
+        audioDiagAppend(line);
+    }
+    pulseAudio_.reset();
+#endif
+
     SDL_setenv("PULSE_LATENCY_MSEC","5",0);
     if((SDL_WasInit(SDL_INIT_AUDIO)&SDL_INIT_AUDIO)==0){
         if(SDL_InitSubSystem(SDL_INIT_AUDIO)!=0) return false;
@@ -155,6 +214,9 @@ bool SfxSystem::init(){
               << ", transport=SDL-direct-callback-fallback"
               << ", app-queue=none"
               << ", trace=" << (trace_?"on":"off") << "\n";
+    audioDiagAppend(std::string("PC speaker emulator: driver=")+
+                    (SDL_GetCurrentAudioDriver()?SDL_GetCurrentAudioDriver():"unknown")+
+                    ", transport=SDL-direct-callback-fallback, requested_pulse_latency_ms=5");
     return true;
 }
 
@@ -166,6 +228,9 @@ void SfxSystem::shutdown(){
     }
 #ifdef _WIN32
     shutdownWindowsLowLatency();
+#endif
+#if !defined(_WIN32) && defined(U1_HAVE_LIBPULSE)
+    shutdownPulseLowLatency();
 #endif
     if(device_){
         SDL_CloseAudioDevice(device_);
@@ -242,6 +307,7 @@ void SfxSystem::waitRenderedThrough(std::uint64_t endSample,std::uint32_t watchd
 
 void SfxSystem::play(int soundId){
     if(soundId<0 || soundId>9 || !enabled_.load(std::memory_order_acquire)) return;
+    const auto logicalStartUs=perfUs();
     const auto us=speaker_.sourceDurationUs(soundId);
     if(!audioAvailable_){
         waitFallbackDurationUs(us);
@@ -263,7 +329,27 @@ void SfxSystem::play(int soundId){
 #ifdef _WIN32
         winAudio_ ? winAudio_->minPeriodFrames :
 #endif
+#if !defined(_WIN32) && defined(U1_HAVE_LIBPULSE)
+        pulseAudio_ ? static_cast<std::uint32_t>(pulseAudio_->negotiated.minreq/sizeof(std::int16_t)) :
+#endif
         static_cast<std::uint32_t>(spec_.samples));
+
+#if !defined(_WIN32) && defined(U1_HAVE_LIBPULSE)
+    if(pulseAudio_ && !pulseAudio_->latencyLogged.exchange(true,std::memory_order_acq_rel)){
+        pa_usec_t latencyUs=0;
+        int negative=0;
+        pa_threaded_mainloop_lock(pulseAudio_->mainloop);
+        const int latencyResult=pa_stream_get_latency(pulseAudio_->stream,&latencyUs,&negative);
+        pa_threaded_mainloop_unlock(pulseAudio_->mainloop);
+        if(latencyResult>=0){
+            audioDiagAppend(std::string("PulseAudio reported stream latency_us=")+
+                            std::to_string(latencyUs)+
+                            ", negative="+std::to_string(negative));
+        } else {
+            pulseAudio_->latencyLogged.store(false,std::memory_order_release);
+        }
+    }
+#endif
 
     if(trace_){
         std::cerr << "[SFXTRACE] t_us=" << (perfUs()-traceEpochCounter_)
@@ -275,8 +361,13 @@ void SfxSystem::play(int soundId){
     }
 
     // OUT.EXE sound() is synchronous. Tie its return to the audio render
-    // consumption clock; M237 changes only the Windows transport period.
+    // consumption clock; M238 changes only the host output transport.
     waitRenderedThrough(sourceEndSample,us+1000000u);
+    // A direct Pulse write callback may be asked for several milliseconds in a
+    // single burst. OUT.EXE sound() still blocks for its source routine span,
+    // so do not let a fast producer callback shorten that original duration.
+    const auto logicalEndUs=logicalStartUs+static_cast<std::uint64_t>(us);
+    while(perfUs()<logicalEndUs) SDL_Delay(0);
 
     if(trace_){
         const auto rendered=renderedSamples_.load(std::memory_order_acquire);
@@ -298,6 +389,175 @@ bool SfxSystem::logicalBusy() const{
 std::uint32_t SfxSystem::logicalDurationMs(int soundId) const{
     return speaker_.sourceDurationMsCeil(soundId);
 }
+
+#if !defined(_WIN32) && defined(U1_HAVE_LIBPULSE)
+bool SfxSystem::initPulseLowLatency(){
+    pulseAudio_=std::make_unique<PulseAudioState>();
+    auto* state=pulseAudio_.get();
+    bool mainloopStarted=false;
+
+    auto cleanup=[&](){
+        if(state->mainloop && mainloopStarted) pa_threaded_mainloop_lock(state->mainloop);
+        if(state->stream){
+            pa_stream_set_write_callback(state->stream,nullptr,nullptr);
+            pa_stream_set_underflow_callback(state->stream,nullptr,nullptr);
+            pa_stream_disconnect(state->stream);
+            pa_stream_unref(state->stream);
+            state->stream=nullptr;
+        }
+        if(state->context){
+            pa_context_disconnect(state->context);
+            pa_context_unref(state->context);
+            state->context=nullptr;
+        }
+        if(state->mainloop){
+            if(mainloopStarted){
+                pa_threaded_mainloop_unlock(state->mainloop);
+                pa_threaded_mainloop_stop(state->mainloop);
+            }
+            pa_threaded_mainloop_free(state->mainloop);
+            state->mainloop=nullptr;
+        }
+    };
+    auto fail=[&](const std::string& what){
+        state->failure=what;
+        cleanup();
+        return false;
+    };
+
+    state->mainloop=pa_threaded_mainloop_new();
+    if(!state->mainloop) return fail("pa_threaded_mainloop_new failed");
+    auto* api=pa_threaded_mainloop_get_api(state->mainloop);
+    state->context=pa_context_new(api,"Ultima I KR M238");
+    if(!state->context) return fail("pa_context_new failed");
+
+    pa_context_set_state_callback(state->context,[](pa_context*,void* userdata){
+        auto* st=static_cast<PulseAudioState*>(userdata);
+        if(st && st->mainloop) pa_threaded_mainloop_signal(st->mainloop,0);
+    },state);
+
+    if(pa_threaded_mainloop_start(state->mainloop)<0) return fail("pa_threaded_mainloop_start failed");
+    mainloopStarted=true;
+    pa_threaded_mainloop_lock(state->mainloop);
+    if(pa_context_connect(state->context,nullptr,PA_CONTEXT_NOFLAGS,nullptr)<0){
+        const std::string e=pa_strerror(pa_context_errno(state->context));
+        pa_threaded_mainloop_unlock(state->mainloop);
+        return fail("pa_context_connect: "+e);
+    }
+    while(true){
+        const auto cs=pa_context_get_state(state->context);
+        if(cs==PA_CONTEXT_READY) break;
+        if(!PA_CONTEXT_IS_GOOD(cs)){
+            const std::string e=pa_strerror(pa_context_errno(state->context));
+            pa_threaded_mainloop_unlock(state->mainloop);
+            return fail("PulseAudio context state: "+e);
+        }
+        pa_threaded_mainloop_wait(state->mainloop);
+    }
+
+    const pa_sample_spec ss{PA_SAMPLE_S16LE,PcSpeakerEmulator::SAMPLE_RATE,1};
+    state->stream=pa_stream_new(state->context,"PC speaker SFX",&ss,nullptr);
+    if(!state->stream){
+        const std::string e=pa_strerror(pa_context_errno(state->context));
+        pa_threaded_mainloop_unlock(state->mainloop);
+        return fail("pa_stream_new: "+e);
+    }
+
+    pa_stream_set_state_callback(state->stream,[](pa_stream*,void* userdata){
+        auto* st=static_cast<PulseAudioState*>(userdata);
+        if(st && st->mainloop) pa_threaded_mainloop_signal(st->mainloop,0);
+    },state);
+    pa_stream_set_write_callback(state->stream,[](pa_stream* stream,std::size_t nbytes,void* userdata){
+        auto* self=static_cast<SfxSystem*>(userdata);
+        if(!self || !stream || nbytes<sizeof(std::int16_t)) return;
+
+        // Render straight into PulseAudio's writable memblock. This avoids both
+        // SDL's mix buffer and a per-callback heap allocation/copy. The block is
+        // only the server-requested immediate write span, not a future PCM FIFO.
+        void* data=nullptr;
+        std::size_t writable=nbytes;
+        if(pa_stream_begin_write(stream,&data,&writable)<0 || !data) return;
+        writable-=writable%sizeof(std::int16_t);
+        if(writable==0) return;
+        const std::size_t frames=writable/sizeof(std::int16_t);
+        self->renderCallback(static_cast<std::int16_t*>(data),frames);
+        if(pa_stream_write(stream,data,writable,nullptr,0,PA_SEEK_RELATIVE)<0){
+            // PulseAudio will transition the stream state on a hard failure;
+            // the callback must not block or manufacture retry delay here.
+        }
+    },this);
+    pa_stream_set_underflow_callback(state->stream,[](pa_stream*,void* userdata){
+        auto* st=static_cast<PulseAudioState*>(userdata);
+        if(st) st->underflows.fetch_add(1,std::memory_order_relaxed);
+    },state);
+
+    pa_buffer_attr attr{};
+    attr.maxlength=static_cast<std::uint32_t>(-1);
+    attr.tlength=pa_usec_to_bytes(PULSE_TARGET_LATENCY_US,&ss);
+    attr.prebuf=static_cast<std::uint32_t>(-1);
+    attr.minreq=static_cast<std::uint32_t>(-1);
+    attr.fragsize=static_cast<std::uint32_t>(-1);
+    const auto flags=static_cast<pa_stream_flags_t>(
+        PA_STREAM_ADJUST_LATENCY | PA_STREAM_AUTO_TIMING_UPDATE | PA_STREAM_INTERPOLATE_TIMING);
+
+    if(pa_stream_connect_playback(state->stream,nullptr,&attr,flags,nullptr,nullptr)<0){
+        const std::string e=pa_strerror(pa_context_errno(state->context));
+        pa_threaded_mainloop_unlock(state->mainloop);
+        return fail("pa_stream_connect_playback: "+e);
+    }
+    while(true){
+        const auto ssState=pa_stream_get_state(state->stream);
+        if(ssState==PA_STREAM_READY) break;
+        if(!PA_STREAM_IS_GOOD(ssState)){
+            const std::string e=pa_strerror(pa_context_errno(state->context));
+            pa_threaded_mainloop_unlock(state->mainloop);
+            return fail("PulseAudio stream state: "+e);
+        }
+        pa_threaded_mainloop_wait(state->mainloop);
+    }
+
+    if(const auto* got=pa_stream_get_buffer_attr(state->stream)) state->negotiated=*got;
+    else state->negotiated=attr;
+    pa_threaded_mainloop_unlock(state->mainloop);
+
+    spec_=SDL_AudioSpec{};
+    spec_.freq=PcSpeakerEmulator::SAMPLE_RATE;
+    spec_.format=AUDIO_S16SYS;
+    spec_.channels=1;
+    const auto frames=state->negotiated.minreq==static_cast<std::uint32_t>(-1)
+        ? REQUESTED_SAMPLES
+        : std::max<std::uint32_t>(1,state->negotiated.minreq/sizeof(std::int16_t));
+    spec_.samples=static_cast<Uint16>(std::min<std::uint32_t>(frames,65535u));
+    return true;
+}
+
+void SfxSystem::shutdownPulseLowLatency(){
+    if(!pulseAudio_) return;
+    auto* state=pulseAudio_.get();
+    audioDiagAppend(std::string("PulseAudio underflows=")+
+                    std::to_string(state->underflows.load(std::memory_order_relaxed)));
+    if(state->mainloop) pa_threaded_mainloop_lock(state->mainloop);
+    if(state->stream){
+        pa_stream_set_write_callback(state->stream,nullptr,nullptr);
+        pa_stream_set_underflow_callback(state->stream,nullptr,nullptr);
+        pa_stream_disconnect(state->stream);
+        pa_stream_unref(state->stream);
+        state->stream=nullptr;
+    }
+    if(state->context){
+        pa_context_disconnect(state->context);
+        pa_context_unref(state->context);
+        state->context=nullptr;
+    }
+    if(state->mainloop){
+        pa_threaded_mainloop_unlock(state->mainloop);
+        pa_threaded_mainloop_stop(state->mainloop);
+        pa_threaded_mainloop_free(state->mainloop);
+        state->mainloop=nullptr;
+    }
+    pulseAudio_.reset();
+}
+#endif
 
 #ifdef _WIN32
 bool SfxSystem::initWindowsLowLatency(){

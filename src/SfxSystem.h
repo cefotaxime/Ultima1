@@ -9,12 +9,11 @@
 #include "PcSpeakerEmulator.h"
 #include "SfxOracle.h"
 
-// M237: keep the M234 DOSBox-style impulse renderer and M235 source-synchronous
-// sample clock, but on native Windows prefer an event-driven IAudioClient3
-// shared stream at the endpoint's minimum supported engine period.  The older
-// SDL pull-callback path remains the automatic fallback and the WSL/Linux path.
-// There is still no application PCM queue, feeder thread, runtime WAV playback,
-// or idle-silence prefill.
+// M238: keep the user-approved M236 hotfix1 PC-speaker synthesis and M235
+// source-synchronous sample clock.  WSL/Linux now prefers a direct asynchronous
+// PulseAudio stream with explicit low-latency buffer attributes, bypassing SDL's
+// PulseAudio wait/mix scheduling. Native Windows retains the M237 IAudioClient3
+// path. SDL remains an automatic fallback on every platform.
 class SfxSystem {
 public:
     SfxSystem() = default;
@@ -51,6 +50,12 @@ private:
     void shutdownWindowsLowLatency();
 #endif
 
+#if !defined(_WIN32) && defined(U1_HAVE_LIBPULSE)
+    struct PulseAudioState;
+    bool initPulseLowLatency();
+    void shutdownPulseLowLatency();
+#endif
+
     static void SDLCALL audioCallback(void* userdata, Uint8* stream, int len);
     void renderCallback(std::int16_t* dst,std::size_t samples);
     void waitFallbackDurationUs(std::uint32_t us);
@@ -71,5 +76,8 @@ private:
 
 #ifdef _WIN32
     std::unique_ptr<WinAudioState> winAudio_;
+#endif
+#if !defined(_WIN32) && defined(U1_HAVE_LIBPULSE)
+    std::unique_ptr<PulseAudioState> pulseAudio_;
 #endif
 };
