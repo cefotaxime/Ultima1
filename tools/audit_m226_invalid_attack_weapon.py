@@ -69,8 +69,8 @@ assert 'sfx.logicalDurationMs(commandSfxHoldId)' in main
 m=re.search(r'Ultima I KR clean-room M(\d+)',main); assert m and int(m.group(1))>=226
 m=re.search(r'project\(ultima1_kr_clean_m(\d+) LANGUAGES CXX\)',cmake); assert m and int(m.group(1))>=226
 assert 'audit_m226_invalid_attack_weapon.py' in build
-assert 'Starting clean-room M226' in build
-assert 'Ultima I 한글화 clean-room — M226' in readme
+assert re.search(r'Starting clean-room M(\\d+)',build) and int(re.search(r'Starting clean-room M(\\d+)',build).group(1))>=226
+m=re.search(r'Ultima I 한글화 clean-room — M(\\d+)',readme); assert m and int(m.group(1))>=226
 for q in ['Rope & Spikes','Amulet','Wand','Staff','sound(1)','0x12F0']:
     assert q in notes,q
 
