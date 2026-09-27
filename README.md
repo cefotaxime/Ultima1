@@ -1,19 +1,17 @@
 # Ultima I Korean Localization — audio reconstruction branch
 
-Current audio milestone: **M240**
+Current audio milestone: **M241 rollback**
 
-The canonical runtime remains WSL/Ubuntu. M240 preserves the approved M236 hotfix1 PC-speaker synthesis and changes the sparse-effect PulseAudio scheduling model:
+M240 is rejected by user validation: the PC-speaker sound character changed and audible onset regressed from about 3 steps to about 6 steps.
 
-- no idle zero-PCM prefill
-- playback/read position estimated with `pa_stream_get_latency()`
-- logical render clock reanchored to that playback position for each new sound
-- first live block written with `PA_SEEK_RELATIVE_ON_READ`
-- maximum direct Pulse burst: 240 frames / 5 ms at 48 kHz
-- `prebuf=0` + `PA_STREAM_START_CORKED` + one explicit uncork
-- existing live filter tails are re-mixed on the reanchored timeline
-- SDL remains the fallback
+M241 restores the complete M238 hotfix1 audio implementation. There is no new audio timing experiment in this milestone.
 
-Runtime diagnostics in the full package are written to `audio_runtime_m240.txt`.
+Locked behavior:
+- canonical runtime: WSL/Ubuntu
+- direct PulseAudio path from M238 hotfix1
+- 5 ms requested Pulse latency
+- no M239/M240 playback-read-clock reanchor
+- no PA_SEEK_RELATIVE_ON_READ scheduling
+- PC-speaker synthesis remains the approved M236 hotfix1 model
 
-Approved synthesis SHA-256:
-`0cf4d0f219d79c8525f64b7c0787efc031dc5ae46652455020fd675ca0655126`
+The next latency experiment must branch from this verified-good audio baseline rather than M239/M240.
