@@ -1,27 +1,18 @@
 # Ultima I Korean Localization (clean-room SDL2)
 
-현재 작업 기준: **M238 hotfix1**
+현재 작업 기준: **M239**
 
-이 프로젝트의 기준 실행 환경은 **WSL/Ubuntu에서 `build_and_run_wsl.sh`를 사용하는 경로**입니다. M237에서 추가한 native Windows IAudioClient3 경로는 보조 경로이며, 사용자의 실제 검증 환경을 대신하지 않습니다.
+이 프로젝트의 기준 실행 환경은 **WSL/Ubuntu에서 build_and_run_wsl.sh를 사용하는 경로**입니다.
 
-M238은 M236 hotfix1의 PC-speaker 합성음을 그대로 유지하면서 WSL/Linux 오디오 transport만 변경합니다.
+M238 hotfix1에서 PC-speaker 음질은 정상으로 유지됐지만 첫 발소리는 여전히 약 3걸음 늦었습니다. M239은 합성음/피치/게임 속도를 건드리지 않고, direct PulseAudio 경로의 idle-silence buffering을 제거합니다.
 
-- 48 kHz mono PC-speaker synthesis unchanged
-- WSL/Linux primary path: direct asynchronous libpulse write callback
-- `PA_STREAM_ADJUST_LATENCY`, target `tlength=5 ms`
-- `minreq/prebuf/maxlength` are negotiated by PulseAudio
-- `pa_stream_begin_write()` memory is rendered directly; no extra PCM FIFO
-- SDL direct callback remains automatic fallback
-- `U1_SFX_FORCE_SDL=1` forces the old SDL path for A/B testing
-- runtime WAV playback / `SDL_QueueAudio` / feeder thread 없음
-- `audio_runtime_m238.txt` records selected backend and negotiated Pulse buffer
+- M236 hotfix1 PC-speaker synthesis SHA-256 고정
+- idle 상태에서 Pulse write callback은 zero PCM을 쓰지 않음
+- prebuf=0
+- sound() 시작 시 최대 64 frames를 PA_SEEK_RELATIVE_ON_READ로 현재 read cursor에 즉시 prime
+- 이후 callback은 PA_SEEK_RELATIVE로 append
+- runtime WAV / SDL_QueueAudio / feeder thread / application PCM FIFO 없음
+- audio_runtime_m239.txt에 실제 backend와 negotiated Pulse latency 정보 기록
 
-M236 hotfix1의 `PcSpeakerEmulator.cpp` SHA-256은 계속 고정됩니다:
-
-`0cf4d0f219d79c8525f64b7c0787efc031dc5ae46652455020fd675ca0655126`
-
-세부 내용은 `ORACLE_NOTES_M238.md`와 `tools/audit_m238_wsl_direct_pulse.py`를 참고하십시오.
-
-
-## M238 hotfix1
-WSL/GCC build failure caused by the inline default constructor with the opaque `PulseAudioState` unique_ptr is fixed by moving the constructor definition to `SfxSystem.cpp`. Runtime audio behavior is unchanged.
+M236 hotfix1 PcSpeakerEmulator.cpp SHA-256:
+0cf4d0f219d79c8525f64b7c0787efc031dc5ae46652455020fd675ca0655126
