@@ -6,19 +6,10 @@
 #include "PcSpeakerEmulator.h"
 #include "SfxOracle.h"
 
-// M230: source-synchronous PC-speaker emulation.
-//
-// OUT.EXE does not enqueue a WAV and continue.  Its sound() dispatcher enters a
-// software port-61h routine and does not return until that routine has finished.
-// M230 restores that contract.  PcSpeakerEmulator reconstructs the ten original
-// toggle programs; a continuously-running SDL stream keeps the WSLg/PulseAudio
-// path warm; play() blocks until the audio timeline has consumed the original
-// source-routine span.  Filter ringing can continue after play() returns.
 class SfxSystem {
 public:
     SfxSystem() = default;
     ~SfxSystem();
-
     SfxSystem(const SfxSystem&) = delete;
     SfxSystem& operator=(const SfxSystem&) = delete;
 
@@ -28,7 +19,6 @@ public:
     bool enabled() const { return enabled_; }
     bool available() const { return device_ != 0; }
 
-    // Both entry points are synchronous, matching OUT.EXE sound().
     void play(int soundId);
     void play(SfxEvent event) { play(sfxId(event)); }
     void playImmediate(int soundId) { play(soundId); }
@@ -64,4 +54,6 @@ private:
     std::uint64_t producedSamples_ = 0;
     std::uint64_t sourceCursorSample_ = 0;
     std::uint64_t synchronousEndSample_ = 0;
+    bool trace_ = false;
+    std::uint64_t traceEpochCounter_ = 0;
 };
