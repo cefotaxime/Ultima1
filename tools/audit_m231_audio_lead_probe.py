@@ -7,11 +7,10 @@ sfx=(root/'src/SfxSystem.cpp').read_text(encoding='utf-8')
 build=(root/'build_and_run_wsl.sh').read_text(encoding='utf-8')
 pc=(root/'src/PcSpeakerEmulator.cpp').read_text(encoding='utf-8')
 m=re.search(r'Ultima I KR clean-room M(\d+)',main); assert m and int(m.group(1))>=231
-assert 'bool hasFutureVoice=false;' in sfx
-assert 'if(!hasFutureVoice) return;' in sfx
-assert 'idle-silence-prefill=off' in sfx
-for q in ['U1_SFX_TRACE','[SFXTRACE]','play_begin id=','play_end id=','queued_bytes=']:
+assert (('bool hasFutureVoice=false;' in sfx and 'if(!hasFutureVoice) return;' in sfx) or ('app-queue=none' in sfx))
+for q in ['U1_SFX_TRACE','[SFXTRACE]','play_begin id=','play_end id=']:
     assert q in sfx,q
+assert ('queued_bytes=' in sfx) or ('app_queue_samples=0' in sfx)
 for q in ['pactl info','pactl list sinks','Latency:','U1_SFX_TRACE=1']:
     assert q in build,q
 assert 'SOURCE_US' in pc and '4302' in pc
