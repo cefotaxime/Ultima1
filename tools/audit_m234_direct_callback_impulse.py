@@ -10,15 +10,20 @@ cm=(root/'CMakeLists.txt').read_text(encoding='utf-8')
 m=re.search(r'Ultima I KR clean-room M(\d+)',main); assert m and int(m.group(1))>=234
 pm=re.search(r'project\(ultima1_kr_clean_m(\d+) LANGUAGES CXX\)',cm); assert pm and int(pm.group(1))>=234
 
-for q in ['want.callback=&SfxSystem::audioCallback;','want.userdata=this;','transport=SDL-direct-callback','app-queue=none','renderCallback(','SDL_LockAudioDevice(device_)','waitSourceDurationUs(us);']:
+# No application-side queued PCM path remains in M234.
+for q in ['want.callback=&SfxSystem::audioCallback;','want.userdata=this;','transport=SDL-direct-callback','app-queue=none','renderCallback(']:
     assert q in sfx,q
+assert ('SDL_LockAudioDevice(device_)' in sfx) or ('std::lock_guard<std::mutex> lock(voicesMutex_)' in sfx)
+assert ('waitSourceDurationUs(us);' in sfx) or ('waitRenderedThrough(sourceEndSample,us+1000000u);' in sfx)
 for q in ['SDL_QueueAudio(','SDL_GetQueuedAudioSize(','SDL_CreateThread(&SfxSystem::feederEntry','pumpLocked()','playedSamplesLocked()']:
     assert q not in sfx,q
 
+# Runtime waveform is reconstructed, not loaded from WAV.
 assert 'SfxPcmOracleM225' not in sfx
 for q in ['IMPULSE_QUALITY=150','IMPULSE_OS=32','SINC_FADE=0.999','makeImpulseLut()','makeFirstOrderHighPass(120.0)','makeSecondOrderHighPass(120.0,1.0)','makeFirstOrderLowPass(4300.0)','makeSecondOrderLowPass(4300.0,1.0)','SOUND4_INTERVALS_48K','12, 21, 21, 21, 22, 22, 22, 22']:
     assert q in pc,q
 
+# The direct capture remains oracle-only and establishes the footstep tone.
 p=root/'data/sfx_capture_oracle_m225/sound_04.wav'
 with wave.open(str(p),'rb') as w:
     assert (w.getnchannels(),w.getsampwidth(),w.getframerate())==(1,2,48000)
