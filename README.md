@@ -1,15 +1,17 @@
 # Ultima I Korean Localization — audio reconstruction branch
 
-Current audio milestone: **M242**
+Current audio milestone: **M243 rollback**
 
-User-validated baseline is M241 hotfix1: correct PC-speaker sound character with about three movement commands of audible lag under the canonical WSL runtime.
+M242 is rejected by user validation. One movement input could produce two or three footstep-like sounds, and player action pacing became visibly slower.
 
-M242 changes only the synchronous return fence:
-- PC-speaker synthesis is unchanged
-- direct PulseAudio write callback and 5 ms latency request are unchanged
-- no PCM seek, rewrite, reanchor, or resampling
-- no PA_SEEK_RELATIVE_ON_READ
-- after the existing rendered-sample fence, the WSL path waits for the measured Pulse playback/read cursor to cross the same source-end sample
-- if Pulse timing is unavailable, it immediately falls back to M241 behavior
+M243 restores the exact M241 hotfix1 audio core. There is no new latency experiment in this milestone.
 
-M239/M240 remain rejected as baselines because they changed sound character.
+Locked behavior:
+- canonical runtime: WSL/Ubuntu
+- M241 hotfix1 SfxSystem restored exactly
+- approved M236 hotfix1 PC-speaker synthesis unchanged
+- no M242 playback-completion fence
+- no M239/M240 Pulse read-clock reanchor or PA_SEEK_RELATIVE_ON_READ
+- no PCM rewrite/resampling/timing reinterpretation
+
+Future latency work must not block the game loop on downstream playback completion.
