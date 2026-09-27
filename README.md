@@ -1,16 +1,16 @@
 # Ultima I Korean Localization (clean-room SDL2)
 
-현재 작업 기준: **M230**
+현재 작업 기준: **M231**
 
-M230는 M225~M229에서 사용하던 효과음 WAV 재생 중심 구조를 중단하고, 1987 DOS판 OUT.EXE의 PC-speaker sound(0)..sound(9) 루틴 자체를 source-level로 복원합니다.
+M231은 M230 사용자 검증에서 계속 재현된 local footstep 지연을 “해결됐다고 가정”하지 않고 원인별로 계측하기 위한 단계입니다.
 
-- OUT.EXE file 0xB065..0xB155의 port 61h software-toggle 루프를 코드로 재구성했습니다.
-- M225 direct capture WAV는 런타임 음원이 아니라 비교/검증 oracle로만 남깁니다.
-- sound source duration은 DOSBox Staging 0.82.2 / cycles=3000 직접 녹음으로 보정합니다.
-- finite speaker transition과 HP 120 Hz / LP 4300 Hz filter를 적용해 런타임 PCM을 생성합니다.
-- SfxSystem::play()는 원본 sound()처럼 source-synchronous하게 동작합니다.
-- local 이동은 원본 OUT.EXE 0x30E9..0x3120 순서대로 새 위치를 먼저 present한 뒤 sound(4)를 실행하고, 그 뒤 actor update로 넘어갑니다.
-- host 전송은 짧은 continuous SDL queued stream을 유지하며 PULSE_LATENCY_MSEC=5를 요청합니다.
-- M226 zero-range Weapon Attack 메시지/BEEP 복원도 유지합니다.
+- M225 oracle sound_04.wav의 첫 유의미 sample은 약 0.25 ms입니다.
+- M230+ PC-speaker emulator가 생성하는 sound(4)의 첫 nonzero sample은 약 0.48 ms입니다.
+- 따라서 수십~수백 ms짜리 leading silence는 source PCM 자체에 없습니다.
+- 대신 M230 feeder가 active sound가 없을 때도 한 SDL device period의 0 PCM을 미리 queue하는 결함을 확인했습니다.
+- M231은 idle silence prefill을 제거합니다.
+- U1_SFX_TRACE=1에서 play_begin / schedule / play_end / queued bytes / sample position을 microsecond timestamp로 기록합니다.
+- build_and_run_wsl.sh는 pactl이 있으면 PulseAudio/WSLg sink의 reported/configured latency를 출력합니다.
+- source-synchronous PC-speaker emulator와 M226 공격 BEEP 복원은 유지합니다.
 
-세부 근거는 ORACLE_NOTES_M230.md와 tools/audit_m230_pc_speaker_emulator.py를 참고하십시오.
+세부 근거는 ORACLE_NOTES_M231.md와 tools/audit_m231_audio_lead_probe.py를 참고하십시오.
