@@ -1,3 +1,5 @@
+> **M228 supersession:** 아래 callback backend는 사용자 WSLg 환경에서 무음 회귀를 일으켜 폐기되었다. M227에서 확인한 behavioral requirement(PCM tail overlap, one-command-per-present)는 M228의 queued-tail-remix backend가 이어받는다.
+
 # M227 — source-timed overlapping SFX
 
 M225 capture-oracle PCM itself is retained. The remaining lag came from host-side serialization, not from the approved waveform.
