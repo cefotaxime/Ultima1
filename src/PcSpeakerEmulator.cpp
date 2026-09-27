@@ -11,6 +11,10 @@ constexpr std::array<std::uint32_t,10> SOURCE_US = {
     47574,50981,77948,98631,4302,899246,39064,248070,97042,936,
 };
 
+constexpr std::array<std::uint16_t,8> SOUND4_CAPTURE_INTERVAL_SAMPLES = {
+    12,21,21,21,22,22,22,22,
+};
+
 std::vector<int> delayWeights(int id){
     std::vector<int> w;
     switch(id){
@@ -117,35 +121,51 @@ PcSpeakerEmulator::Clip PcSpeakerEmulator::render(int soundId){
     const std::size_t totalSamples=static_cast<std::size_t>(out.sourceSamples)+tailSamples;
     std::vector<double> target(totalSamples,0.0);
 
-    std::uint64_t totalWeight=0;
-    for(int n:weights) totalWeight+=static_cast<std::uint64_t>(n);
-    std::uint64_t cumulative=0;
-    const bool immediateFirstWrite=(soundId==0||soundId==1||soundId==8);
-    int level=-1;
-    std::size_t begin=0;
-    if(immediateFirstWrite){
-        for(int n:weights){
-            cumulative+=static_cast<std::uint64_t>(n);
-            std::size_t end=static_cast<std::size_t>(
-                (cumulative*static_cast<std::uint64_t>(out.sourceSamples)+totalWeight/2u)/totalWeight);
-            end=std::min<std::size_t>(end,out.sourceSamples);
-            if(end<begin) end=begin;
-            for(std::size_t i=begin;i<end;++i) target[i]=static_cast<double>(level);
-            level=-level; begin=end;
-        }
-    }else{
+    if(soundId==4){
+        std::size_t begin=0;
+        int level=-1;
         bool first=true;
-        for(int n:weights){
-            cumulative+=static_cast<std::uint64_t>(n);
-            std::size_t end=static_cast<std::size_t>(
-                (cumulative*static_cast<std::uint64_t>(out.sourceSamples)+totalWeight/2u)/totalWeight);
-            end=std::min<std::size_t>(end,out.sourceSamples);
-            if(end<begin) end=begin;
+        for(const auto n:SOUND4_CAPTURE_INTERVAL_SAMPLES){
+            const std::size_t end=std::min<std::size_t>(begin+n,out.sourceSamples);
             if(!first){
                 for(std::size_t i=begin;i<end;++i) target[i]=static_cast<double>(level);
                 level=-level;
             }
-            first=false; begin=end;
+            first=false;
+            begin=end;
+        }
+        // Do not stretch the toggle train to fill the full source span.
+    }else{
+        std::uint64_t totalWeight=0;
+        for(int n:weights) totalWeight+=static_cast<std::uint64_t>(n);
+        std::uint64_t cumulative=0;
+        const bool immediateFirstWrite=(soundId==0||soundId==1||soundId==8);
+        int level=-1;
+        std::size_t begin=0;
+        if(immediateFirstWrite){
+            for(int n:weights){
+                cumulative+=static_cast<std::uint64_t>(n);
+                std::size_t end=static_cast<std::size_t>(
+                    (cumulative*static_cast<std::uint64_t>(out.sourceSamples)+totalWeight/2u)/totalWeight);
+                end=std::min<std::size_t>(end,out.sourceSamples);
+                if(end<begin) end=begin;
+                for(std::size_t i=begin;i<end;++i) target[i]=static_cast<double>(level);
+                level=-level; begin=end;
+            }
+        }else{
+            bool first=true;
+            for(int n:weights){
+                cumulative+=static_cast<std::uint64_t>(n);
+                std::size_t end=static_cast<std::size_t>(
+                    (cumulative*static_cast<std::uint64_t>(out.sourceSamples)+totalWeight/2u)/totalWeight);
+                end=std::min<std::size_t>(end,out.sourceSamples);
+                if(end<begin) end=begin;
+                if(!first){
+                    for(std::size_t i=begin;i<end;++i) target[i]=static_cast<double>(level);
+                    level=-level;
+                }
+                first=false; begin=end;
+            }
         }
     }
 
