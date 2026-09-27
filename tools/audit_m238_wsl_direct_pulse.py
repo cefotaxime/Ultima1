@@ -19,8 +19,10 @@ for q in ['IMPULSE_QUALITY=150','IMPULSE_OS=32','SOUND4_INTERVALS_48K','4302']:
 
 for q in ['pkg_check_modules(PULSE REQUIRED libpulse)','U1_HAVE_LIBPULSE=1','${PULSE_LIBRARIES}']:
     assert q in cm,q
-for q in ['libpulse-dev','pulseaudio-utils','audit_m238_wsl_direct_pulse.py','Starting clean-room M238 (canonical WSL runtime)']:
+for q in ['libpulse-dev','pulseaudio-utils','audit_m238_wsl_direct_pulse.py']:
     assert q in sh,q
+launch=re.search(r'Starting clean-room M(\\d+) \\((?:canonical|rollback-stable) WSL runtime\\)',sh)
+assert launch and int(launch.group(1))>=238, 'canonical/rollback WSL launch milestone >= M238'
 
 for q in [
     'pa_threaded_mainloop_new()','pa_context_connect(','pa_stream_new(',
