@@ -2,7 +2,8 @@ param(
     [Parameter(Mandatory=$true)][string]$UltimaZip,
     [Parameter(Mandatory=$true)][string]$H12,
     [Parameter(Mandatory=$true)][string]$Robo,
-    [switch]$Trace
+    [switch]$Trace,
+    [switch]$ForceSdl
 )
 $ErrorActionPreference = 'Stop'
 $Here = Split-Path -Parent $MyInvocation.MyCommand.Path
@@ -61,12 +62,19 @@ cmake -S $Here -B $build -A x64 "-DCMAKE_TOOLCHAIN_FILE=$toolchain" "-DVCPKG_TAR
 Write-Host '[3/4] Building u1kr_clean'
 cmake --build $build --config Release --target u1kr_clean
 $exe = Join-Path $build 'Release\u1kr_clean.exe'
-if (-not (Test-Path $exe)) { $exe = Join-Path $build 'u1kr_clean.exe' }
+if (-not (Test-Path $exe)) {
+    $exe = Join-Path $build 'u1kr_clean.exe'
+}
 if (-not (Test-Path $exe)) { throw 'u1kr_clean.exe was not produced.' }
 
-Write-Host '[4/4] Starting native Windows SDL2/WASAPI comparison build'
+Write-Host '[4/4] Starting native Windows low-latency audio build'
 $env:SDL_AUDIODRIVER = 'wasapi'
 if ($Trace) { $env:U1_SFX_TRACE = '1' } else { Remove-Item Env:U1_SFX_TRACE -ErrorAction SilentlyContinue }
-Write-Host 'Expected audio driver: wasapi'
+if ($ForceSdl) { $env:U1_SFX_FORCE_SDL = '1' } else { Remove-Item Env:U1_SFX_FORCE_SDL -ErrorAction SilentlyContinue }
+if ($ForceSdl) {
+    Write-Host 'Audio transport forced to SDL/WASAPI fallback'
+} else {
+    Write-Host 'Audio transport preference: IAudioClient3 minimum-period event-driven WASAPI'
+}
 Write-Host "Executable: $exe"
 & $exe

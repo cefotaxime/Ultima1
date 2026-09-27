@@ -1,6 +1,6 @@
 {
   "name": "ultima1-kr-clean",
-  "version-string": "m236",
+  "version-string": "m237",
   "dependencies": [
     "sdl2"
   ]
