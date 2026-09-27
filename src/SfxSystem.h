@@ -5,18 +5,18 @@
 #include <vector>
 #include "SfxOracle.h"
 
-// M227 sound presentation layer.
+// M228 sound presentation layer.
 //
-// Presentation PCM is extracted directly from the user's DOSBox Staging
-// 0.82.2 captures. The audible impulse/filter tail is intentionally retained.
-// Original DOS sound() calls are synchronous, but their blocking time is
-// shorter than that audible tail. M227 therefore keeps two independent clocks:
-//   * a source/logical clock used to sequence original sound() calls; and
-//   * the callback PCM clock used only to render overlapping audible tails.
+// M225 proved that SDL's queued-audio device works in the user's WSLg setup,
+// while M227's callback-device path produced complete silence there. M228
+// returns to SDL_QueueAudio, but NOT to M225's full-WAV FIFO semantics.
 //
-// In particular, a new sound() call does NOT wait for the previous capture PCM
-// tail to finish. The tails overlap in the callback mixer, while source calls
-// are separated only by logicalDurationMs().
+// Every queued capture WAV contains a DOSBox impulse/filter tail that may remain
+// audible after the original synchronous sound() routine has already returned.
+// Before adding a new source call, M228 takes the still-unplayed suffix of our
+// queued PCM shadow, mixes the new capture into that suffix at the original
+// logical sound() start offset, clears only SDL's replaceable queue, and queues
+// the remixed suffix again.
 class SfxSystem {
 public:
     SfxSystem() = default;
@@ -34,7 +34,6 @@ public:
 
     void play(int soundId);
     void play(SfxEvent event) { play(sfxId(event)); }
-
     void playImmediate(int soundId);
     void playImmediate(SfxEvent event) { playImmediate(sfxId(event)); }
 
@@ -43,23 +42,13 @@ public:
     bool logicalBusy() const;
 
 private:
-    struct Voice {
-        const std::int16_t* data = nullptr;
-        std::size_t samples = 0;
-        std::uint64_t startSample = 0;
-    };
-
-    static void SDLCALL audioCallback(void* userdata, Uint8* stream, int len);
-    void mix(Uint8* stream, int len);
-    void schedule(int soundId, bool immediate);
-    void clearMixerState();
-    void advanceLogicalDeadline(std::uint32_t durationMs);
+    void schedule(int soundId);
+    void clearQueueState();
+    std::uint32_t remainingLogicalMs(std::uint32_t now) const;
 
     SDL_AudioDeviceID device_ = 0;
     SDL_AudioSpec spec_{};
     bool enabled_ = false;
-    std::vector<Voice> voices_;
-    std::uint64_t renderedSamples_ = 0;
-    std::uint64_t sourceCursorSample_ = 0;
+    std::vector<std::int16_t> queuedMix_;
     std::uint32_t logicalBusyUntilMs_ = 0;
 };
