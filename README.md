@@ -1,16 +1,16 @@
 # Ultima I Korean Localization (clean-room SDL2)
 
-현재 작업 기준: **M231**
+현재 작업 기준: **M232**
 
-M231은 M230 사용자 검증에서 계속 재현된 local footstep 지연을 “해결됐다고 가정”하지 않고 원인별로 계측하기 위한 단계입니다.
+M232는 M231에서 확인된 idle-silence prefill 제거를 유지하면서, 애플리케이션 내부에서 아직 줄일 수 있던 오디오 lead와 sound(4) 피치 회귀를 분리해서 수정합니다.
 
-- M225 oracle sound_04.wav의 첫 유의미 sample은 약 0.25 ms입니다.
-- M230+ PC-speaker emulator가 생성하는 sound(4)의 첫 nonzero sample은 약 0.48 ms입니다.
-- 따라서 수십~수백 ms짜리 leading silence는 source PCM 자체에 없습니다.
-- 대신 M230 feeder가 active sound가 없을 때도 한 SDL device period의 0 PCM을 미리 queue하는 결함을 확인했습니다.
-- M231은 idle silence prefill을 제거합니다.
-- U1_SFX_TRACE=1에서 play_begin / schedule / play_end / queued bytes / sample position을 microsecond timestamp로 기록합니다.
-- build_and_run_wsl.sh는 pactl이 있으면 PulseAudio/WSLg sink의 reported/configured latency를 출력합니다.
-- source-synchronous PC-speaker emulator와 M226 공격 BEEP 복원은 유지합니다.
+- active/future voice가 없을 때는 PCM을 한 sample도 미리 queue하지 않습니다.
+- SDL requested period를 64 → 32 frames로 줄였습니다(48 kHz 기준 약 1.33 → 0.67 ms).
+- active feeder cadence를 1 ms → 250 us로 줄였습니다.
+- PulseAudio latency request를 5 → 2 ms로 낮췄습니다.
+- M230/M231의 sound(4)는 4.302 ms source span 전체로 toggle train을 stretch해 피치가 낮아졌습니다.
+- M232는 M225 DOSBox direct capture의 onset/주파수에 맞춰 sound(4) toggle train을 보정하면서 source blocking span 4.302 ms는 그대로 유지합니다.
+- offline probe: capture onset 12 samples / generated onset 12 samples, dominant FFT bin 1125 Hz / 1125 Hz.
+- U1_SFX_TRACE=1 계측은 계속 유지합니다.
 
-세부 근거는 ORACLE_NOTES_M231.md와 tools/audit_m231_audio_lead_probe.py를 참고하십시오.
+세부 근거는 `ORACLE_NOTES_M232.md`와 `tools/audit_m232_audio_latency_pitch.py`를 참고하십시오.
