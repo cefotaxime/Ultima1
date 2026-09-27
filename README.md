@@ -1,19 +1,19 @@
 # Ultima I Korean Localization (clean-room SDL2)
 
-현재 작업 기준: **M228**
+현재 작업 기준: **M229**
 
-M228은 M227에서 발생한 효과음 완전 무음 회귀를 수정합니다.
+M229는 성/마을에서 여러 칸 이동한 뒤 발소리가 뒤늦게 뭉쳐 들리던 오디오 스케줄링 문제를 수정합니다.
 
-- M225에서 실제 WSLg 출력이 확인된 `SDL_QueueAudio()` backend로 복귀합니다.
-- M225처럼 complete capture WAV를 FIFO로 직렬 연결하지는 않습니다.
-- `SDL_GetQueuedAudioSize()`로 아직 재생되지 않은 queue suffix를 보존하고, 새 PCM을 원본 `logicalDurationMs()` offset에 sample-wise mix한 뒤 queue를 교체합니다.
-- 따라서 sound(4)의 긴 impulse/filter tail은 다음 sound(4)와 겹치며 전체 WAV 길이가 다음 효과음 시작을 막지 않습니다.
-- M227의 outer-frame당 최대 하나의 KEYDOWN 정책과 source-level logical busy gate는 유지합니다.
-- M225 capture-oracle PCM, sound ID mapping, M226 zero-range Weapon Attack 복원은 유지합니다.
-- host audio device 초기화 실패는 stderr에 표시하도록 배포 소스에서 진단성을 추가했습니다.
+- M225에서 검증된 DOSBox Staging 0.82.2 capture-oracle PCM과 sound ID mapping을 유지합니다.
+- 사용자 WSLg에서 실제 출력이 확인된 `SDL_QueueAudio()` backend를 유지합니다.
+- M228의 per-call `SDL_ClearQueuedAudio()` + queue 재제출 방식은 폐기했습니다.
+- 별도 feeder thread가 1 ms 주기로 짧은 mixed PCM chunk만 공급합니다.
+- capture/filter tail은 active voice로 유지되어 이후 효과음과 sample-wise overlap됩니다.
+- sound(4)의 원본 source spacing 5 ms와 `logicalDurationMs()` 분리는 유지합니다.
+- idle silence를 미리 길게 queue하지 않으므로 새 효과음이 기존 buffer 뒤로 밀리지 않습니다.
+- 한 outer frame당 gameplay KEYDOWN 하나만 처리하는 M227 pacing을 유지합니다.
+- M226의 zero-range Weapon Attack 메시지/BEEP 복원도 유지합니다.
 
-세부 근거는 `ORACLE_NOTES_M228.md`와 `tools/audit_m228_queued_overlap_backend.py`를 참고하십시오.
+실행 시 stderr에 SDL audio driver, obtained sample rate/buffer size, `queued-stream mixer=M229` 진단을 출력합니다.
 
-## WSL 실행
-
-배포 ZIP의 `README_KO.md`와 `build_and_run_wsl.sh`를 사용하십시오.
+세부 근거는 `ORACLE_NOTES_M229.md`와 `tools/audit_m229_streaming_queue_audio.py`를 참고하십시오.
