@@ -18,6 +18,8 @@ assert 'src/SfxPcmOracleM225.cpp' in cmake
 assert 'constexpr int SAMPLE_RATE = 48000;' in pcmh
 assert '#include "SfxPcmOracleM225.h"' in sfx
 assert 'SfxPcmOracleM225::clip(soundId)' in sfx
+assert 'want.callback=&SfxSystem::audioCallback' in sfx
+assert 'SDL_QueueAudio' not in sfx and 'SDL_ClearQueuedAudio' not in sfx
 
 ref=root/'data'/'sfx_capture_oracle_m225'
 for sid in range(10):
@@ -46,6 +48,8 @@ assert 'sfx.logicalDurationMs(worldProjectileFirstSoundId)' in main
 assert 'sfx.logicalDurationMs(SfxEvent::EnemyRangedLaunch)' in main
 assert 'sfx.logicalDurationMs(SfxEvent::CombatHit)' in main
 assert 'durationMs(' not in sfxh
+assert 'std::vector<Voice> voices_' in sfxh
+assert 'mixed+=v.data' in sfx
 
 assert 'pendingAttackResolveMode==2 ? sfxId(SfxEvent::VehicleFire) : -1' in main
 assert 'VehicleFire              = 8' in ora
