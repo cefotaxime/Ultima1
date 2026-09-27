@@ -6,10 +6,14 @@
 #include "PcSpeakerEmulator.h"
 #include "SfxOracle.h"
 
+// M234: direct SDL pull-callback transport. There is no application PCM queue,
+// feeder thread, or idle-silence prefill. The callback only renders whatever
+// voice is active when SDL asks for the next device block.
 class SfxSystem {
 public:
     SfxSystem() = default;
     ~SfxSystem();
+
     SfxSystem(const SfxSystem&) = delete;
     SfxSystem& operator=(const SfxSystem&) = delete;
 
@@ -35,25 +39,18 @@ private:
         std::uint64_t startSample = 0;
     };
 
-    static int SDLCALL feederEntry(void* userdata);
-    int feederLoop();
-    void pumpLocked();
-    std::uint64_t playedSamplesLocked() const;
-    std::uint64_t scheduleLocked(int soundId);
+    static void SDLCALL audioCallback(void* userdata, Uint8* stream, int len);
+    void renderCallback(std::int16_t* dst,std::size_t samples);
+    void waitSourceDurationUs(std::uint32_t us);
 
     SDL_AudioDeviceID device_ = 0;
     SDL_AudioSpec spec_{};
-    SDL_mutex* mutex_ = nullptr;
-    SDL_cond* progress_ = nullptr;
-    SDL_Thread* feeder_ = nullptr;
-    bool feederRun_ = false;
     bool enabled_ = false;
+    bool trace_ = false;
+    std::uint64_t traceEpochCounter_ = 0;
+    std::uint64_t renderedSamples_ = 0;
+    std::uint64_t logicalBusyUntilUs_ = 0;
 
     PcSpeakerEmulator speaker_;
     std::vector<Voice> voices_;
-    std::uint64_t producedSamples_ = 0;
-    std::uint64_t sourceCursorSample_ = 0;
-    std::uint64_t synchronousEndSample_ = 0;
-    bool trace_ = false;
-    std::uint64_t traceEpochCounter_ = 0;
 };
