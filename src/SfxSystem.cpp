@@ -4,10 +4,16 @@
 #include <iostream>
 #include <limits>
 #include <vector>
+#include <cstdlib>
 
 namespace {
 constexpr std::uint32_t FEEDER_SLEEP_MS=1;
 constexpr std::uint32_t REQUESTED_SAMPLES=64;
+std::uint64_t perfUs(){
+    const auto f=SDL_GetPerformanceFrequency();
+    const auto c=SDL_GetPerformanceCounter();
+    return f?static_cast<std::uint64_t>((c*1000000ull)/f):0ull;
+}
 }
 
 SfxSystem::~SfxSystem(){ shutdown(); }
@@ -18,7 +24,6 @@ bool SfxSystem::init(){
     if((SDL_WasInit(SDL_INIT_AUDIO)&SDL_INIT_AUDIO)==0){
         if(SDL_InitSubSystem(SDL_INIT_AUDIO)!=0) return false;
     }
-
     SDL_AudioSpec want{};
     want.freq=PcSpeakerEmulator::SAMPLE_RATE;
     want.format=AUDIO_S16SYS;
@@ -40,6 +45,9 @@ bool SfxSystem::init(){
 
     feederRun_=true;
     enabled_=false;
+    const char* tr=std::getenv("U1_SFX_TRACE");
+    trace_=(tr && *tr && *tr!='0');
+    traceEpochCounter_=perfUs();
     producedSamples_=0;
     sourceCursorSample_=0;
     synchronousEndSample_=0;
@@ -58,7 +66,9 @@ bool SfxSystem::init(){
               << (SDL_GetCurrentAudioDriver()?SDL_GetCurrentAudioDriver():"unknown")
               << ", freq=" << spec_.freq
               << ", samples=" << spec_.samples
-              << ", source-synchronous=M230\n";
+              << ", source-synchronous=M231"
+              << ", idle-silence-prefill=off"
+              << ", trace=" << (trace_?"on":"off") << "\n";
     return true;
 }
 
@@ -107,28 +117,40 @@ std::uint64_t SfxSystem::playedSamplesLocked() const{
 std::uint64_t SfxSystem::scheduleLocked(int soundId){
     const auto& clip=speaker_.clip(soundId);
     if(clip.pcm.empty() || clip.sourceSamples==0) return playedSamplesLocked();
-
     const std::uint64_t played=playedSamplesLocked();
     std::uint64_t start=std::max(sourceCursorSample_,producedSamples_);
     if(start<played) start=played;
     voices_.push_back(Voice{clip.pcm.data(),clip.pcm.size(),start});
     sourceCursorSample_=start+clip.sourceSamples;
     synchronousEndSample_=sourceCursorSample_;
+    if(trace_){
+        const auto queued=static_cast<std::uint64_t>(SDL_GetQueuedAudioSize(device_))/sizeof(std::int16_t);
+        std::cerr << "[SFXTRACE] t_us=" << (perfUs()-traceEpochCounter_)
+                  << " schedule id=" << soundId
+                  << " played=" << played
+                  << " produced=" << producedSamples_
+                  << " queued=" << queued
+                  << " start=" << start
+                  << " source_end=" << synchronousEndSample_
+                  << " clip_samples=" << clip.pcm.size() << "\n";
+    }
     return synchronousEndSample_;
 }
 
 void SfxSystem::play(int soundId){
     if(soundId<0 || soundId>9 || !enabled_) return;
-
     if(!device_ || !mutex_){
         SDL_Delay(logicalDurationMs(soundId));
         return;
     }
-
     SDL_LockMutex(mutex_);
+    if(trace_){
+        std::cerr << "[SFXTRACE] t_us=" << (perfUs()-traceEpochCounter_)
+                  << " play_begin id=" << soundId
+                  << " queued_bytes=" << SDL_GetQueuedAudioSize(device_) << "\n";
+    }
     const std::uint64_t endSample=scheduleLocked(soundId);
     SDL_CondBroadcast(progress_);
-
     const std::uint32_t watchdogStart=SDL_GetTicks();
     const std::uint32_t watchdogMs=logicalDurationMs(soundId)+1000u;
     while(feederRun_ && enabled_ && playedSamplesLocked()<endSample){
@@ -137,6 +159,13 @@ void SfxSystem::play(int soundId){
             std::cerr << "PC speaker emulator: audio clock stalled on sound(" << soundId << ")\n";
             break;
         }
+    }
+    if(trace_){
+        std::cerr << "[SFXTRACE] t_us=" << (perfUs()-traceEpochCounter_)
+                  << " play_end id=" << soundId
+                  << " played=" << playedSamplesLocked()
+                  << " produced=" << producedSamples_
+                  << " queued_bytes=" << SDL_GetQueuedAudioSize(device_) << "\n";
     }
     SDL_UnlockMutex(mutex_);
 }
@@ -173,6 +202,12 @@ void SfxSystem::pumpLocked(){
     const std::uint64_t period=std::max<std::uint64_t>(1,spec_.samples);
     if(queued>=period) return;
 
+    bool hasFutureVoice=false;
+    for(const auto& v:voices_){
+        if(v.startSample+v.samples>producedSamples_){ hasFutureVoice=true; break; }
+    }
+    if(!hasFutureVoice) return;
+
     const std::size_t count=static_cast<std::size_t>(period-queued);
     std::vector<std::int16_t> chunk(count,0);
     for(std::size_t i=0;i<count;++i){
@@ -190,7 +225,6 @@ void SfxSystem::pumpLocked(){
             mixed,std::numeric_limits<std::int16_t>::min(),
                   std::numeric_limits<std::int16_t>::max()));
     }
-
     if(SDL_QueueAudio(device_,chunk.data(),static_cast<Uint32>(chunk.size()*sizeof(std::int16_t)))==0){
         producedSamples_+=chunk.size();
         voices_.erase(std::remove_if(voices_.begin(),voices_.end(),[&](const Voice& v){
