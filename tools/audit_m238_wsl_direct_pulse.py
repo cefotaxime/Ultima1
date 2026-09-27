@@ -44,6 +44,9 @@ for q in ['want.callback=&SfxSystem::audioCallback;','transport=SDL-direct-callb
     assert q in sfx,q
 for q in ['std::unique_ptr<PulseAudioState> pulseAudio_','initPulseLowLatency()','shutdownPulseLowLatency()']:
     assert q in h,q
+assert 'SfxSystem();' in h
+assert 'SfxSystem() = default;' not in h
+assert 'SfxSystem::SfxSystem() = default;' in sfx
 
 if len(sys.argv)>1:
     out=(Path(sys.argv[1])/'OUT.EXE').read_bytes(); assert len(out)==69858
