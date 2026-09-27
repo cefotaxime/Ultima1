@@ -117,6 +117,7 @@ struct SfxSystem::PulseAudioState {
 };
 #endif
 
+SfxSystem::SfxSystem() = default;
 SfxSystem::~SfxSystem(){ shutdown(); }
 
 bool SfxSystem::init(){

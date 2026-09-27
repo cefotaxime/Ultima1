@@ -16,7 +16,7 @@
 // path. SDL remains an automatic fallback on every platform.
 class SfxSystem {
 public:
-    SfxSystem() = default;
+    SfxSystem();
     ~SfxSystem();
 
     SfxSystem(const SfxSystem&) = delete;
