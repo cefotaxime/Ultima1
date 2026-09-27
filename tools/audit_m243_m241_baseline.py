@@ -10,6 +10,7 @@ allowed={
     'src/SfxSystem.cpp':{
         'b50462c851ff04629e90052c844d3fb98387280bdbd44d58996d3779d63bd987',
         '551bfd242012cd80e3a30981a8c9b33941f696d9dec5f35fbdac76ef5463ca2c',
+        'f089e4edde2f2a2c09216473433b7c998de315da60c032d020a1df7cc4c393ea',
     },
     'src/SfxSystem.h':{
         '583960ddc01d42aa1d1e56c05468a21cff54bf540fd1f4c58b266de4ea62101c',
@@ -27,4 +28,4 @@ main=(root/'src/main.cpp').read_text(encoding='utf-8')
 cm=(root/'CMakeLists.txt').read_text(encoding='utf-8')
 m=re.search(r'Ultima I KR clean-room M(\d+)',main); assert m and int(m.group(1))>=243
 pm=re.search(r'project\(ultima1_kr_clean_m(\d+) LANGUAGES CXX\)',cm); assert pm and int(pm.group(1))>=243
-print('M243/M245 M241-hotfix1 baseline-preservation audit OK')
+print('M243/M246 M241-hotfix1 baseline-preservation audit OK')

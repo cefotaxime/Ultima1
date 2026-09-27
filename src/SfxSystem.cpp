@@ -121,6 +121,7 @@ struct SfxSystem::HostAudioBridgeState {
     int readFd=-1;
     std::mutex writeMutex;
     std::string failure;
+    std::string backend;
 };
 
 struct SfxSystem::PulseAudioState {
@@ -183,14 +184,14 @@ bool SfxSystem::init(){
        !(forcePulse && *forcePulse && *forcePulse!='0') &&
        initHostAudioBridge()){
         audioAvailable_=true;
-        const std::string line="PC speaker emulator: driver=windows-host-waveout-bridge, freq=48000, host_queue_frames=384, host_queue_us=8000, transport=M245-WSL-interop-host-audio, pcm=M241-approved";
+        const std::string line=std::string("PC speaker emulator: driver=windows-host-wasapi-bridge, freq=48000, format=stereo16, transport=M246-WSL-interop-host-wasapi, pcm=M241-approved, helper=")+hostAudio_->backend;
         std::cerr << line << "\n";
-        std::ofstream out("audio_runtime_m245.txt",std::ios::trunc);
+        std::ofstream out("audio_runtime_m246.txt",std::ios::trunc);
         out << line << "\n";
         return true;
     }
     if(hostAudio_ && !hostAudio_->failure.empty()){
-        std::cerr << "PC speaker emulator: M245 Windows-host bridge unavailable ("
+        std::cerr << "PC speaker emulator: M246 Windows-host WASAPI bridge unavailable ("
                   << hostAudio_->failure << "), falling back to M243 PulseAudio\n";
     }
     hostAudio_.reset();
@@ -488,9 +489,9 @@ bool SfxSystem::initHostAudioBridge(){
     auto* state=hostAudio_.get();
     auto bridgeFail=[&](const std::string& why){
         state->failure=why;
-        std::cerr << "PC speaker emulator: M245 host bridge: " << why << "\n";
-        std::ofstream out("audio_runtime_m245.txt",std::ios::trunc);
-        out << "driver=windows-host-waveout-bridge, status=fallback, reason=" << why << "\n";
+        std::cerr << "PC speaker emulator: M246 host bridge: " << why << "\n";
+        std::ofstream out("audio_runtime_m246.txt",std::ios::trunc);
+        out << "driver=windows-host-wasapi-bridge, status=fallback, reason=" << why << "\n";
         shutdownHostAudioBridge();
         return false;
     };
@@ -501,7 +502,7 @@ bool SfxSystem::initHostAudioBridge(){
         if(toChild[0]>=0){::close(toChild[0]);::close(toChild[1]);}
         if(fromChild[0]>=0){::close(fromChild[0]);::close(fromChild[1]);}
         state->failure="pipe() failed";
-        std::cerr << "PC speaker emulator: M245 host bridge: " << state->failure << "\n";
+        std::cerr << "PC speaker emulator: M246 host bridge: " << state->failure << "\n";
         return false;
     }
 
@@ -510,7 +511,7 @@ bool SfxSystem::initHostAudioBridge(){
         state->failure="fork() failed";
         ::close(toChild[0]);::close(toChild[1]);
         ::close(fromChild[0]);::close(fromChild[1]);
-        std::cerr << "PC speaker emulator: M245 host bridge: " << state->failure << "\n";
+        std::cerr << "PC speaker emulator: M246 host bridge: " << state->failure << "\n";
         return false;
     }
     if(pid==0){
@@ -534,6 +535,7 @@ bool SfxSystem::initHostAudioBridge(){
         const std::string why=line.empty()?"helper READY timeout":("helper startup: "+line);
         return bridgeFail(why);
     }
+    state->backend=line.substr(6);
 
     const char magic[4]={'U','1','A','1'};
     const std::int32_t count=10;
@@ -562,7 +564,7 @@ bool SfxSystem::sendHostAudioSound(int soundId){
     std::lock_guard<std::mutex> lock(hostAudio_->writeMutex);
     if(fdWriteAll(hostAudio_->writeFd,cmd,sizeof(cmd))) return true;
     hostAudio_->failure="host audio command pipe closed";
-    std::ofstream out("audio_runtime_m245.txt",std::ios::app);
+    std::ofstream out("audio_runtime_m246.txt",std::ios::app);
     out << hostAudio_->failure << "\n";
     return false;
 }

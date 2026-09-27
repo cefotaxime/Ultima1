@@ -1,7 +1,7 @@
-# Ultima I Korean Localization — M245 host-audio bridge
+# Ultima I Korean Localization — M246 host WASAPI bridge
 
-M245 preserves the M243 hotfix1 gameplay pacing and the approved M236/M241 PC-speaker PCM, but bypasses the WSLg PulseAudio/RDP sink for sound output.
+M245 proved that bypassing WSLg/RDPSink removes the perceptible audio delay, but the legacy Windows `waveOut` backend changed the audible character of the approved PC-speaker PCM.
 
-Canonical WSL launch now tries a small Windows PowerShell companion first. The Linux game uploads the already-rendered 48 kHz mono S16 clips byte-for-byte and then sends only sound IDs. The Windows helper mixes overlapping tails with three 128-frame host-local waveOut buffers (8 ms of explicit application-side queue). No PCM regeneration, resampling, pitch/filter change, read-clock reanchor, or playback-completion fence is added.
+M246 keeps the successful WSL→Windows host bypass but replaces `waveOut` with event-driven WASAPI. The Windows companion first requests exclusive 48 kHz stereo 16-bit PCM at the endpoint's minimum device period. The approved mono sample value is duplicated to left/right without resampling, filtering, gain scaling, or PCM regeneration. If exclusive mode is unavailable, the helper falls back to event-driven shared WASAPI; if the helper cannot initialize at all, the game falls back to the M243 direct-PulseAudio path.
 
-If the host helper cannot start, M245 automatically falls back to the M243 direct-PulseAudio path. Set `U1_SFX_FORCE_PULSE=1` for explicit A/B comparison.
+`audio_runtime_m246.txt` records whether the helper actually opened `wasapi-exclusive` or `wasapi-shared`. Set `U1_SFX_FORCE_PULSE=1` for comparison with the M243 Pulse path.
