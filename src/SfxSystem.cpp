@@ -4,11 +4,11 @@
 #include <iostream>
 #include <limits>
 #include <vector>
-#include <cstdlib>
+#include <cstdlib>\n#include <chrono>\n#include <thread>
 
 namespace {
-constexpr std::uint32_t FEEDER_SLEEP_MS=1;
-constexpr std::uint32_t REQUESTED_SAMPLES=64;
+constexpr std::uint32_t FEEDER_SLEEP_US=250;
+constexpr std::uint32_t REQUESTED_SAMPLES=32;
 std::uint64_t perfUs(){
     const auto f=SDL_GetPerformanceFrequency();
     const auto c=SDL_GetPerformanceCounter();
@@ -20,7 +20,7 @@ SfxSystem::~SfxSystem(){ shutdown(); }
 
 bool SfxSystem::init(){
     if(device_) return true;
-    SDL_setenv("PULSE_LATENCY_MSEC","5",0);
+    SDL_setenv("PULSE_LATENCY_MSEC","2",0);
     if((SDL_WasInit(SDL_INIT_AUDIO)&SDL_INIT_AUDIO)==0){
         if(SDL_InitSubSystem(SDL_INIT_AUDIO)!=0) return false;
     }
@@ -66,8 +66,8 @@ bool SfxSystem::init(){
               << (SDL_GetCurrentAudioDriver()?SDL_GetCurrentAudioDriver():"unknown")
               << ", freq=" << spec_.freq
               << ", samples=" << spec_.samples
-              << ", source-synchronous=M231"
-              << ", idle-silence-prefill=off"
+              << ", source-synchronous=M232"
+              << ", idle-silence-prefill=off, requested-samples=32, feeder-sleep-us=250"
               << ", trace=" << (trace_?"on":"off") << "\n";
     return true;
 }
@@ -185,12 +185,14 @@ int SDLCALL SfxSystem::feederEntry(void* userdata){
 int SfxSystem::feederLoop(){
     for(;;){
         SDL_LockMutex(mutex_);
+        while(feederRun_ && voices_.empty())
+            SDL_CondWait(progress_,mutex_);
         const bool run=feederRun_;
         if(run) pumpLocked();
         SDL_CondBroadcast(progress_);
         SDL_UnlockMutex(mutex_);
         if(!run) break;
-        SDL_Delay(FEEDER_SLEEP_MS);
+        std::this_thread::sleep_for(std::chrono::microseconds(FEEDER_SLEEP_US));
     }
     return 0;
 }
