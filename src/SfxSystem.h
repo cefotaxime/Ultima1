@@ -5,18 +5,17 @@
 #include <vector>
 #include "SfxOracle.h"
 
-// M228 sound presentation layer.
+// M229 sound presentation layer.
 //
-// M225 proved that SDL's queued-audio device works in the user's WSLg setup,
-// while M227's callback-device path produced complete silence there. M228
-// returns to SDL_QueueAudio, but NOT to M225's full-WAV FIFO semantics.
+// M228 still rewrote SDL's queued audio on every new sound call. On WSLg this
+// can starve/restart the host queue often enough that several footsteps become
+// audible only after the visible movement has already completed.
 //
-// Every queued capture WAV contains a DOSBox impulse/filter tail that may remain
-// audible after the original synchronous sound() routine has already returned.
-// Before adding a new source call, M228 takes the still-unplayed suffix of our
-// queued PCM shadow, mixes the new capture into that suffix at the original
-// logical sound() start offset, clears only SDL's replaceable queue, and queues
-// the remixed suffix again.
+// M229 keeps the M225-proven SDL_QueueAudio backend but turns it into a tiny
+// continuously-fed software mixer. A feeder thread keeps only a few ms of
+// audio queued. New sound() calls are inserted into the source timeline at the
+// original logical-duration spacing, while the longer capture/filter tails are
+// mixed together when future chunks are produced.
 class SfxSystem {
 public:
     SfxSystem() = default;
@@ -27,7 +26,6 @@ public:
 
     bool init();
     void shutdown();
-
     void setEnabled(bool enabled);
     bool enabled() const { return enabled_; }
     bool available() const { return device_ != 0; }
@@ -42,13 +40,29 @@ public:
     bool logicalBusy() const;
 
 private:
+    struct Voice {
+        const std::int16_t* data = nullptr;
+        std::size_t samples = 0;
+        std::uint64_t startSample = 0;
+    };
+
+    static int SDLCALL feederEntry(void* userdata);
+    int feederLoop();
     void schedule(int soundId);
-    void clearQueueState();
+    void pumpLocked();
+    std::uint64_t playedSamplesLocked() const;
     std::uint32_t remainingLogicalMs(std::uint32_t now) const;
+    void resetLocked(bool clearDeviceQueue);
 
     SDL_AudioDeviceID device_ = 0;
     SDL_AudioSpec spec_{};
+    SDL_mutex* mutex_ = nullptr;
+    SDL_Thread* feeder_ = nullptr;
+    bool feederRun_ = false;
     bool enabled_ = false;
-    std::vector<std::int16_t> queuedMix_;
+
+    std::vector<Voice> voices_;
+    std::uint64_t producedSamples_ = 0;
+    std::uint64_t sourceCursorSample_ = 0;
     std::uint32_t logicalBusyUntilMs_ = 0;
 };
