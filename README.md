@@ -1,6 +1,6 @@
 # Ultima I Korean Localization (clean-room SDL2)
 
-현재 작업 기준: **M238**
+현재 작업 기준: **M238 hotfix1**
 
 이 프로젝트의 기준 실행 환경은 **WSL/Ubuntu에서 `build_and_run_wsl.sh`를 사용하는 경로**입니다. M237에서 추가한 native Windows IAudioClient3 경로는 보조 경로이며, 사용자의 실제 검증 환경을 대신하지 않습니다.
 
@@ -21,3 +21,7 @@ M236 hotfix1의 `PcSpeakerEmulator.cpp` SHA-256은 계속 고정됩니다:
 `0cf4d0f219d79c8525f64b7c0787efc031dc5ae46652455020fd675ca0655126`
 
 세부 내용은 `ORACLE_NOTES_M238.md`와 `tools/audit_m238_wsl_direct_pulse.py`를 참고하십시오.
+
+
+## M238 hotfix1
+WSL/GCC build failure caused by the inline default constructor with the opaque `PulseAudioState` unique_ptr is fixed by moving the constructor definition to `SfxSystem.cpp`. Runtime audio behavior is unchanged.
