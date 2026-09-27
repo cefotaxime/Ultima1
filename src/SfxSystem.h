@@ -5,7 +5,6 @@
 #include <cstdint>
 #include <memory>
 #include <mutex>
-#include <string>
 #include <vector>
 #include "PcSpeakerEmulator.h"
 #include "SfxOracle.h"
@@ -52,7 +51,11 @@ private:
 #endif
 
 #if !defined(_WIN32) && defined(U1_HAVE_LIBPULSE)
+    struct HostAudioBridgeState;
     struct PulseAudioState;
+    bool initHostAudioBridge();
+    void shutdownHostAudioBridge();
+    bool sendHostAudioSound(int soundId);
     bool initPulseLowLatency();
     void shutdownPulseLowLatency();
 #endif
@@ -61,22 +64,13 @@ private:
     void renderCallback(std::int16_t* dst,std::size_t samples);
     void waitFallbackDurationUs(std::uint32_t us);
     void waitRenderedThrough(std::uint64_t endSample,std::uint32_t watchdogUs);
-    void flushAudioProbe();
 
     SDL_AudioDeviceID device_ = 0;
     SDL_AudioSpec spec_{};
     bool audioAvailable_ = false;
     std::atomic<bool> enabled_{false};
     bool trace_ = false;
-    bool audioProbe_ = false;
     std::uint64_t traceEpochCounter_ = 0;
-    std::uint64_t audioProbeEpochUs_ = 0;
-    std::atomic<std::uint64_t> probeFirstWriteUs_{0};
-    std::atomic<std::uint64_t> probeFirstWriteFrames_{0};
-    std::atomic<bool> probePlayArmed_{false};
-    std::uint64_t probeSequence_ = 0;
-    std::mutex probeMutex_;
-    std::vector<std::string> probeLines_;
     std::atomic<std::uint64_t> renderedSamples_{0};
     std::atomic<std::uint64_t> synchronousEndSample_{0};
 
@@ -88,6 +82,7 @@ private:
     std::unique_ptr<WinAudioState> winAudio_;
 #endif
 #if !defined(_WIN32) && defined(U1_HAVE_LIBPULSE)
+    std::unique_ptr<HostAudioBridgeState> hostAudio_;
     std::unique_ptr<PulseAudioState> pulseAudio_;
 #endif
 };
