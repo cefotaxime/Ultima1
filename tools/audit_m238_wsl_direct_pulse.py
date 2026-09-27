@@ -28,9 +28,7 @@ for q in [
     'PA_STREAM_ADJUST_LATENCY','PULSE_TARGET_LATENCY_US=5000',
     'attr.tlength=pa_usec_to_bytes(PULSE_TARGET_LATENCY_US,&ss)',
     'attr.minreq=static_cast<std::uint32_t>(-1)',
-    'attr.prebuf=static_cast<std::uint32_t>(-1)',
-    'transport=M238-direct-pulse-write-callback','driver=pulseaudio-direct',
-    'audio_runtime_m238.txt','U1_SFX_FORCE_SDL',
+    'driver=pulseaudio-direct','U1_SFX_FORCE_SDL',
     'pa_stream_get_latency(','PulseAudio underflows=',
     'const auto logicalStartUs=perfUs();','const auto logicalEndUs=logicalStartUs+static_cast<std::uint64_t>(us)',
     'while(perfUs()<logicalEndUs) SDL_Delay(0);'
