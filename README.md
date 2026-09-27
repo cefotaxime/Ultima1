@@ -1,15 +1,16 @@
 # Ultima I Korean Localization (clean-room SDL2)
 
-현재 작업 기준: **M235**
+현재 작업 기준: **M236**
 
-M235는 M234에서 복원된 DOSBox-style impulse PC-speaker 음질과 direct SDL callback 경로를 유지하면서, 원본 `sound()`의 동기성을 callback sample clock에 다시 결합합니다.
+M236은 M235의 오디오 합성/동기화 코드를 바꾸지 않고, 남은 약 6걸음 audible latency가 WSLg/PulseAudio 경로인지 비교하기 위한 native Windows SDL2/WASAPI 실행 경로를 추가합니다.
 
-- WAV는 런타임 음원으로 사용하지 않습니다. M225 capture는 비교/검증 oracle 전용입니다.
-- `SDL_QueueAudio`, feeder thread, application PCM queue, idle silence prefill은 없습니다.
-- 각 sound 호출은 callback의 현재 `renderedSamples_`를 start로 잡고 `sourceEnd = start + clip.sourceSamples`를 계산합니다.
-- `play()`는 SDL callback이 실제로 `sourceEnd`를 render할 때까지 반환하지 않습니다.
-- sound(4)의 source span 4.302 ms와 M234의 DOSBox-style impulse 음질 모델은 유지합니다.
-- filter tail은 source return 이후 다음 sound와 겹칠 수 있습니다.
-- `U1_SFX_TRACE=1`에서 rendered/source_end/callback_frames를 확인할 수 있습니다.
+- runtime WAV playback 없음; M225 capture는 oracle 전용
+- M234 DOSBox-style impulse PC-speaker 음질 유지
+- M235 direct SDL callback + callback sample-clock synchronization 유지
+- SDL_QueueAudio / feeder thread / application PCM queue / idle silence prefill 없음
+- Windows 비교 경로: SDL2/WASAPI → Windows audio engine → device
+- WSL 비교 경로: SDL2 → PulseAudio/WSLg → Windows audio engine → device
+- `build_and_run_windows.ps1` + `vcpkg.json` 추가
+- Windows 실행은 `SDL_AUDIODRIVER=wasapi`를 강제하며 `-Trace`로 기존 SFX trace를 활성화할 수 있음
 
-M235는 SDL callback 이후 WSLg/PulseAudio/Windows의 물리적 presentation latency까지 제거됐다고 가정하지 않습니다.
+세부 내용은 `ORACLE_NOTES_M236.md`와 `tools/audit_m236_windows_wasapi.py`를 참고하십시오.
