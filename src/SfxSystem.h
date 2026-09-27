@@ -56,7 +56,6 @@ private:
     void shutdownPulseLowLatency();
     std::size_t pulseWriteActiveLocked(bool reanchor,std::size_t writableHintBytes);
     std::uint64_t pulsePlayedSampleLocked() const;
-    void pulseKick();
 #endif
 
     static void SDLCALL audioCallback(void* userdata, Uint8* stream, int len);
