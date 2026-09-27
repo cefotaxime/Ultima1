@@ -1,17 +1,18 @@
 # Ultima I Korean Localization — audio reconstruction branch
 
-Current audio milestone: **M243 rollback**
+Current audio milestone: **M244 diagnostic**
 
-M242 is rejected by user validation. One movement input could produce two or three footstep-like sounds, and player action pacing became visibly slower.
+M243 hotfix1 remains the user-validated runtime baseline: correct sound character, one movement sound per movement input, normal player pacing, with roughly three movement commands of perceived WSL audio lag remaining.
 
-M243 restores the exact M241 hotfix1 audio core. There is no new latency experiment in this milestone.
+M244 does not change the default playback path. With `U1_AUDIO_PROBE=1`, it records read-only per-sound timing observations into `audio_probe_m244.csv` on normal shutdown:
 
-Locked behavior:
-- canonical runtime: WSL/Ubuntu
-- M241 hotfix1 SfxSystem restored exactly
-- approved M236 hotfix1 PC-speaker synthesis unchanged
-- no M242 playback-completion fence
-- no M239/M240 Pulse read-clock reanchor or PA_SEEK_RELATIVE_ON_READ
-- no PCM rewrite/resampling/timing reinterpretation
+- `play()` begin/end timestamps
+- first Pulse render callback timestamp and frame count
+- `pa_stream_get_latency()` before/after the existing M243 source-duration fence
+- Pulse sink/transport latency plus write/read indexes
+- reconstructed PCM onset positions
 
-Future latency work must not block the game loop on downstream playback completion.
+The real-time callback performs no file I/O and M244 adds no seek, reanchor, playback-completion wait, buffer-size change, resampling, pitch/filter change, or PCM rewrite.
+
+The approved `PcSpeakerEmulator.cpp` SHA-256 remains:
+`0cf4d0f219d79c8525f64b7c0787efc031dc5ae46652455020fd675ca0655126`
