@@ -9,8 +9,7 @@ cm=(root/'CMakeLists.txt').read_text(encoding='utf-8')
 m=re.search(r'Ultima I KR clean-room M(\d+)',main); assert m and int(m.group(1))>=232
 pm=re.search(r'project\(ultima1_kr_clean_m(\d+) LANGUAGES CXX\)',cm); assert pm and int(pm.group(1))>=232
 assert ('if(!hasFutureVoice) return;' in sfx) or ('app-queue=none' in sfx)
-# M232 pitch correction remains valid; its aggressive transport experiment was superseded.
-for q in ['SOUND4_INTERVALS_48K','12,21,21,21,22,22,22,22','4302','SOUND4_INTERVALS_48K']:
+for q in ['SOUND4_INTERVALS_48K','12, 21, 21, 21, 22, 22, 22, 22','4302']:
     assert q in pc,q
 p=root/'data/sfx_capture_oracle_m225/sound_04.wav'
 with wave.open(str(p),'rb') as w:
