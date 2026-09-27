@@ -31,9 +31,10 @@
 namespace {
 constexpr std::uint32_t REQUESTED_SAMPLES=64;
 constexpr std::uint32_t PULSE_TARGET_LATENCY_US=5000;
+constexpr std::uint32_t PULSE_PRIME_FRAMES=64;
 
 void audioDiagReset(){
-    std::ofstream out("audio_runtime_m238.txt",std::ios::trunc);
+    std::ofstream out("audio_runtime_m239.txt",std::ios::trunc);
     out << "M238 canonical runtime: WSL/Linux direct PulseAudio preferred; SDL is fallback\n";
 }
 void audioDiagAppend(const std::string& line){
@@ -173,7 +174,7 @@ bool SfxSystem::init(){
             ", negotiated_tlength_us="+std::to_string(tlengthUs)+
             ", negotiated_minreq_us="+std::to_string(minreqUs)+
             ", source-synchronous=M235-callback-clock"+
-            ", transport=M238-direct-pulse-write-callback"+
+            ", transport=M239-zero-idle-pulse-read-cursor"+
             ", app-queue=none"+
             ", trace="+(trace_?"on":"off");
         std::cerr << line << "\n";
@@ -326,6 +327,10 @@ void SfxSystem::play(int soundId){
         if(!clip.pcm.empty()) voices_.push_back(Voice{clip.pcm.data(),clip.pcm.size(),startSample});
     }
 
+#if !defined(_WIN32) && defined(U1_HAVE_LIBPULSE)
+    if(pulseAudio_) pulseKick();
+#endif
+
     const auto traceFrames=(
 #ifdef _WIN32
         winAudio_ ? winAudio_->minPeriodFrames :
@@ -472,16 +477,23 @@ bool SfxSystem::initPulseLowLatency(){
         auto* self=static_cast<SfxSystem*>(userdata);
         if(!self || !stream || nbytes<sizeof(std::int16_t)) return;
 
-        // Render straight into PulseAudio's writable memblock. This avoids both
-        // SDL's mix buffer and a per-callback heap allocation/copy. The block is
-        // only the server-requested immediate write span, not a future PCM FIFO.
+        // M239: do not keep the Pulse server buffer full of zero PCM while the
+        // game is idle. A newly scheduled sound must not sit behind silence
+        // that was accepted by the server before sound() was called.
+        {
+            std::lock_guard<std::mutex> lock(self->voicesMutex_);
+            if(self->voices_.empty()) return;
+        }
+
         void* data=nullptr;
         std::size_t writable=nbytes;
         if(pa_stream_begin_write(stream,&data,&writable)<0 || !data) return;
         writable-=writable%sizeof(std::int16_t);
-        if(writable==0) return;
+        if(writable==0){ pa_stream_cancel_write(stream); return; }
         const std::size_t frames=writable/sizeof(std::int16_t);
         self->renderCallback(static_cast<std::int16_t*>(data),frames);
+        // pulseKick() rebases the stale write cursor after idle. Normal
+        // callbacks append after that prime block.
         if(pa_stream_write(stream,data,writable,nullptr,0,PA_SEEK_RELATIVE)<0){
             // PulseAudio will transition the stream state on a hard failure;
             // the callback must not block or manufacture retry delay here.
@@ -495,7 +507,8 @@ bool SfxSystem::initPulseLowLatency(){
     pa_buffer_attr attr{};
     attr.maxlength=static_cast<std::uint32_t>(-1);
     attr.tlength=pa_usec_to_bytes(PULSE_TARGET_LATENCY_US,&ss);
-    attr.prebuf=static_cast<std::uint32_t>(-1);
+    // No server-side prebuffer gate after an idle underrun.
+    attr.prebuf=0;
     attr.minreq=static_cast<std::uint32_t>(-1);
     attr.fragsize=static_cast<std::uint32_t>(-1);
     const auto flags=static_cast<pa_stream_flags_t>(
@@ -530,6 +543,40 @@ bool SfxSystem::initPulseLowLatency(){
         : std::max<std::uint32_t>(1,state->negotiated.minreq/sizeof(std::int16_t));
     spec_.samples=static_cast<Uint16>(std::min<std::uint32_t>(frames,65535u));
     return true;
+}
+
+void SfxSystem::pulseKick(){
+    if(!pulseAudio_ || !pulseAudio_->mainloop || !pulseAudio_->stream) return;
+    auto* state=pulseAudio_.get();
+    pa_threaded_mainloop_lock(state->mainloop);
+    if(pa_stream_get_state(state->stream)!=PA_STREAM_READY){
+        pa_threaded_mainloop_unlock(state->mainloop);
+        return;
+    }
+
+    const std::size_t available=pa_stream_writable_size(state->stream);
+    if(available==static_cast<std::size_t>(-1) || available<sizeof(std::int16_t)){
+        pa_threaded_mainloop_unlock(state->mainloop);
+        return;
+    }
+    std::size_t writable=std::min<std::size_t>(
+        available,static_cast<std::size_t>(PULSE_PRIME_FRAMES)*sizeof(std::int16_t));
+    void* data=nullptr;
+    if(pa_stream_begin_write(state->stream,&data,&writable)<0 || !data){
+        pa_threaded_mainloop_unlock(state->mainloop);
+        return;
+    }
+    writable-=writable%sizeof(std::int16_t);
+    if(writable==0){
+        pa_stream_cancel_write(state->stream);
+        pa_threaded_mainloop_unlock(state->mainloop);
+        return;
+    }
+    renderCallback(static_cast<std::int16_t*>(data),writable/sizeof(std::int16_t));
+    const int wr=pa_stream_write(state->stream,data,writable,nullptr,0,PA_SEEK_RELATIVE_ON_READ);
+    if(wr<0) audioDiagAppend(std::string("PulseAudio prime write failed: ")+
+                             pa_strerror(pa_context_errno(state->context)));
+    pa_threaded_mainloop_unlock(state->mainloop);
 }
 
 void SfxSystem::shutdownPulseLowLatency(){
