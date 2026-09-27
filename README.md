@@ -1,16 +1,23 @@
 # Ultima I Korean Localization (clean-room SDL2)
 
-현재 작업 기준: **M237**
+현재 작업 기준: **M238**
 
-M236 hotfix1의 native Windows 실행에서 PC-speaker 음질은 유지되면서 첫 발소리 audible latency가 약 6걸음에서 3걸음으로 감소했다. M237은 합성음을 더 조정하지 않고 Windows 출력 transport만 줄인다.
+이 프로젝트의 기준 실행 환경은 **WSL/Ubuntu에서 `build_and_run_wsl.sh`를 사용하는 경로**입니다. M237에서 추가한 native Windows IAudioClient3 경로는 보조 경로이며, 사용자의 실제 검증 환경을 대신하지 않습니다.
 
-- M236 hotfix1 PcSpeakerEmulator.cpp는 byte-for-byte 유지
-- Windows 기본 경로: IAudioClient3 shared mode + minimum engine period + event-driven IAudioRenderClient
-- MMCSS "Pro Audio" scheduling 사용(가능한 경우)
-- 48 kHz mix format만 low-latency 경로에서 사용하여 피치 보존
-- 초기화 실패/비 48 kHz endpoint는 기존 SDL/WASAPI direct callback으로 자동 fallback
-- U1_SFX_FORCE_SDL=1로 M236 경로 강제 A/B 비교 가능
-- runtime WAV playback 없음
-- SDL_QueueAudio / feeder thread / application PCM queue / idle silence prefill 없음
+M238은 M236 hotfix1의 PC-speaker 합성음을 그대로 유지하면서 WSL/Linux 오디오 transport만 변경합니다.
 
-세부 내용은 ORACLE_NOTES_M237.md와 tools/audit_m237_windows_low_latency.py를 참고하십시오.
+- 48 kHz mono PC-speaker synthesis unchanged
+- WSL/Linux primary path: direct asynchronous libpulse write callback
+- `PA_STREAM_ADJUST_LATENCY`, target `tlength=5 ms`
+- `minreq/prebuf/maxlength` are negotiated by PulseAudio
+- `pa_stream_begin_write()` memory is rendered directly; no extra PCM FIFO
+- SDL direct callback remains automatic fallback
+- `U1_SFX_FORCE_SDL=1` forces the old SDL path for A/B testing
+- runtime WAV playback / `SDL_QueueAudio` / feeder thread 없음
+- `audio_runtime_m238.txt` records selected backend and negotiated Pulse buffer
+
+M236 hotfix1의 `PcSpeakerEmulator.cpp` SHA-256은 계속 고정됩니다:
+
+`0cf4d0f219d79c8525f64b7c0787efc031dc5ae46652455020fd675ca0655126`
+
+세부 내용은 `ORACLE_NOTES_M238.md`와 `tools/audit_m238_wsl_direct_pulse.py`를 참고하십시오.
