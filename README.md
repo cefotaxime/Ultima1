@@ -1,7 +1,12 @@
-# Ultima I Korean Localization — M246 host WASAPI bridge
+# Ultima I Korean Localization — M247 SPACE key completion
 
-M245 proved that bypassing WSLg/RDPSink removes the perceptible audio delay, but the legacy Windows `waveOut` backend changed the audible character of the approved PC-speaker PCM.
+M247 keeps the validated M246 Windows-host event-driven WASAPI audio path unchanged.
 
-M246 keeps the successful WSL→Windows host bypass but replaces `waveOut` with event-driven WASAPI. The Windows companion first requests exclusive 48 kHz stereo 16-bit PCM at the endpoint's minimum device period. The approved mono sample value is duplicated to left/right without resampling, filtering, gain scaling, or PCM regeneration. If exclusive mode is unavailable, the helper falls back to event-driven shared WASAPI; if the helper cannot initialize at all, the game falls back to the M243 direct-PulseAudio path.
+SPACE input fixes:
+- N now toggles the shared Noise state and immediately applies it to SfxSystem.
+- Z now opens the existing Ztats/status-inventory presentation.
+- While Ztats owns input, continuous SPACE top/front flight timing is frozen, preserving the original pause behavior.
+- Existing recovered SPACE controls remain unchanged: arrows, V View, I Sector Scan, H HyperJump, F Fire, front-view speeds 1..8, Space as top-view Pass/front-view Center, and arrow-key dock ship selection.
+- Q/save remains unavailable in SPACE; saving is an outside-world-only command.
 
-`audio_runtime_m246.txt` records whether the helper actually opened `wasapi-exclusive` or `wasapi-shared`. Set `U1_SFX_FORCE_PULSE=1` for comparison with the M243 Pulse path.
+The full runnable source/package remains the canonical ZIP artifact; this GitHub repository is still the audio-focused subset.
