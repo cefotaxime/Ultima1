@@ -54,7 +54,6 @@ private:
     struct PulseAudioState;
     bool initPulseLowLatency();
     void shutdownPulseLowLatency();
-    void waitPulsePlayedThrough(std::uint64_t endSample,std::uint32_t watchdogUs);
 #endif
 
     static void SDLCALL audioCallback(void* userdata, Uint8* stream, int len);
