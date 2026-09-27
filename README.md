@@ -1,18 +1,7 @@
-# Ultima I Korean Localization — audio reconstruction branch
+# Ultima I Korean Localization — M245 host-audio bridge
 
-Current audio milestone: **M244 diagnostic**
+M245 preserves the M243 hotfix1 gameplay pacing and the approved M236/M241 PC-speaker PCM, but bypasses the WSLg PulseAudio/RDP sink for sound output.
 
-M243 hotfix1 remains the user-validated runtime baseline: correct sound character, one movement sound per movement input, normal player pacing, with roughly three movement commands of perceived WSL audio lag remaining.
+Canonical WSL launch now tries a small Windows PowerShell companion first. The Linux game uploads the already-rendered 48 kHz mono S16 clips byte-for-byte and then sends only sound IDs. The Windows helper mixes overlapping tails with three 128-frame host-local waveOut buffers (8 ms of explicit application-side queue). No PCM regeneration, resampling, pitch/filter change, read-clock reanchor, or playback-completion fence is added.
 
-M244 does not change the default playback path. With `U1_AUDIO_PROBE=1`, it records read-only per-sound timing observations into `audio_probe_m244.csv` on normal shutdown:
-
-- `play()` begin/end timestamps
-- first Pulse render callback timestamp and frame count
-- `pa_stream_get_latency()` before/after the existing M243 source-duration fence
-- Pulse sink/transport latency plus write/read indexes
-- reconstructed PCM onset positions
-
-The real-time callback performs no file I/O and M244 adds no seek, reanchor, playback-completion wait, buffer-size change, resampling, pitch/filter change, or PCM rewrite.
-
-The approved `PcSpeakerEmulator.cpp` SHA-256 remains:
-`0cf4d0f219d79c8525f64b7c0787efc031dc5ae46652455020fd675ca0655126`
+If the host helper cannot start, M245 automatically falls back to the M243 direct-PulseAudio path. Set `U1_SFX_FORCE_PULSE=1` for explicit A/B comparison.
