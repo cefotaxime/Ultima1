@@ -1,19 +1,16 @@
 # Ultima I Korean Localization (clean-room SDL2)
 
-현재 작업 기준: **M229**
+현재 작업 기준: **M230**
 
-M229는 성/마을에서 여러 칸 이동한 뒤 발소리가 뒤늦게 뭉쳐 들리던 오디오 스케줄링 문제를 수정합니다.
+M230는 M225~M229에서 사용하던 효과음 WAV 재생 중심 구조를 중단하고, 1987 DOS판 OUT.EXE의 PC-speaker sound(0)..sound(9) 루틴 자체를 source-level로 복원합니다.
 
-- M225에서 검증된 DOSBox Staging 0.82.2 capture-oracle PCM과 sound ID mapping을 유지합니다.
-- 사용자 WSLg에서 실제 출력이 확인된 `SDL_QueueAudio()` backend를 유지합니다.
-- M228의 per-call `SDL_ClearQueuedAudio()` + queue 재제출 방식은 폐기했습니다.
-- 별도 feeder thread가 1 ms 주기로 짧은 mixed PCM chunk만 공급합니다.
-- capture/filter tail은 active voice로 유지되어 이후 효과음과 sample-wise overlap됩니다.
-- sound(4)의 원본 source spacing 5 ms와 `logicalDurationMs()` 분리는 유지합니다.
-- idle silence를 미리 길게 queue하지 않으므로 새 효과음이 기존 buffer 뒤로 밀리지 않습니다.
-- 한 outer frame당 gameplay KEYDOWN 하나만 처리하는 M227 pacing을 유지합니다.
-- M226의 zero-range Weapon Attack 메시지/BEEP 복원도 유지합니다.
+- OUT.EXE file 0xB065..0xB155의 port 61h software-toggle 루프를 코드로 재구성했습니다.
+- M225 direct capture WAV는 런타임 음원이 아니라 비교/검증 oracle로만 남깁니다.
+- sound source duration은 DOSBox Staging 0.82.2 / cycles=3000 직접 녹음으로 보정합니다.
+- finite speaker transition과 HP 120 Hz / LP 4300 Hz filter를 적용해 런타임 PCM을 생성합니다.
+- SfxSystem::play()는 원본 sound()처럼 source-synchronous하게 동작합니다.
+- local 이동은 원본 OUT.EXE 0x30E9..0x3120 순서대로 새 위치를 먼저 present한 뒤 sound(4)를 실행하고, 그 뒤 actor update로 넘어갑니다.
+- host 전송은 짧은 continuous SDL queued stream을 유지하며 PULSE_LATENCY_MSEC=5를 요청합니다.
+- M226 zero-range Weapon Attack 메시지/BEEP 복원도 유지합니다.
 
-실행 시 stderr에 SDL audio driver, obtained sample rate/buffer size, `queued-stream mixer=M229` 진단을 출력합니다.
-
-세부 근거는 `ORACLE_NOTES_M229.md`와 `tools/audit_m229_streaming_queue_audio.py`를 참고하십시오.
+세부 근거는 ORACLE_NOTES_M230.md와 tools/audit_m230_pc_speaker_emulator.py를 참고하십시오.
