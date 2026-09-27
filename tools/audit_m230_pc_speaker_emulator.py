@@ -11,7 +11,7 @@ out=(Path(sys.argv[1])/'OUT.EXE').read_bytes()
 assert out[0x676:0x68A]==bytes.fromhex('55 8b ec 83 3e b0 3a 00 74 08 ff 76 04 e8 c2 a9 8b e5 5d c3')
 assert out[0xFB4A:0xFB5E]==bytes.fromhex('65 ae 7d ae 9b ae a2 ae a9 ae c9 ae d0 ae ea ae 1e af 37 af')
 for q in ['w.assign(16,1000)','w.assign(48,355)','for(int n=5;n<=255;++n)','w={5,10,15,20}',
-          'makeLowPass(4300.0','makeHighPass(120.0','FILTER_TAIL_MS=32']:
+          'makeSecondOrderLowPass(4300.0,1.0)','makeSecondOrderHighPass(120.0,1.0)','TAIL_MS=32']:
     assert q in pc,q
 assert 'SfxPcmOracleM225' not in sfx
 assert 'PULSE_LATENCY_MSEC' in sfx
