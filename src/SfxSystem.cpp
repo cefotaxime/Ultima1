@@ -8,7 +8,15 @@
 #include <iostream>
 #include <limits>
 #include <string>
-#include <sstream>
+
+#if !defined(_WIN32)
+#include <cerrno>
+#include <csignal>
+#include <poll.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <unistd.h>
+#endif
 
 #if !defined(_WIN32) && defined(U1_HAVE_LIBPULSE)
 #include <pulse/pulseaudio.h>
@@ -107,6 +115,14 @@ struct SfxSystem::WinAudioState {
 #endif
 
 #if !defined(_WIN32) && defined(U1_HAVE_LIBPULSE)
+struct SfxSystem::HostAudioBridgeState {
+    pid_t child=-1;
+    int writeFd=-1;
+    int readFd=-1;
+    std::mutex writeMutex;
+    std::string failure;
+};
+
 struct SfxSystem::PulseAudioState {
     pa_threaded_mainloop* mainloop=nullptr;
     pa_context* context=nullptr;
@@ -127,26 +143,7 @@ bool SfxSystem::init(){
     audioDiagReset();
     const char* tr=std::getenv("U1_SFX_TRACE");
     trace_=(tr && *tr && *tr!='0');
-    const char* probe=std::getenv("U1_AUDIO_PROBE");
-    audioProbe_=(probe && *probe && *probe!='0');
     traceEpochCounter_=perfUs();
-    audioProbeEpochUs_=traceEpochCounter_;
-    probeFirstWriteUs_.store(0,std::memory_order_release);
-    probeFirstWriteFrames_.store(0,std::memory_order_release);
-    probeSequence_=0;
-    {
-        std::lock_guard<std::mutex> lock(probeMutex_);
-        probeLines_.clear();
-    }
-    if(audioProbe_){
-        std::ofstream out("audio_probe_m244.csv",std::ios::trunc);
-        out << "seq,sound_id,play_begin_us,first_write_us,first_write_delta_us,first_write_frames,"
-               "play_end_us,source_us,start_sample,source_end_sample,rendered_at_end,"
-               "pulse_begin_ok,pulse_begin_latency_us,pulse_begin_negative,pulse_begin_sink_us,pulse_begin_transport_us,"
-               "pulse_begin_write_index,pulse_begin_read_index,pulse_end_ok,pulse_end_latency_us,pulse_end_negative,"
-               "pulse_end_sink_us,pulse_end_transport_us,pulse_end_write_index,pulse_end_read_index,"
-               "first_nonzero_pcm_us,first_abs500_pcm_us\n";
-    }
     enabled_.store(false,std::memory_order_release);
     renderedSamples_.store(0,std::memory_order_release);
     synchronousEndSample_.store(0,std::memory_order_release);
@@ -181,6 +178,22 @@ bool SfxSystem::init(){
 
 #if !defined(_WIN32) && defined(U1_HAVE_LIBPULSE)
     const char* forceSdl=std::getenv("U1_SFX_FORCE_SDL");
+    const char* forcePulse=std::getenv("U1_SFX_FORCE_PULSE");
+    if(!(forceSdl && *forceSdl && *forceSdl!='0') &&
+       !(forcePulse && *forcePulse && *forcePulse!='0') &&
+       initHostAudioBridge()){
+        audioAvailable_=true;
+        const std::string line="PC speaker emulator: driver=windows-host-waveout-bridge, freq=48000, host_queue_frames=384, host_queue_us=8000, transport=M245-WSL-interop-host-audio, pcm=M241-approved";
+        std::cerr << line << "\n";
+        std::ofstream out("audio_runtime_m245.txt",std::ios::trunc);
+        out << line << "\n";
+        return true;
+    }
+    if(hostAudio_ && !hostAudio_->failure.empty()){
+        std::cerr << "PC speaker emulator: M245 Windows-host bridge unavailable ("
+                  << hostAudio_->failure << "), falling back to M243 PulseAudio\n";
+    }
+    hostAudio_.reset();
     if(!(forceSdl && *forceSdl && *forceSdl!='0') && initPulseLowLatency()){
         audioAvailable_=true;
         const auto& a=pulseAudio_->negotiated;
@@ -242,7 +255,6 @@ bool SfxSystem::init(){
 }
 
 void SfxSystem::shutdown(){
-    flushAudioProbe();
     enabled_.store(false,std::memory_order_release);
     {
         std::lock_guard<std::mutex> lock(voicesMutex_);
@@ -252,6 +264,7 @@ void SfxSystem::shutdown(){
     shutdownWindowsLowLatency();
 #endif
 #if !defined(_WIN32) && defined(U1_HAVE_LIBPULSE)
+    shutdownHostAudioBridge();
     shutdownPulseLowLatency();
 #endif
     if(device_){
@@ -259,18 +272,6 @@ void SfxSystem::shutdown(){
         device_=0;
     }
     audioAvailable_=false;
-}
-
-void SfxSystem::flushAudioProbe(){
-    if(!audioProbe_) return;
-    std::vector<std::string> lines;
-    {
-        std::lock_guard<std::mutex> lock(probeMutex_);
-        if(probeLines_.empty()) return;
-        lines.swap(probeLines_);
-    }
-    std::ofstream out("audio_probe_m244.csv",std::ios::app);
-    for(const auto& line:lines) out << line << "\n";
 }
 
 void SfxSystem::setEnabled(bool enabled){
@@ -290,13 +291,6 @@ void SDLCALL SfxSystem::audioCallback(void* userdata,Uint8* stream,int len){
 
 void SfxSystem::renderCallback(std::int16_t* dst,std::size_t samples){
     std::lock_guard<std::mutex> lock(voicesMutex_);
-    if(audioProbe_ && probePlayArmed_.load(std::memory_order_acquire)){
-        std::uint64_t expected=0;
-        const auto now=perfUs();
-        if(probeFirstWriteUs_.compare_exchange_strong(expected,now,std::memory_order_acq_rel)){
-            probeFirstWriteFrames_.store(static_cast<std::uint64_t>(samples),std::memory_order_release);
-        }
-    }
     std::fill(dst,dst+samples,static_cast<std::int16_t>(0));
     const auto renderedBase=renderedSamples_.load(std::memory_order_relaxed);
     if(enabled_.load(std::memory_order_acquire)){
@@ -350,16 +344,28 @@ void SfxSystem::play(int soundId){
     if(soundId<0 || soundId>9 || !enabled_.load(std::memory_order_acquire)) return;
     const auto logicalStartUs=perfUs();
     const auto us=speaker_.sourceDurationUs(soundId);
-    const std::uint64_t probeSeq=audioProbe_ ? ++probeSequence_ : 0;
-    if(audioProbe_){
-        probeFirstWriteUs_.store(0,std::memory_order_release);
-        probeFirstWriteFrames_.store(0,std::memory_order_release);
-        probePlayArmed_.store(false,std::memory_order_release);
-    }
     if(!audioAvailable_){
         waitFallbackDurationUs(us);
         return;
     }
+
+#if !defined(_WIN32) && defined(U1_HAVE_LIBPULSE)
+    if(hostAudio_){
+        if(sendHostAudioSound(soundId)){
+            if(trace_){
+                std::cerr << "[SFXTRACE] t_us=" << (perfUs()-traceEpochCounter_)
+                          << " host_play id=" << soundId
+                          << " source_us=" << us << "\n";
+            }
+            waitFallbackDurationUs(us);
+            synchronousEndSample_.store(renderedSamples_.load(std::memory_order_acquire),
+                                        std::memory_order_release);
+            return;
+        }
+        waitFallbackDurationUs(us);
+        return;
+    }
+#endif
 
     const auto& clip=speaker_.clip(soundId);
     std::uint64_t startSample=0;
@@ -370,42 +376,7 @@ void SfxSystem::play(int soundId){
         sourceEndSample=startSample+static_cast<std::uint64_t>(clip.sourceSamples);
         synchronousEndSample_.store(sourceEndSample,std::memory_order_release);
         if(!clip.pcm.empty()) voices_.push_back(Voice{clip.pcm.data(),clip.pcm.size(),startSample});
-        if(audioProbe_) probePlayArmed_.store(true,std::memory_order_release);
     }
-
-    struct ProbePulseSnapshot {
-        int ok=0;
-        std::uint64_t latencyUs=0;
-        int negative=0;
-        std::uint64_t sinkUs=0;
-        std::uint64_t transportUs=0;
-        std::int64_t writeIndex=0;
-        std::int64_t readIndex=0;
-    };
-    auto probePulseSnapshot=[&](){
-        ProbePulseSnapshot snap;
-#if !defined(_WIN32) && defined(U1_HAVE_LIBPULSE)
-        if(audioProbe_ && pulseAudio_ && pulseAudio_->mainloop && pulseAudio_->stream){
-            pa_threaded_mainloop_lock(pulseAudio_->mainloop);
-            pa_usec_t latencyUs=0;
-            int negative=0;
-            if(pa_stream_get_latency(pulseAudio_->stream,&latencyUs,&negative)>=0){
-                snap.ok=1;
-                snap.latencyUs=static_cast<std::uint64_t>(latencyUs);
-                snap.negative=negative;
-            }
-            if(const auto* ti=pa_stream_get_timing_info(pulseAudio_->stream)){
-                snap.sinkUs=static_cast<std::uint64_t>(ti->sink_usec);
-                snap.transportUs=static_cast<std::uint64_t>(ti->transport_usec);
-                snap.writeIndex=ti->write_index;
-                snap.readIndex=ti->read_index;
-            }
-            pa_threaded_mainloop_unlock(pulseAudio_->mainloop);
-        }
-#endif
-        return snap;
-    };
-    const auto probePulseBegin=probePulseSnapshot();
 
     const auto traceFrames=(
 #ifdef _WIN32
@@ -451,45 +422,6 @@ void SfxSystem::play(int soundId){
     const auto logicalEndUs=logicalStartUs+static_cast<std::uint64_t>(us);
     while(perfUs()<logicalEndUs) SDL_Delay(0);
 
-    if(audioProbe_){
-        probePlayArmed_.store(false,std::memory_order_release);
-        const auto playEndUs=perfUs();
-        const auto firstWriteUs=probeFirstWriteUs_.load(std::memory_order_acquire);
-        const auto firstWriteFrames=probeFirstWriteFrames_.load(std::memory_order_acquire);
-        const auto probePulseEnd=probePulseSnapshot();
-        std::size_t firstNonZero=clip.pcm.size();
-        std::size_t firstAbs500=clip.pcm.size();
-        for(std::size_t i=0;i<clip.pcm.size();++i){
-            const int a=std::abs(static_cast<int>(clip.pcm[i]));
-            if(a>0 && firstNonZero==clip.pcm.size()) firstNonZero=i;
-            if(a>=500 && firstAbs500==clip.pcm.size()){ firstAbs500=i; break; }
-        }
-        const auto toUs=[](std::size_t sample){
-            return sample*1000000ull/static_cast<std::uint64_t>(PcSpeakerEmulator::SAMPLE_RATE);
-        };
-        std::ostringstream row;
-        row << probeSeq << ',' << soundId << ','
-            << (logicalStartUs-audioProbeEpochUs_) << ','
-            << (firstWriteUs?firstWriteUs-audioProbeEpochUs_:0) << ','
-            << (firstWriteUs>=logicalStartUs?firstWriteUs-logicalStartUs:0) << ','
-            << firstWriteFrames << ','
-            << (playEndUs-audioProbeEpochUs_) << ',' << us << ','
-            << startSample << ',' << sourceEndSample << ','
-            << renderedSamples_.load(std::memory_order_acquire) << ','
-            << probePulseBegin.ok << ',' << probePulseBegin.latencyUs << ',' << probePulseBegin.negative << ','
-            << probePulseBegin.sinkUs << ',' << probePulseBegin.transportUs << ','
-            << probePulseBegin.writeIndex << ',' << probePulseBegin.readIndex << ','
-            << probePulseEnd.ok << ',' << probePulseEnd.latencyUs << ',' << probePulseEnd.negative << ','
-            << probePulseEnd.sinkUs << ',' << probePulseEnd.transportUs << ','
-            << probePulseEnd.writeIndex << ',' << probePulseEnd.readIndex << ','
-            << (firstNonZero<clip.pcm.size()?toUs(firstNonZero):0) << ','
-            << (firstAbs500<clip.pcm.size()?toUs(firstAbs500):0);
-        {
-            std::lock_guard<std::mutex> lock(probeMutex_);
-            probeLines_.push_back(row.str());
-        }
-    }
-
     if(trace_){
         const auto rendered=renderedSamples_.load(std::memory_order_acquire);
         std::cerr << "[SFXTRACE] t_us=" << (perfUs()-traceEpochCounter_)
@@ -512,6 +444,157 @@ std::uint32_t SfxSystem::logicalDurationMs(int soundId) const{
 }
 
 #if !defined(_WIN32) && defined(U1_HAVE_LIBPULSE)
+namespace {
+bool fdWriteAll(int fd,const void* data,std::size_t bytes){
+    const auto* p=static_cast<const std::uint8_t*>(data);
+    while(bytes){
+        const auto n=::write(fd,p,bytes);
+        if(n>0){ p+=n; bytes-=static_cast<std::size_t>(n); continue; }
+        if(n<0 && errno==EINTR) continue;
+        return false;
+    }
+    return true;
+}
+
+bool fdReadLineTimeout(int fd,std::string& line,int timeoutMs){
+    line.clear();
+    const auto deadline=perfUs()+static_cast<std::uint64_t>(timeoutMs)*1000ull;
+    while(perfUs()<deadline){
+        const auto remainUs=deadline-perfUs();
+        pollfd pfd{fd,POLLIN,0};
+        const int waitMs=static_cast<int>(std::max<std::uint64_t>(1,std::min<std::uint64_t>(100,remainUs/1000ull)));
+        const int pr=::poll(&pfd,1,waitMs);
+        if(pr<0 && errno==EINTR) continue;
+        if(pr<=0) continue;
+        if(!(pfd.revents&POLLIN)){
+            if(pfd.revents&(POLLERR|POLLHUP|POLLNVAL)) return false;
+            continue;
+        }
+        char c=0;
+        const auto n=::read(fd,&c,1);
+        if(n<=0) return false;
+        if(c=='\n') return true;
+        if(c!='\r') line.push_back(c);
+        if(line.size()>4096) return false;
+    }
+    return false;
+}
+}
+
+bool SfxSystem::initHostAudioBridge(){
+    std::signal(SIGPIPE,SIG_IGN);
+    if(!std::getenv("WSL_INTEROP") && !std::getenv("WSL_DISTRO_NAME")) return false;
+    hostAudio_=std::make_unique<HostAudioBridgeState>();
+    auto* state=hostAudio_.get();
+    auto bridgeFail=[&](const std::string& why){
+        state->failure=why;
+        std::cerr << "PC speaker emulator: M245 host bridge: " << why << "\n";
+        std::ofstream out("audio_runtime_m245.txt",std::ios::trunc);
+        out << "driver=windows-host-waveout-bridge, status=fallback, reason=" << why << "\n";
+        shutdownHostAudioBridge();
+        return false;
+    };
+
+    int toChild[2]{-1,-1};
+    int fromChild[2]{-1,-1};
+    if(::pipe(toChild)!=0 || ::pipe(fromChild)!=0){
+        if(toChild[0]>=0){::close(toChild[0]);::close(toChild[1]);}
+        if(fromChild[0]>=0){::close(fromChild[0]);::close(fromChild[1]);}
+        state->failure="pipe() failed";
+        std::cerr << "PC speaker emulator: M245 host bridge: " << state->failure << "\n";
+        return false;
+    }
+
+    const pid_t pid=::fork();
+    if(pid<0){
+        state->failure="fork() failed";
+        ::close(toChild[0]);::close(toChild[1]);
+        ::close(fromChild[0]);::close(fromChild[1]);
+        std::cerr << "PC speaker emulator: M245 host bridge: " << state->failure << "\n";
+        return false;
+    }
+    if(pid==0){
+        ::dup2(toChild[0],STDIN_FILENO);
+        ::dup2(fromChild[1],STDOUT_FILENO);
+        ::close(toChild[0]);::close(toChild[1]);
+        ::close(fromChild[0]);::close(fromChild[1]);
+        const char* cmd="exec powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"$(wslpath -w ./tools/u1_audio_host.ps1)\"";
+        ::execl("/bin/sh","sh","-c",cmd,static_cast<char*>(nullptr));
+        _exit(127);
+    }
+
+    ::close(toChild[0]);
+    ::close(fromChild[1]);
+    state->child=pid;
+    state->writeFd=toChild[1];
+    state->readFd=fromChild[0];
+
+    std::string line;
+    if(!fdReadLineTimeout(state->readFd,line,10000) || line.rfind("READY ",0)!=0){
+        const std::string why=line.empty()?"helper READY timeout":("helper startup: "+line);
+        return bridgeFail(why);
+    }
+
+    const char magic[4]={'U','1','A','1'};
+    const std::int32_t count=10;
+    if(!fdWriteAll(state->writeFd,magic,sizeof(magic)) ||
+       !fdWriteAll(state->writeFd,&count,sizeof(count))){
+        return bridgeFail("helper clip header write failed");
+    }
+    for(int id=0;id<10;++id){
+        const auto& clip=speaker_.clip(id);
+        const auto frames=static_cast<std::int32_t>(clip.pcm.size());
+        if(!fdWriteAll(state->writeFd,&frames,sizeof(frames)) ||
+           (!clip.pcm.empty() && !fdWriteAll(state->writeFd,clip.pcm.data(),clip.pcm.size()*sizeof(std::int16_t)))){
+            return bridgeFail("helper PCM upload failed");
+        }
+    }
+    if(!fdReadLineTimeout(state->readFd,line,5000) || line!="LOADED"){
+        const std::string why=line.empty()?"helper LOADED timeout":("helper load: "+line);
+        return bridgeFail(why);
+    }
+    return true;
+}
+
+bool SfxSystem::sendHostAudioSound(int soundId){
+    if(!hostAudio_ || hostAudio_->writeFd<0 || soundId<0 || soundId>9) return false;
+    const std::uint8_t cmd[2]={0x01u,static_cast<std::uint8_t>(soundId)};
+    std::lock_guard<std::mutex> lock(hostAudio_->writeMutex);
+    if(fdWriteAll(hostAudio_->writeFd,cmd,sizeof(cmd))) return true;
+    hostAudio_->failure="host audio command pipe closed";
+    std::ofstream out("audio_runtime_m245.txt",std::ios::app);
+    out << hostAudio_->failure << "\n";
+    return false;
+}
+
+void SfxSystem::shutdownHostAudioBridge(){
+    if(!hostAudio_) return;
+    auto* state=hostAudio_.get();
+    if(state->writeFd>=0){
+        const std::uint8_t quit=0xffu;
+        ::write(state->writeFd,&quit,1);
+        ::close(state->writeFd);
+        state->writeFd=-1;
+    }
+    if(state->readFd>=0){ ::close(state->readFd); state->readFd=-1; }
+    if(state->child>0){
+        int status=0;
+        bool done=false;
+        for(int i=0;i<50;++i){
+            const pid_t r=::waitpid(state->child,&status,WNOHANG);
+            if(r==state->child){ done=true; break; }
+            if(r<0){ done=true; break; }
+            ::usleep(10000);
+        }
+        if(!done){
+            ::kill(state->child,SIGTERM);
+            ::waitpid(state->child,&status,0);
+        }
+        state->child=-1;
+    }
+    hostAudio_.reset();
+}
+
 bool SfxSystem::initPulseLowLatency(){
     pulseAudio_=std::make_unique<PulseAudioState>();
     auto* state=pulseAudio_.get();
