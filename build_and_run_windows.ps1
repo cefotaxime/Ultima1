@@ -2,7 +2,8 @@ param(
     [Parameter(Mandatory=$true)][string]$UltimaZip,
     [Parameter(Mandatory=$true)][string]$H12,
     [Parameter(Mandatory=$true)][string]$Robo,
-    [switch]$Trace
+    [switch]$Trace,
+    [switch]$ForceSdl
 )
 $ErrorActionPreference = 'Stop'
 $Here = Split-Path -Parent $MyInvocation.MyCommand.Path
