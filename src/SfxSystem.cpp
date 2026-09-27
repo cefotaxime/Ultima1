@@ -31,14 +31,13 @@
 namespace {
 constexpr std::uint32_t REQUESTED_SAMPLES=64;
 constexpr std::uint32_t PULSE_TARGET_LATENCY_US=5000;
-constexpr std::uint32_t PULSE_MAX_BURST_FRAMES=240; // 5 ms @ 48 kHz
 
 void audioDiagReset(){
-    std::ofstream out("audio_runtime_m240.txt",std::ios::trunc);
-    out << "M240 canonical runtime: WSL/Linux direct PulseAudio with no idle-silence prefill; SDL is fallback\n";
+    std::ofstream out("audio_runtime_m238.txt",std::ios::trunc);
+    out << "M238 canonical runtime: WSL/Linux direct PulseAudio preferred; SDL is fallback\n";
 }
 void audioDiagAppend(const std::string& line){
-    std::ofstream out("audio_runtime_m240.txt",std::ios::app);
+    std::ofstream out("audio_runtime_m238.txt",std::ios::app);
     out << line << "\n";
 }
 
@@ -174,7 +173,7 @@ bool SfxSystem::init(){
             ", negotiated_tlength_us="+std::to_string(tlengthUs)+
             ", negotiated_minreq_us="+std::to_string(minreqUs)+
             ", source-synchronous=M235-callback-clock"+
-            ", transport=M240-pulse-read-clock-no-idle-prefill"+
+            ", transport=M238-direct-pulse-write-callback"+
             ", app-queue=none"+
             ", trace="+(trace_?"on":"off");
         std::cerr << line << "\n";
@@ -182,7 +181,7 @@ bool SfxSystem::init(){
         return true;
     }
     if(pulseAudio_ && !pulseAudio_->failure.empty()){
-        const std::string line=std::string("M240 direct PulseAudio unavailable: ")+pulseAudio_->failure+
+        const std::string line=std::string("M238 direct PulseAudio unavailable: ")+pulseAudio_->failure+
             "; falling back to SDL/PulseAudio";
         std::cerr << "PC speaker emulator: " << line << "\n";
         audioDiagAppend(line);
@@ -319,24 +318,6 @@ void SfxSystem::play(int soundId){
     const auto& clip=speaker_.clip(soundId);
     std::uint64_t startSample=0;
     std::uint64_t sourceEndSample=0;
-#if !defined(_WIN32) && defined(U1_HAVE_LIBPULSE)
-    if(pulseAudio_){
-        pa_threaded_mainloop_lock(pulseAudio_->mainloop);
-        startSample=pulsePlayedSampleLocked();
-        renderedSamples_.store(startSample,std::memory_order_release);
-        {
-            std::lock_guard<std::mutex> lock(voicesMutex_);
-            voices_.erase(std::remove_if(voices_.begin(),voices_.end(),[&](const Voice& v){
-                return v.startSample+v.samples<=startSample;
-            }),voices_.end());
-            sourceEndSample=startSample+static_cast<std::uint64_t>(clip.sourceSamples);
-            synchronousEndSample_.store(sourceEndSample,std::memory_order_release);
-            if(!clip.pcm.empty()) voices_.push_back(Voice{clip.pcm.data(),clip.pcm.size(),startSample});
-        }
-        pulseWriteActiveLocked(true,static_cast<std::size_t>(-1));
-        pa_threaded_mainloop_unlock(pulseAudio_->mainloop);
-    } else
-#endif
     {
         std::lock_guard<std::mutex> lock(voicesMutex_);
         startSample=renderedSamples_.load(std::memory_order_acquire);
@@ -381,7 +362,7 @@ void SfxSystem::play(int soundId){
     }
 
     // OUT.EXE sound() is synchronous. Tie its return to the audio render
-    // consumption clock; M240 changes only the host output transport.
+    // consumption clock; M238 changes only the host output transport.
     waitRenderedThrough(sourceEndSample,us+1000000u);
     // A direct Pulse write callback may be asked for several milliseconds in a
     // single burst. OUT.EXE sound() still blocks for its source routine span,
@@ -411,57 +392,6 @@ std::uint32_t SfxSystem::logicalDurationMs(int soundId) const{
 }
 
 #if !defined(_WIN32) && defined(U1_HAVE_LIBPULSE)
-std::uint64_t SfxSystem::pulsePlayedSampleLocked() const{
-    const auto produced=renderedSamples_.load(std::memory_order_acquire);
-    if(!pulseAudio_ || !pulseAudio_->stream) return produced;
-    pa_usec_t latencyUs=0;
-    int negative=0;
-    if(pa_stream_get_latency(pulseAudio_->stream,&latencyUs,&negative)<0) return produced;
-    const std::uint64_t frames=(static_cast<std::uint64_t>(latencyUs)*
-        PcSpeakerEmulator::SAMPLE_RATE+999999ull)/1000000ull;
-    if(negative) return produced+frames;
-    return produced>frames ? produced-frames : 0ull;
-}
-
-std::size_t SfxSystem::pulseWriteActiveLocked(bool reanchor,std::size_t writableHintBytes){
-    if(!pulseAudio_ || !pulseAudio_->stream) return 0;
-    const auto base=renderedSamples_.load(std::memory_order_acquire);
-    std::uint64_t activeEnd=base;
-    {
-        std::lock_guard<std::mutex> lock(voicesMutex_);
-        for(const auto& v:voices_)
-            activeEnd=std::max(activeEnd,v.startSample+static_cast<std::uint64_t>(v.samples));
-    }
-    if(activeEnd<=base) return 0;
-
-    std::size_t frames=static_cast<std::size_t>(
-        std::min<std::uint64_t>(activeEnd-base,PULSE_MAX_BURST_FRAMES));
-    std::size_t bytes=frames*sizeof(std::int16_t);
-    if(writableHintBytes!=static_cast<std::size_t>(-1)) bytes=std::min(bytes,writableHintBytes);
-    if(!reanchor){
-        const std::size_t serverWritable=pa_stream_writable_size(pulseAudio_->stream);
-        if(serverWritable==static_cast<std::size_t>(-1)) return 0;
-        bytes=std::min(bytes,serverWritable);
-    }
-    bytes-=bytes%sizeof(std::int16_t);
-    if(bytes==0) return 0;
-
-    void* data=nullptr;
-    std::size_t blockBytes=bytes;
-    if(pa_stream_begin_write(pulseAudio_->stream,&data,&blockBytes)<0 || !data) return 0;
-    blockBytes=std::min(blockBytes,bytes);
-    blockBytes-=blockBytes%sizeof(std::int16_t);
-    if(blockBytes==0){
-        pa_stream_cancel_write(pulseAudio_->stream);
-        return 0;
-    }
-    const std::size_t blockFrames=blockBytes/sizeof(std::int16_t);
-    renderCallback(static_cast<std::int16_t*>(data),blockFrames);
-    const auto mode=reanchor ? PA_SEEK_RELATIVE_ON_READ : PA_SEEK_RELATIVE;
-    if(pa_stream_write(pulseAudio_->stream,data,blockBytes,nullptr,0,mode)<0) return 0;
-    return blockFrames;
-}
-
 bool SfxSystem::initPulseLowLatency(){
     pulseAudio_=std::make_unique<PulseAudioState>();
     auto* state=pulseAudio_.get();
@@ -470,12 +400,8 @@ bool SfxSystem::initPulseLowLatency(){
     auto cleanup=[&](){
         if(state->mainloop && mainloopStarted) pa_threaded_mainloop_lock(state->mainloop);
         if(state->stream){
-            pa_stream_set_write_callback(state->stream,[](pa_stream*,std::size_t nbytes,void* userdata){
-        auto* self=static_cast<SfxSystem*>(userdata);
-        if(!self || nbytes<sizeof(std::int16_t)) return;
-        self->pulseWriteActiveLocked(false,nbytes);
-    },this);
-    pa_stream_set_underflow_callback(state->stream,nullptr,nullptr);
+            pa_stream_set_write_callback(state->stream,nullptr,nullptr);
+            pa_stream_set_underflow_callback(state->stream,nullptr,nullptr);
             pa_stream_disconnect(state->stream);
             pa_stream_unref(state->stream);
             state->stream=nullptr;
@@ -503,7 +429,7 @@ bool SfxSystem::initPulseLowLatency(){
     state->mainloop=pa_threaded_mainloop_new();
     if(!state->mainloop) return fail("pa_threaded_mainloop_new failed");
     auto* api=pa_threaded_mainloop_get_api(state->mainloop);
-    state->context=pa_context_new(api,"Ultima I KR M240");
+    state->context=pa_context_new(api,"Ultima I KR M238");
     if(!state->context) return fail("pa_context_new failed");
 
     pa_context_set_state_callback(state->context,[](pa_context*,void* userdata){
@@ -546,23 +472,16 @@ bool SfxSystem::initPulseLowLatency(){
         auto* self=static_cast<SfxSystem*>(userdata);
         if(!self || !stream || nbytes<sizeof(std::int16_t)) return;
 
-        // M239: do not keep the Pulse server buffer full of zero PCM while the
-        // game is idle. A newly scheduled sound must not sit behind silence
-        // that was accepted by the server before sound() was called.
-        {
-            std::lock_guard<std::mutex> lock(self->voicesMutex_);
-            if(self->voices_.empty()) return;
-        }
-
+        // Render straight into PulseAudio's writable memblock. This avoids both
+        // SDL's mix buffer and a per-callback heap allocation/copy. The block is
+        // only the server-requested immediate write span, not a future PCM FIFO.
         void* data=nullptr;
         std::size_t writable=nbytes;
         if(pa_stream_begin_write(stream,&data,&writable)<0 || !data) return;
         writable-=writable%sizeof(std::int16_t);
-        if(writable==0){ pa_stream_cancel_write(stream); return; }
+        if(writable==0) return;
         const std::size_t frames=writable/sizeof(std::int16_t);
         self->renderCallback(static_cast<std::int16_t*>(data),frames);
-        // pulseKick() rebases the stale write cursor after idle. Normal
-        // callbacks append after that prime block.
         if(pa_stream_write(stream,data,writable,nullptr,0,PA_SEEK_RELATIVE)<0){
             // PulseAudio will transition the stream state on a hard failure;
             // the callback must not block or manufacture retry delay here.
@@ -576,13 +495,11 @@ bool SfxSystem::initPulseLowLatency(){
     pa_buffer_attr attr{};
     attr.maxlength=static_cast<std::uint32_t>(-1);
     attr.tlength=pa_usec_to_bytes(PULSE_TARGET_LATENCY_US,&ss);
-    // No server-side prebuffer gate after an idle underrun.
-    attr.prebuf=0;
+    attr.prebuf=static_cast<std::uint32_t>(-1);
     attr.minreq=static_cast<std::uint32_t>(-1);
     attr.fragsize=static_cast<std::uint32_t>(-1);
     const auto flags=static_cast<pa_stream_flags_t>(
-        PA_STREAM_ADJUST_LATENCY | PA_STREAM_AUTO_TIMING_UPDATE |
-        PA_STREAM_INTERPOLATE_TIMING | PA_STREAM_START_CORKED);
+        PA_STREAM_ADJUST_LATENCY | PA_STREAM_AUTO_TIMING_UPDATE | PA_STREAM_INTERPOLATE_TIMING);
 
     if(pa_stream_connect_playback(state->stream,nullptr,&attr,flags,nullptr,nullptr)<0){
         const std::string e=pa_strerror(pa_context_errno(state->context));
@@ -602,26 +519,6 @@ bool SfxSystem::initPulseLowLatency(){
 
     if(const auto* got=pa_stream_get_buffer_attr(state->stream)) state->negotiated=*got;
     else state->negotiated=attr;
-
-    struct UncorkWait { PulseAudioState* state; bool done=false; int success=0; };
-    UncorkWait uncork{state};
-    pa_operation* uncorkOp=pa_stream_cork(state->stream,0,[](pa_stream*,int success,void* userdata){
-        auto* w=static_cast<UncorkWait*>(userdata);
-        w->success=success;
-        w->done=true;
-        pa_threaded_mainloop_signal(w->state->mainloop,0);
-    },&uncork);
-    if(!uncorkOp){
-        pa_threaded_mainloop_unlock(state->mainloop);
-        return fail("pa_stream_cork(uncork) failed");
-    }
-    while(!uncork.done && pa_operation_get_state(uncorkOp)==PA_OPERATION_RUNNING)
-        pa_threaded_mainloop_wait(state->mainloop);
-    pa_operation_unref(uncorkOp);
-    if(!uncork.success){
-        pa_threaded_mainloop_unlock(state->mainloop);
-        return fail("PulseAudio initial uncork rejected");
-    }
     pa_threaded_mainloop_unlock(state->mainloop);
 
     spec_=SDL_AudioSpec{};
