@@ -12,3 +12,5 @@ for q in ['IMPULSE_QUALITY=150','IMPULSE_OS=32','SOUND4_INTERVALS_48K']:
     assert q in pc,q
 assert 'SfxSystem();' in h
 print('M241 rollback audio audit OK')
+
+# Later milestones may add a return fence, but must not revive the rejected M239/M240 rewrite path.

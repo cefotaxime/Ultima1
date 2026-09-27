@@ -306,6 +306,53 @@ void SfxSystem::waitRenderedThrough(std::uint64_t endSample,std::uint32_t watchd
     }
 }
 
+#if !defined(_WIN32) && defined(U1_HAVE_LIBPULSE)
+void SfxSystem::waitPulsePlayedThrough(std::uint64_t endSample,std::uint32_t watchdogUs){
+    if(!pulseAudio_ || !pulseAudio_->mainloop || !pulseAudio_->stream) return;
+    const auto watchdogEnd=perfUs()+static_cast<std::uint64_t>(watchdogUs);
+    bool sawTiming=false;
+    std::uint64_t lastPlayed=0;
+    pa_usec_t lastLatencyUs=0;
+    int lastNegative=0;
+
+    while(enabled_.load(std::memory_order_acquire)){
+        pa_usec_t latencyUs=0;
+        int negative=0;
+        int latencyResult=-1;
+        pa_threaded_mainloop_lock(pulseAudio_->mainloop);
+        if(pa_stream_get_state(pulseAudio_->stream)==PA_STREAM_READY)
+            latencyResult=pa_stream_get_latency(pulseAudio_->stream,&latencyUs,&negative);
+        pa_threaded_mainloop_unlock(pulseAudio_->mainloop);
+
+        if(latencyResult>=0){
+            sawTiming=true;
+            const auto produced=renderedSamples_.load(std::memory_order_acquire);
+            const std::uint64_t latencyFrames=(static_cast<std::uint64_t>(latencyUs)*
+                PcSpeakerEmulator::SAMPLE_RATE+999999ull)/1000000ull;
+            const std::uint64_t played=negative ? produced+latencyFrames
+                : (produced>latencyFrames ? produced-latencyFrames : 0ull);
+            lastPlayed=played;
+            lastLatencyUs=latencyUs;
+            lastNegative=negative;
+            if(played>=endSample) return;
+        }else if(sawTiming){
+            return;
+        }else{
+            return;
+        }
+
+        if(perfUs()>=watchdogEnd){
+            std::cerr << "PC speaker emulator: Pulse playback fence stalled at "
+                      << lastPlayed << " waiting for " << endSample
+                      << ", latency_us=" << lastLatencyUs
+                      << ", negative=" << lastNegative << "\n";
+            return;
+        }
+        SDL_Delay(0);
+    }
+}
+#endif
+
 void SfxSystem::play(int soundId){
     if(soundId<0 || soundId>9 || !enabled_.load(std::memory_order_acquire)) return;
     const auto logicalStartUs=perfUs();
@@ -361,9 +408,15 @@ void SfxSystem::play(int soundId){
                   << " app_queue_samples=0\n";
     }
 
-    // OUT.EXE sound() is synchronous. Tie its return to the audio render
-    // consumption clock; M238 changes only the host output transport.
+    // OUT.EXE sound() is synchronous. First preserve the M241 callback-clock
+    // fence. On the canonical direct-Pulse WSL path, then wait until Pulse's
+    // measured playback/read cursor has actually crossed the source end. This
+    // changes only when the game resumes; it never seeks, rewrites, or resamples
+    // PCM, so the approved M236/M241 sound character remains byte-identical.
     waitRenderedThrough(sourceEndSample,us+1000000u);
+#if !defined(_WIN32) && defined(U1_HAVE_LIBPULSE)
+    if(pulseAudio_) waitPulsePlayedThrough(sourceEndSample,1000000u);
+#endif
     // A direct Pulse write callback may be asked for several milliseconds in a
     // single burst. OUT.EXE sound() still blocks for its source routine span,
     // so do not let a fast producer callback shorten that original duration.
