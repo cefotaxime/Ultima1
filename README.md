@@ -1,10 +1,11 @@
-# Ultima I Korean Localization — M251 dungeon combat SFX completion
+# Ultima I Korean Localization — M252 HyperJump timing restoration
 
-M251 preserves the validated M246 audio transport and restores the missing second-stage dungeon combat sounds recovered directly from OUT.EXE.
+M252 removes the final period from `하이퍼점프 완료` and restores the source speed-dependent acceleration/deceleration pacing recovered from SPACE.EXE.
 
-- Dungeon player Attack: sound(7) on every valid attack; successful hit adds sound(2).
-- Dungeon monster attack: sound(3) on every adjacent attack attempt; normal damaging hit adds sound(2).
-- Misses keep only the attack-start sound.
-- Armour destruction, gremlin food theft, and mental attack retain sound(3) but do not add sound(2).
+- HyperJump phase 1 accelerates from the original speed through speed 8.
+- Each phase-1 update calls source routine 0x3530, which performs the front-view update and then waits by the DS:0C9E speed table: speeds 0..8 => retrace counts [0,8,7,6,5,4,3,2,1].
+- The retrace helper at 0x5EF7 counts EGA/VGA vertical retraces; mode 0Dh is 70 Hz.
+- HyperJump phase 4 decelerates from speed 8 toward the original speed and explicitly applies the same retrace wait after each update.
+- The 201-call and 200-call middle starfield phases remain unchanged.
 
-The full runnable package remains the canonical ZIP artifact.
+The validated M246 WASAPI/PCM transport remains unchanged.
