@@ -1,12 +1,13 @@
-# Ultima I Korean Localization — M247 SPACE key completion
+# Ultima I Korean Localization — M249 command-SFX matrix completion
 
-M247 keeps the validated M246 Windows-host event-driven WASAPI audio path unchanged.
+M249 preserves the user-approved M246 WASAPI/PCM transport and applies the remaining confirmed environment-specific command sound rules.
 
-SPACE input fixes:
-- N now toggles the shared Noise state and immediately applies it to SfxSystem.
-- Z now opens the existing Ztats/status-inventory presentation.
-- While Ztats owns input, continuous SPACE top/front flight timing is frozen, preserving the original pause behavior.
-- Existing recovered SPACE controls remain unchanged: arrows, V View, I Sector Scan, H HyperJump, F Fire, front-view speeds 1..8, Space as top-view Pass/front-view Center, and arrow-key dock ship selection.
-- Q/save remains unavailable in SPACE; saving is an outside-world-only command.
+- H now BEEPs outside SPACE: field, castle/town, dungeon.
+- Q BEEPs outside the field: castle/town, dungeon, SPACE. Field remains the only save/quit context.
+- Castle/town Steal BEEPs when not on a storeroom marker.
+- Castle/town Unlock BEEPs when no prison-door marker is present.
+- Valid dungeon Attack now emits the normal attack launch sound(7); range-zero weapons retain sound(1).
+- Dungeon Klimb/Open/Unlock BEEP when ladder/coffin/chest is absent.
+- Dungeon chest trap remains the separate trap sound(2).
 
 The full runnable source/package remains the canonical ZIP artifact; this GitHub repository is still the audio-focused subset.
