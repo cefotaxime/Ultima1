@@ -34,8 +34,10 @@ assert 'if(mondain.introActive){' in main
 assert 'if(k==SDLK_SPACE || k==SDLK_RETURN)' in main
 assert 'mondainSystem.acknowledgeIntro(mondain);' in main
 assert 'const bool mondainIntroBlocking=mondain.active && mondain.introActive;' in main
-assert 'if(!mondainIntroBlocking) drawFrames(r);' in main
-assert 'if(!mondainIntroBlocking)\n            drawLog' in main
+assert 'if(!mondainIntroBlocking){' in main
+assert 'drawFrames(r);' in main
+assert 'if(!space.active) drawReadyPopup(r,font,commands,p);' in main
+assert 'drawLog(r,font,original,log,modalInput,' in main
 
 enter=mondain[mondain.index('void MondainSystem::enter'):mondain.index('bool MondainSystem::move')]
 for old in [
