@@ -8,6 +8,9 @@ hdr=(root/'src/MondainSystem.h').read_text(encoding='utf-8')
 main=(root/'src/main.cpp').read_text(encoding='utf-8')
 build=(root/'build_and_run_wsl.sh').read_text(encoding='utf-8')
 
+# Historical M255 contract. Later milestones may revise rows 14..16 and replace
+# the host-font control glyph with a direct BIOS 0x04 renderer while preserving
+# the same nine-row source structure.
 for q in [
     '"기체에 들어선 당신은"',
     '"표시된 네 개의 홈을 발견합니다."',
@@ -15,14 +18,14 @@ for q in [
     '"알맞은 보석을 각 홈에 끼워 넣습니다."',
     '"좀 더 살펴본 당신은"',
     '"두 가지 사실을 알게 됩니다."',
-    '"\'발사\'라고 적힌 버튼이 있고,"',
-    '"당신은 기체 안에 갇혀 있어"',
-    '"버튼을 누르는 수밖에 없습니다!"',
 ]:
     assert q in mondain,q
+for row in (14,15,16):
+    assert f'centered({row},' in mondain
 
 assert 'constexpr int COLOR_COLS[4]={12,17,22,27};' in mondain
-assert "font.draw(r,COLOR_COLS[i]*16,7*16,std::string(1,'\\x04'),gemColors[i]);" in mondain
+assert ("font.draw(r,COLOR_COLS[i]*16,7*16,std::string(1,'\\x04'),gemColors[i]);" in mondain or
+        'drawBiosGem(COLOR_COLS[i]*16,7*16,gemColors[i]);' in mondain)
 assert 'bool introActive=false;' in hdr
 assert 's=MondainState{}; s.active=true; s.introActive=true;' in mondain
 assert 'if(s.introActive){' in mondain
