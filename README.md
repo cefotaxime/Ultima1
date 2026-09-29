@@ -1,5 +1,13 @@
-# Ultima I Korean Localization — M255 Time Machine first-page localization
+# Ultima I Korean Localization — M256 Time Machine popup restoration
 
-M255 restores `MONDAIN.EXE`'s first blocking Time Machine narration page as a full-screen presentation and applies the approved Korean nine-row translation. The source `R/G/B/W` row is replaced by `붉은색 / 녹색 / 푸른색 / 흰색` at the original colour anchors; `붉은색` is positioned so its `은` syllable occupies the original `R` column. The four coloured gem marks remain on the source row below.
+M256 corrects the first Time Machine presentation in `MONDAIN.EXE`.
 
-The page preserves the source Space/Return blocking wait. While it is visible, the normal frame, status HUD, command log, and Mondain AI are suppressed. M254 death/resurrection timing and all validated M246–M253 behavior remain unchanged.
+- Restore the original framed modal instead of clearing the entire screen.
+- Exact source geometry: black clear `(22,15)..(300,143)`, blue outline `(25,18)..(297,140)`.
+- Keep the normal Ultima outer frame, command pane and status pane visible.
+- Center the approved Korean prose inside the popup.
+- Preserve source RGBW anchors at BIOS columns 12/17/22/27; `은` in `붉은색` begins at the original `R` column.
+- Put the Space/Return wait prompt in the normal lower command pane.
+- Delay the post-page Mondain handoff text until the modal is dismissed.
+
+M254 death/resurrection timing, M253 HyperJump blocking-row behavior, M252 HyperJump timing and M246 audio transport are unchanged.
