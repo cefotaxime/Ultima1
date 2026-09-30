@@ -1,5 +1,5 @@
-# Ultima I Korean Localization — M260
+# Ultima I Korean Localization — M260 hotfix1
 
-M260 localizes the Mondain final encounter and restores its original command-pane/modal split for victory and defeat. Defeat prints the death notice in the command pane before the framed defeat popup; victory keeps the lethal-hit/death messages in the command pane and shows the framed `승리하였습니다!` popup before entering the NIF ending phase.
+M260 localizes the Mondain final encounter and restores its original command-pane/modal split for victory and defeat.
 
-The approved Mondain combat, spell, gem, and Inform/Search strings are applied. Time Machine post-launch page 1 is also updated to the approved four-line first paragraph with exactly one blank row between paragraphs.
+Hotfix1 fixes a stale historical M164 audit that incorrectly required Mondain's miss message to use the generic local-combat wording. Mondain intentionally uses the approved `빗맞음!`; generic local combat remains `공격이 빗나갑니다!`. No gameplay code is changed by the hotfix.
