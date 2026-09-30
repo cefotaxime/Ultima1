@@ -1,7 +1,5 @@
-# Ultima I Korean Localization — M259 hotfix3
+# Ultima I Korean Localization — M260
 
-M259 fixes Mondain arena slot mapping and the Time Machine intro. Hotfix3 fixes the relocation audit itself.
+M260 localizes the Mondain final encounter and restores its original command-pane/modal split for victory and defeat. Defeat prints the death notice in the command pane before the framed defeat popup; victory keeps the lethal-hit/death messages in the command pane and shows the framed `승리하였습니다!` popup before entering the NIF ending phase.
 
-The launcher removes any old `build/` tree before CMake configure. After configure/build, `CMakeCache.txt` is expected to exist; the relocation audit now verifies that the cache belongs to the current extracted source tree via `CMAKE_HOME_DIRECTORY` instead of incorrectly requiring the cache to be absent.
-
-The canonical final marker remains `[audit] All audits through M259 OK`, with `M259 hotfix3` reported separately.
+The approved Mondain combat, spell, gem, and Inform/Search strings are applied. Time Machine post-launch page 1 is also updated to the approved four-line first paragraph with exactly one blank row between paragraphs.
