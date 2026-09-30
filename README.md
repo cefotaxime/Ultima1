@@ -1,5 +1,7 @@
-# Ultima I Korean Localization — M259 hotfix2
+# Ultima I Korean Localization — M259 hotfix3
 
-M259 fixes Mondain arena slot mapping and Time Machine intro sequencing. Hotfix2 fixes a launcher regression introduced by hotfix1: the final audit marker again uses the canonical numeric form `[audit] All audits through M259 OK`, while the package revision is printed on a separate line. This keeps the historical M258 startup audit compatible.
+M259 fixes Mondain arena slot mapping and the Time Machine intro. Hotfix3 fixes the relocation audit itself.
 
-The distributable contains no CMake build tree or cache, so it can be unpacked and built from any WSL path.
+The launcher removes any old `build/` tree before CMake configure. After configure/build, `CMakeCache.txt` is expected to exist; the relocation audit now verifies that the cache belongs to the current extracted source tree via `CMAKE_HOME_DIRECTORY` instead of incorrectly requiring the cache to be absent.
+
+The canonical final marker remains `[audit] All audits through M259 OK`, with `M259 hotfix3` reported separately.
