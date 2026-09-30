@@ -1,7 +1,7 @@
-# Ultima I Korean Localization — M257 Time Machine backdrop/gem restoration
+# Ultima I Korean Localization — M258 Time Machine four-page intro
 
-M257 keeps the M256 framed Time Machine modal while restoring the DOS transition semantics around it: the existing overworld framebuffer remains visible behind the popup instead of the upper viewport being cleared to black. The backing view is frozen while the modal waits for Space/Return.
+M258 restores the complete four-page `MONDAIN.EXE` Time Machine launch sequence. M257 incorrectly dismissed the intro after page 1, skipped the middle narration, pushed the final lines into the lower log, and exposed the Mondain arena three pages too early.
 
-The final three Korean rows are updated to the approved `첫째는... / 둘째는... / 그 버튼을...` wording and remain centered. The four RGBW markers now use a full 8x8 BIOS character-4 diamond at 2x presentation (16x16 host cell), matching `MONDAIN.EXE`'s BIOS teletype path and EGA colours 12/10/9/15.
+Space/Return now advances page 1 -> page 2 -> page 3 -> page 4. Only after page 4 is dismissed does the final Mondain encounter begin. All pages remain framed popups over the frozen inherited backing view; page 1 keeps the 16x16 BIOS gem markers and approved RGBW alignment.
 
-Historical Ready/audit contracts remain intact.
+Pages 2-4 use the user-approved Korean translation and centered popup layout. Historical M23 now verifies the entire four-page DOS dispatcher, and M255-M257 audits were kept forward-compatible.
