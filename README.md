@@ -1,3 +1,17 @@
+# HF78 — Quest Status (Shift-Q)
+
+Windows HF78 build: `Ultima1_KR_Work/packages/HF78_QUEST_STATUS_KOREAN_TITLE.zip` on the connected PC. Source changes are provided as [HF78/hf78_quest_changes.patch](HF78/hf78_quest_changes.patch) against the HF77 source; HF77 itself is based on HF76 with a Shift-Q key interception (no more legacy Q Save fallthrough).
+
+- Shift-Q opens a modal quest journal; Space closes it.
+- An empty journal displays `수락한 퀘스트가 없습니다!`.
+- Accepted quests appear in receipt order with castle names, goal descriptions, aligned dot leaders, and one of `수락`, `성공`, `완료`.
+- Quest journal uses `PLAYER*.U1.krquests` alongside original DOS save files and never modifies the DOS save format.
+- Window title: `울티마 I 한국어판`.
+
+**Validation:** MinGW Windows build succeeded; full interactive gameplay verification remains pending.
+
+---
+
 # HF76 — Command help and Korean IME support
 
 **Build source:** Use all source and support files from `HF75/`, replacing **only** `HF75/src/main.cpp` with `HF76/src/main.cpp`.
