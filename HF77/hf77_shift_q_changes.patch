@@ -1,0 +1,16 @@
+--- HF76/src/main.cpp
++++ HF77/src/main.cpp
+@@ -2372,6 +2372,13 @@
+                 !(mondain.active && mondain.introActive) &&
+                 !(mondain.active && mondain.victorious);
+ 
++            if(shifted && k==SDLK_q){
++                // Reserved host-only Quest Status key.  Never fall through to
++                // the original unshifted Q / Save Game command.
++                if(hostExtensionCommandReady)
++                    log.pushCommand("[퀘스트 현황] 아직 구현되지 않았습니다.");
++                continue;
++            }
+             if(hostExtensionCommandReady && shifted && k==SDLK_h){
+                 log.pushCommand("[커맨드 도움말]");
+                 commandHelpPopup=true;
