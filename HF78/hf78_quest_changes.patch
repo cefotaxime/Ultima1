@@ -1,0 +1,187 @@
+--- HF77/src/main.cpp
++++ HF78/src/main.cpp
+@@ -1177,6 +1177,93 @@
+     font.draw(r,slotX+sidePad,y,title,EGA_LIGHT_CYAN);
+ }
+ 
++
++// HF78: quest journal remains outside the 820-byte DOS save record.
++struct QuestJournal {
++    std::vector<int> order;
++    std::array<int,9> state{}; // 0 unreceived, 1 accepted, 2 success, 3 complete
++    std::array<std::uint16_t,9> previous{};
++    std::string path;
++    void attach(const std::string& save,const PlayerSave& p){
++        if(path==save) return;
++        path=save;
++        order.clear();state.fill(0);
++        std::ifstream in(save+".krquests");
++        int id=0,stage=0;
++        if(in){
++            while(in>>id>>stage){
++                if(id>=1 && id<=8 && stage>=1 && stage<=3 && state[id]==0){
++                    order.push_back(id);state[id]=stage;
++                }
++            }
++        }
++        // Preserve existing active quests in older DOS save slots.
++        for(int i=1;i<=8;++i)
++            if(p.kingQuest[i]!=0 && state[i]==0){
++                order.push_back(i);
++                state[i]=(p.kingQuest[i]==1?2:1);
++            }
++        previous=p.kingQuest;
++    }
++    void update(const PlayerSave& p){
++        if(path.empty())return;
++        bool changed=false;
++        for(int i=1;i<=8;++i){
++            const auto now=p.kingQuest[i], old=previous[i];
++            if(now==old)continue;
++            if(now==0xFFFF && state[i]==0){order.push_back(i);state[i]=1;changed=true;}
++            if(now==1 && state[i]!=2){if(state[i]==0)order.push_back(i);state[i]=2;changed=true;}
++            if(now==0 && old==1 && state[i]!=3){state[i]=3;changed=true;}
++            previous[i]=now;
++        }
++        if(changed){
++            std::ofstream out(path+".krquests",std::ios::trunc);
++            for(int id:order)out<<id<<" "<<state[id]<<"\n";
++        }
++    }
++};
++void drawQuestStatusPopup(SDL_Renderer* r,const PixelFont& font,const QuestJournal& q){
++    fillSourceRect(r,8,8,304,144,BLACK);
++    fillSourceRect(r,7,8,1,143,WHITE);
++    fillSourceRect(r,312,8,1,143,WHITE);
++    fillSourceRect(r,8,151,304,1,WHITE);
++    drawZtatsFramedTitle(r,font,"퀘스트 현황");
++    static constexpr const char* CASTLE[]={
++        "", "로드 브리티시성", "잊힌 왕의 성", "바라타리아성", "론도린성",
++        "올림푸스성", "흑룡성", "백룡성", "샤미노성"};
++    static constexpr const char* GOAL[]={
++        "", "잊힌 영혼의 무덤 발견", "젤라틴 큐브 처치",
++        "남쪽 표지판 발견", "송장 벌레 처치",
++        "오지만디아스의 기둥 발견", "리치 처치", "지식의 탑 발견", "발론 처치"};
++    static constexpr const char* STATUS[]={"","수락","성공","완료"};
++    constexpr int row0=4;
++    if(q.order.empty()){
++        const std::string msg="수락한 퀘스트가 없습니다!";
++        font.draw(r,(640-font.measure(msg))/2,row0*16,msg,EGA_LIGHT_CYAN);
++        return;
++    }
++    // Align status suffixes by actual pixel width, using integral dot cells.
++    const std::string reference=std::string(CASTLE[1])+": "+GOAL[1];
++    const int referenceWidth=font.measure(reference)+6*font.measure(".");
++    int maxWidth=referenceWidth;
++    for(int id:q.order){
++        const std::string body=std::string(CASTLE[id])+": "+GOAL[id];
++        maxWidth=std::max(maxWidth,font.measure(body));
++    }
++    const int dotW=font.measure(".");
++    const int colX=(640-maxWidth-font.measure("완료"))/2;
++    const int suffixX=colX+maxWidth;
++    for(std::size_t i=0;i<q.order.size() && i<8;++i){
++        const int id=q.order[i];
++        const std::string body=std::string(CASTLE[id])+": "+GOAL[id];
++        const int remaining=std::max(0,maxWidth-font.measure(body));
++        const std::string dots(static_cast<std::size_t>(dotW>0?remaining/dotW:0),'.');
++        const int y=(row0+static_cast<int>(i))*16;
++        font.draw(r,colX,y,body+dots,EGA_LIGHT_CYAN);
++        font.draw(r,suffixX,y,STATUS[q.state[id]],EGA_LIGHT_CYAN);
++    }
++}
++
+ void drawCommandHelpPopup(SDL_Renderer* r,const PixelFont& font){
+     // Korean-only host extension.  Use the same upper viewport and framed-title
+     // treatment as Ztats, with the user-approved final offsets: one row upward
+@@ -1544,7 +1631,7 @@
+     if(fullscreenActive) windowFlags|=SDL_WINDOW_FULLSCREEN_DESKTOP;
+     // Historical audit compatibility marker only; not an active window title:
+     // SDL_CreateWindow("Ultima I KR clean-room M283"
+-    SDL_Window* win=SDL_CreateWindow("Ultima I 한글판",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,
++    SDL_Window* win=SDL_CreateWindow("울티마 I 한국어판",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,
+                                      videoConfig.windowWidth,videoConfig.windowHeight,windowFlags);
+     if(!win){std::cerr<<SDL_GetError()<<"\n";return 1;}
+     SDL_Renderer* r=SDL_CreateRenderer(win,-1,SDL_RENDERER_ACCELERATED|SDL_RENDERER_PRESENTVSYNC|SDL_RENDERER_TARGETTEXTURE);
+@@ -1714,6 +1801,9 @@
+     bool run=true, showZ=false;
+     int ztatsPage=0;
+     bool ztatsPagePresented=false;
++    QuestJournal questJournal;
++    bool questPopup=false;
++    bool questPopupPresented=false;
+     bool commandHelpPopup=false;
+     bool commandHelpPresented=false;
+     bool selectorPopupPresented=false;
+@@ -2250,6 +2340,7 @@
+             testTownArmourBuyBPending=false;
+         }
+ 
++        if(haveSave){questJournal.attach(save,p);questJournal.update(p);}
+         SDL_Event e;
+ 
+         // M231: sound() itself is synchronous and does not return to this loop
+@@ -2352,6 +2443,11 @@
+                 continue;
+             }
+ 
++            if(questPopup){
++                if(!questPopupPresented)continue;
++                if(k==SDLK_SPACE){questPopup=false;questPopupPresented=false;}
++                continue;
++            }
+             if(commandHelpPopup){
+                 // Host-only modal: the popup must be fully presented once before
+                 // its Space-only dismissal poll becomes active.
+@@ -2376,7 +2472,7 @@
+                 // Reserved host-only Quest Status key.  Never fall through to
+                 // the original unshifted Q / Save Game command.
+                 if(hostExtensionCommandReady)
+-                    log.pushCommand("[퀘스트 현황] 아직 구현되지 않았습니다.");
++                    {questJournal.attach(save,p);questPopup=true;questPopupPresented=false;}
+                 continue;
+             }
+             if(hostExtensionCommandReady && shifted && k==SDLK_h){
+@@ -4397,14 +4493,15 @@
+                     landmarkSfxPending==5 && !landmarkQuestSfxPending &&
+                     !landmarkBlueRestorePending);
+             if(!space.active) drawTimeMachineUnreadyPopup(r,font,timeMachineUnreadyPopup);
+-            if(!space.active && !timeMachineUnreadyPopup && !commandHelpPopup)
++            if(!space.active && !timeMachineUnreadyPopup && !commandHelpPopup && !questPopup)
+                 drawReadyPopup(r,font,commands,p);
+         }
+         const std::string modalInput=
+             mondainIntroBlocking ? std::string("스페이스바를 눌러 계속하세요: ") :
++            (questPopup ? std::string("스페이스바를 눌러 계속하세요:  ") :
+             (commandHelpPopup ? std::string("스페이스바를 눌러 계속하세요:  ") :
+             (showZ ? std::string("스페이스바를 눌러 계속하세요: ") :
+-            (king.active()?king.inputLine():std::string{})));
++            (king.active()?king.inputLine():std::string{}))));
+         const bool spaceHyperBlocking=space.active && space.hyperPhase!=0;
+         if(!mondainEndingFullScreen) drawLog(r,font,original,log,modalInput,
+                 resurrectionPhase==ResurrectionPhase::Inactive &&
+@@ -4415,7 +4512,7 @@
+                 !timeMachineUnreadyPopup,
+                 spaceHyperBlocking);
+         if(!mondainIntroBlocking && !(mondain.active && mondain.victorious) &&
+-           !timeMachineUnreadyPopup && !commandHelpPopup){
++           !timeMachineUnreadyPopup && !commandHelpPopup && !questPopup){
+             if(commands.active()) drawReadyCommandInput(r,font,original,commands);
+             if(!pendingAttackLine.empty())
+                 drawAttackCommandInput(r,font,original,pendingAttackLine,pendingAttack!=0);
+@@ -4435,6 +4532,7 @@
+         }
+         if(!mondainIntroBlocking){
+             if(showZ) drawZtatsInventory(r,font,p,ztatsPage);
++            if(questPopup) drawQuestStatusPopup(r,font,questJournal);
+             if(commandHelpPopup) drawCommandHelpPopup(r,font);
+             if(shop.active()) drawShopPopupM149(r,font,shop,p);
+         }
+@@ -4524,6 +4622,7 @@
+         landmarkPresentation.afterPresent(SDL_GetTicks());
+         if(showZ) ztatsPagePresented=true;
+         if(commandHelpPopup) commandHelpPresented=true;
++        if(questPopup) questPopupPresented=true;
+         if(commands.selectorPopupActive()) selectorPopupPresented=true;
+         if(shop.active() && shop.stage()==TradeStage::Message)
+             shopMessagePresented=true;
