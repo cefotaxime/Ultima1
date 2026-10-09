@@ -1,0 +1,76 @@
+--- HF84/src/main.cpp
++++ HF85/src/main.cpp
+@@ -1858,6 +1858,8 @@
+     QuestJournal questJournal;
+     bool questPopup=false;
+     bool questPopupPresented=false;
++    bool firstHelpPending=false;
++    std::uint32_t firstHelpWorldFrameMs=0;
+     bool commandHelpPopup=false;
+     bool commandHelpPresented=false;
+     bool selectorPopupPresented=false;
+@@ -2395,6 +2397,16 @@
+         }
+ 
+         if(haveSave){questJournal.attach(save,p);questJournal.update(p);}
++        // Do not open help until the first gameplay frame has been visible
++        // for 2000 ms. Block the countdown while unrelated modal screens own it.
++        if(firstHelpPending && firstHelpWorldFrameMs!=0 &&
++           !frontend.active() && !commandHelpPopup && !questPopup &&
++           SDL_GetTicks()-firstHelpWorldFrameMs>=2000u){
++            firstHelpPending=false;
++            commandHelpPopup=true;
++            commandHelpPresented=false;
++            log.pushCommand("커맨드 도움말");
++        }
+         SDL_Event e;
+         // Remember the last physical key and in-progress Hangul jamo across frames.
+         static std::uint32_t lastPhysicalAlphaMs=0;
+@@ -2521,21 +2533,12 @@
+                     haveSave=true;
+                     questJournal.path.clear(); // Reload journal for the selected slot.
+                     simulation.seedFromDosTime(p.rngSeedWord);
+-                    // Opening the game for the first time after generation:
+-                    // show the existing Shift-H help exactly once per character.
+-                    // Older save slots remain unaffected (no inferred new-game flag).
++                    // Keep showing automatic help on each game launch until
++                    // the character is saved successfully in gameplay.
+                     {
+-                        std::ifstream seen(save+".krhelpseen",std::ios::binary);
+                         std::ifstream fresh(save+".krnewcharacter",std::ios::binary);
+-                        if(fresh && !seen){
+-                            commandHelpPopup=true;
+-                            commandHelpPresented=false;
+-                            log.pushCommand("커맨드 도움말");
+-                            std::ofstream marker(save+".krhelpseen",std::ios::binary|std::ios::trunc);
+-                            marker<<"1";
+-                            fresh.close();
+-                            std::remove((save+".krnewcharacter").c_str());
+-                        }
++                        firstHelpPending=static_cast<bool>(fresh);
++                        firstHelpWorldFrameMs=0;
+                     }
+                 }
+                 continue;
+@@ -3980,6 +3983,12 @@
+         if(pendingQuitSave &&
+            static_cast<std::uint32_t>(SDL_GetTicks()-quitSaveStartedMs)>=QUIT_SAVE_VISIBLE_DELAY_MS){
+             const bool saved=saveState(save,p);
++            if(saved){
++                std::remove((save+".krnewcharacter").c_str());
++                std::remove((save+".krhelpseen").c_str());
++                firstHelpPending=false;
++                firstHelpWorldFrameMs=0;
++            }
+             if(saved){questJournal.attach(save,p);questJournal.update(p);questJournal.persist();}
+             log.appendLast(saved?quitSavedSuffix():"저장에 실패했습니다.");
+             pendingQuitSave=false;
+@@ -4729,6 +4738,8 @@
+         princessRescuePresentation.afterPresent(SDL_GetTicks());
+         landmarkPresentation.afterPresent(SDL_GetTicks());
+         if(showZ) ztatsPagePresented=true;
++        if(firstHelpPending && firstHelpWorldFrameMs==0 && !frontend.active())
++            firstHelpWorldFrameMs=SDL_GetTicks();
+         if(commandHelpPopup) commandHelpPresented=true;
+         if(questPopup) questPopupPresented=true;
+         if(commands.selectorPopupActive()) selectorPopupPresented=true;
