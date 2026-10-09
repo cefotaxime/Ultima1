@@ -1,3 +1,19 @@
+# HF76 — Command help and Korean IME support
+
+**Build source:** Use all source and support files from `HF75/`, replacing **only** `HF75/src/main.cpp` with `HF76/src/main.cpp`.
+
+Changes:
+- Command-help popup keeps the A–Z entries and Shift-H / Shift-V entries in their previous positions.
+- Two lines below the left-column K entry, place `Alt-Enter 전체 화면`, followed on the next line by `Shift-Q 퀘스트 현황`.
+- Alphabetic commands use SDL **physical scancodes** instead of layout-dependent keysyms, including Shift+H, Shift+V, and other Shift+letter commands, even while Korean IME is enabled.
+- **Shift-Q is listed in help but its quest-status popup is not implemented in this revision.**
+
+## Windows build and package
+
+HF76 compiled successfully as MinGW `u1kr_clean.exe`. The user PC has the packaged Windows distribution at `Ultima1_KR_Work/packages/HF76_HELP_HANGUL.zip`. For an independent build, copy `HF76/src/main.cpp` over the corresponding file in a local HF75 checkout, then follow the HF75 build steps below.
+
+---
+
 # Ultima I Korean Localization — HF75
 
 Current Windows build source: [HF75/](HF75/). Earlier M262 content remains below as historical release notes.
