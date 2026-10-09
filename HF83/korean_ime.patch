@@ -1,0 +1,95 @@
+--- HF82/src/main.cpp
++++ HF83/src/main.cpp
+@@ -1179,6 +1179,27 @@
+ 
+ 
+ // HF78: quest journal remains outside the 820-byte DOS save record.
++
++// Two-set Korean keyboard: map initial/compatibility jamo to the physical
++// ASCII command key. This is a fallback for IMEs that consume KEYDOWN.
++SDL_Keycode koreanJamoCommand(const char* utf8){
++    if(!utf8 || !*utf8)return SDLK_UNKNOWN;
++    struct Jamo {const char* letter; SDL_Keycode key;};
++    static constexpr Jamo map[]={
++        {"ㅁ",SDLK_a},{"ㅠ",SDLK_b},{"ㅊ",SDLK_c},{"ㅇ",SDLK_d},
++        {"ㄷ",SDLK_e},{"ㄹ",SDLK_f},{"ㅎ",SDLK_g},{"ㅗ",SDLK_h},
++        {"ㅑ",SDLK_i},{"ㅓ",SDLK_j},{"ㅏ",SDLK_k},{"ㅣ",SDLK_l},
++        {"ㅡ",SDLK_m},{"ㅜ",SDLK_n},{"ㅐ",SDLK_o},{"ㅔ",SDLK_p},
++        {"ㅂ",SDLK_q},{"ㄱ",SDLK_r},{"ㄴ",SDLK_s},{"ㅅ",SDLK_t},
++        {"ㅕ",SDLK_u},{"ㅍ",SDLK_v},{"ㅈ",SDLK_w},{"ㅌ",SDLK_x},
++        {"ㅛ",SDLK_y},{"ㅋ",SDLK_z},
++        {"ㅃ",SDLK_q},{"ㄲ",SDLK_r},{"ㅆ",SDLK_t},
++        {"ㅒ",SDLK_o},{"ㅖ",SDLK_p},{"ㄸ",SDLK_e},{"ㅉ",SDLK_w}
++    };
++    for(const auto& x:map)
++        if(::strcmp(utf8,x.letter)==0)return x.key;
++    return SDLK_UNKNOWN;
++}
+ struct QuestJournal {
+     std::vector<int> order;
+     std::array<int,9> state{}; // 0 unreceived, 1 accepted, 2 success, 3 complete
+@@ -1736,6 +1757,8 @@
+     if(!font.load(h12,robo)){std::cerr<<"Could not load H12.FNT / ROBO.FNT\n";return 2;}
+     OriginalData original; std::string err;
+     if(!original.load(data,r,err)){std::cerr<<err<<"\n";return 3;}
++
++    SDL_StartTextInput(); // Deliver Korean IME composition and committed jamo.
+ 
+     // Audio is deliberately initialized only after the video target, fonts and
+     // original game assets are ready.  It is optional: failure must never stop
+@@ -2373,6 +2396,9 @@
+ 
+         if(haveSave){questJournal.attach(save,p);questJournal.update(p);}
+         SDL_Event e;
++        // Remember the last physical key and in-progress Hangul jamo across frames.
++        static std::uint32_t lastPhysicalAlphaMs=0;
++        static SDL_Keycode lastComposingKey=SDLK_UNKNOWN;
+ 
+         // M231: sound() itself is synchronous and does not return to this loop
+         // until the emulated source routine has completed.  No separate
+@@ -2382,17 +2408,36 @@
+         bool keyDispatchedThisFrame=false;
+         while(!keyDispatchedThisFrame && SDL_PollEvent(&e)){
+             if(e.type==SDL_QUIT){run=false;break;}
+-            if(e.type!=SDL_KEYDOWN)continue;
++            // KEYDOWN is preferred; Korean IMEs can consume it and only send
++            // composition or committed text. Translate compatibility jamo.
++            SDL_Keycode k=SDLK_UNKNOWN;
++            SDL_Keymod mods=SDL_GetModState();
++            if(e.type==SDL_KEYDOWN){
++                k=e.key.keysym.sym;
++                const SDL_Scancode scan=e.key.keysym.scancode;
++                if(scan>=SDL_SCANCODE_A && scan<=SDL_SCANCODE_Z)
++                    k=static_cast<SDL_Keycode>(SDLK_a+(scan-SDL_SCANCODE_A));
++                mods=static_cast<SDL_Keymod>(e.key.keysym.mod);
++                if(k>=SDLK_a && k<=SDLK_z)
++                    lastPhysicalAlphaMs=SDL_GetTicks();
++            }else if(e.type==SDL_TEXTINPUT || e.type==SDL_TEXTEDITING){
++                const char* u=(e.type==SDL_TEXTINPUT)?e.text.text:e.edit.text;
++                k=koreanJamoCommand(u);
++                if(k==SDLK_UNKNOWN)continue;
++                // Don't fire again when a physical KEYDOWN already handled it.
++                if(SDL_GetTicks()-lastPhysicalAlphaMs<80)continue;
++                if(e.type==SDL_TEXTEDITING){
++                    // An IME can issue many composition updates for one key.
++                    // De-duplicate identical jamo while the composition stays open.
++                    if(k==lastComposingKey)continue;
++                    lastComposingKey=k;
++                }else{
++                    if(k==lastComposingKey){lastComposingKey=SDLK_UNKNOWN;continue;}
++                    lastComposingKey=SDLK_UNKNOWN;
++                }
++            }else continue;
+             keyDispatchedThisFrame=true;
+             outIdlePassEpochMs=SDL_GetTicks();
+-            // Use the physical alphabetic key position for game commands.
+-            // SDL keysyms can differ under the Korean IME, while scancodes
+-            // remain stable (including Shift+letter combinations).
+-            auto k=e.key.keysym.sym;
+-            const SDL_Scancode scan=e.key.keysym.scancode;
+-            if(scan>=SDL_SCANCODE_A && scan<=SDL_SCANCODE_Z)
+-                k=static_cast<SDL_Keycode>(SDLK_a+(scan-SDL_SCANCODE_A));
+-            const auto mods=static_cast<SDL_Keymod>(e.key.keysym.mod);
+             const bool shifted=(mods & KMOD_SHIFT)!=0;
+ 
+             if((mods & KMOD_ALT)!=0 && k==SDLK_RETURN){
