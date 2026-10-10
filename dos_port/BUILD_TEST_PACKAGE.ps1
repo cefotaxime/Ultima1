@@ -8,7 +8,7 @@ $log=Join-Path $root 'BUILD_TEST_PACKAGE_LAST.log'
 Start-Transcript -Path $log -Force | Out-Null
 try {
  if(-not $SkipBuild){
-  $compile='cd /mnt/c/Users/hojun/Downloads/Ultima1_KR_Work && tools/djgpp/djgpp/bin/i586-pc-msdosdjgpp-g++ -O2 -ffunction-sections -fdata-sections -Wl,--gc-sections -Idos_port/V1_0K -Isrc/HF93/src dos_port/V1_0K/dos_field_main.cpp dos_port/V1_0K/dos_sdl_video.cpp dos_port/V1_0K/OverworldSimulation.dos.o dos_port/V1_0K/LocalSimulation.dos.o -o dos_port/V1_0K/FIELD.EXE'
+  $compile='cd /mnt/c/Users/hojun/Downloads/Ultima1_KR_Work && tools/djgpp/djgpp/bin/i586-pc-msdosdjgpp-g++ -O2 -ffunction-sections -fdata-sections -Wl,--gc-sections -Idos_port/V1_0K -Isrc/HF93/src dos_port/V1_0K/dos_field_main.cpp dos_port/V1_0K/dos_sdl_video.cpp src/HF93/src/OverworldSimulation.cpp src/HF93/src/LocalSimulation.cpp -o dos_port/V1_0K/FIELD.EXE'
   & wsl.exe bash -lc $compile
   if($LASTEXITCODE -ne 0){throw "DJGPP compilation failed ($LASTEXITCODE)"}
  }
