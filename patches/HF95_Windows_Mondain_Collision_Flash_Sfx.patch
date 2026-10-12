@@ -1,0 +1,46 @@
+Process started with PID 16520 (shell: powershell.exe)
+Initial output:
+--- /mnt/c/Users/hojun/Downloads/Ultima1_KR_Work/src/HF94/src/main.cpp	2026-10-12 20:41:14.577111900 +0900
++++ /mnt/c/Users/hojun/Downloads/Ultima1_KR_Work/src/HF95/src/main.cpp	2026-10-12 21:57:51.706565700 +0900
+@@ -1838,6 +1838,7 @@
+     DungeonState dungeon;
+     SpaceState space;
+     MondainState mondain;
++    bool mondainCollisionFlashPending=false;
+     std::uint32_t mondainDefeatPopupStartedMs=0;
+     static constexpr std::uint32_t MONDAIN_DEFEAT_POPUP_MS=2747; // 50 BIOS timer ticks
+ 
+@@ -3281,7 +3282,10 @@
+                         log.pushCommand(mondainMoveDir);
+                         pendingMondainMoveFinish=true;
+                     }else{
+-                        // Boundary, wall, gem, and Mondain collision all burn the avatar.
++                        // MONDAIN.EXE 0x07B3: sound(0), negative palette,
++                        // Burned + damage, sound(2), then restore palette.
++                        if(noiseEnabled) sfx.play(0);
++                        mondainCollisionFlashPending=true;
+                         const int damage=std::max(1,static_cast<int>(p.hits)/10);
+                         p.hits=static_cast<decltype(p.hits)>(std::max(0,static_cast<int>(p.hits)-damage));
+                         log.pushCommand(mondainMoveDir);
+@@ -4752,13 +4756,20 @@
+             mondain.active && mondain.victorious && mondain.victoryPopup && mondain.victoryDrawPhase>=1;
+         const bool landmarkBlueRestoreFramePresented =
+             landmarkPresentation.active() && landmarkBlueRestorePending;
+-        if(mondainPsionicFramePresented) invertCurrentGameFrame();
++        if(mondainPsionicFramePresented || mondainCollisionFlashPending)
++            invertCurrentGameFrame();
+ 
+         // M231: OUT.EXE draws first, then enters the synchronous PC-speaker
+         // routine.  Do not start those sounds before presentation; present the
+         // newly blitted frame first and execute sound() in the post-present
+         // section below while that frame remains visible.
+         presentFrame();
++        if(mondainCollisionFlashPending){
++            // The inverted frame must actually be presented while source sound(2)
++            // runs; the normal frame returns on the next render iteration.
++            if(noiseEnabled) sfx.play(2);
++            mondainCollisionFlashPending=false;
++        }
+         // OUT.EXE 0x108B..0x10B4 shows hit/damage before the lethal tail
+         // at 0x112A.  Never hide the target before the damage frame is presented.
+         if(dungeonLethalPrePresent){
