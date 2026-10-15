@@ -1,7 +1,0 @@
-{
-  "name": "ultima1-kr-clean",
-  "version-string": "m246",
-  "dependencies": [
-    "sdl2"
-  ]
-}
