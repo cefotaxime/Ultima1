@@ -1,0 +1,38 @@
+[
+  {
+    "target": "u1kr_steal_route_m40",
+    "ok": true,
+    "sec": 10.98,
+    "out": ""
+  },
+  {
+    "target": "u1kr_ready_translation_test_m99",
+    "ok": true,
+    "sec": 3.81,
+    "out": ""
+  },
+  {
+    "target": "u1kr_ztats_model_test_m104",
+    "ok": true,
+    "sec": 1.05,
+    "out": ""
+  },
+  {
+    "target": "u1kr_drop_ready_popup_test_m121",
+    "ok": true,
+    "sec": 3.75,
+    "out": ""
+  },
+  {
+    "target": "u1kr_castle_commands_test_m122",
+    "ok": true,
+    "sec": 3.86,
+    "out": ""
+  },
+  {
+    "target": "u1kr_king_landmark_localization_test_m131",
+    "ok": true,
+    "sec": 2.87,
+    "out": ""
+  }
+]
