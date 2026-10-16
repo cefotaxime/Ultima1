@@ -3176,10 +3176,15 @@ int main(int argc,char** argv){
                 else if(k==SDLK_h) spaceSystem.hyperJump(space,p,sm);
                 else if(k==SDLK_f){
                     const bool frontBefore=space.frontView;
-                    const std::uint32_t shotBefore=space.playerShotUntilMs;
+                    // An immediate hit resets playerShotUntilMs to zero.
+                    // Trigger the firing sound from the successful 10-fuel debit.
+                    const int fuelBefore=space.sectors[space.sectorX*7+space.sectorY]
+                        .craft[space.currentSlot].fuel;
                     spaceSystem.fire(space,p,sm);
                     if(!frontBefore) spaceBeep=true;
-                    else if(space.playerShotUntilMs!=shotBefore) spaceFireSoundPending=true;
+                    else if(space.sectors[space.sectorX*7+space.sectorY]
+                                .craft[space.currentSlot].fuel < fuelBefore)
+                        spaceFireSoundPending=true;
                 }
                 else if(k==SDLK_n){
                     noiseEnabled=!noiseEnabled;
