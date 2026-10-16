@@ -2784,8 +2784,11 @@ int main(int argc,char** argv){
                             pendingShopResultLine=prefix+"식량 "+packs+" 꾸러미";
                         }
                     }else if(beforeStage==TradeStage::FoodQuantity && done){
-                        if(!beforeLine.empty()) log.pushCommand(beforeLine);
-                        pushMessages(m);
+                        const bool foodCancelled=
+                            std::find(m.begin(),m.end(),"안 산다")!=m.end();
+                        if(!beforeLine.empty())
+                            log.pushCommand(beforeLine+(foodCancelled?"안 산다":""));
+                        if(!foodCancelled) pushMessages(m);
                         // OUT.EXE 0x60A4/0x60BB: insufficient funds -> sound(1).
                         if(noiseEnabled && shopCantAfford)
                             beginCommandSfxHold(SfxEvent::LocalBlocked,1);
