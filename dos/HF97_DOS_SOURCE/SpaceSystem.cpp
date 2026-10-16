@@ -837,6 +837,7 @@ void SpaceSystem::maybeAlienFire(SpaceState& s,PlayerSave& p,std::vector<std::st
     auto*c=currentCraft(s);if(!c||!s.frontView||s.hyperPhase!=0)return;
     if(s.enemySprite==0||s.enemyX==0)return;
     // SPACE.EXE 0x33D7: 1..3 out of 1..200 enters the shot path.
+    if(s.alienDamagePending || s.alienShotFrames>0)return;
     if(rng_.range(1,200)>=4)return;
     m.push_back("적기가 발포합니다!");
     const int roll=rng_.range(1,255);
@@ -853,9 +854,17 @@ void SpaceSystem::maybeAlienFire(SpaceState& s,PlayerSave& p,std::vector<std::st
     s.alienFireSfxPending=true;
     if(roll>=64)return;
     s.alienHitSfxPending=true;
+    s.alienDamagePending=true;
+}
+
+void SpaceSystem::resolveAlienHit(SpaceState& s,PlayerSave& p,std::vector<std::string>& m){
+    if(!s.alienDamagePending)return;
+    s.alienDamagePending=false;
+    auto* c=currentCraft(s);
+    if(!c || !s.active)return;
     m.push_back("적중했습니다!");
     c->shield=std::max(0,c->shield-std::min(c->shield,321));
-    if(c->shield==0){killPlayerInSpace(s,p,m,true);}
+    if(c->shield==0)killPlayerInSpace(s,p,m,true);
 }
 
 void SpaceSystem::applyFrontTick(SpaceState& s,PlayerSave& p,std::vector<std::string>& m){
