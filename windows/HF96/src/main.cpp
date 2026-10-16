@@ -2787,7 +2787,7 @@ int main(int argc,char** argv){
                         const bool foodCancelled=
                             std::find(m.begin(),m.end(),"안 산다")!=m.end();
                         if(!beforeLine.empty())
-                            log.pushCommand(beforeLine+(foodCancelled?"안 산다":""));
+                            log.pushCommand(foodCancelled?"거래하기-구입: 안 산다":beforeLine);
                         if(!foodCancelled) pushMessages(m);
                         // OUT.EXE 0x60A4/0x60BB: insufficient funds -> sound(1).
                         if(noiseEnabled && shopCantAfford)
