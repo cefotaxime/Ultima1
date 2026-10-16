@@ -5155,6 +5155,9 @@ int main(int argc,char** argv){
         if(space.alienHitSfxPending && space.alienShotFrames==0){
             space.alienHitSfxPending=false;
             if(noiseEnabled) sfx.play(SfxEvent::SpaceAlienHit);
+            std::vector<std::string> hitMessages;
+            spaceSystem.resolveAlienHit(space,p,hitMessages);
+            for(const auto& line:hitMessages) log.push(line);
         }
 
         if(spaceHyperPulsePending || spaceFrontPulsePending){
