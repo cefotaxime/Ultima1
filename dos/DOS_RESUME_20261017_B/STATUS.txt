@@ -1,0 +1,6 @@
+DOS 2026-10-17 B: SpaceSystem.h add alienDamagePending and public resolveAlienHit.
+SpaceSystem.cpp maybeAlienFire skips while previous beam is active, sets alienDamagePending after hit and defers shield damage/death.
+resolveAlienHit applies damage/death after beam expires and hit SFX request.
+main.cpp requests hit SFX when alienShotFrames==0 then invokes resolveAlienHit.
+Build using DJGPP main.cpp, SpaceSystem.cpp and unchanged HF93 audio/graphics objects.
+NOTE: compiled and linked, DOSBox launched, enemy-hit playback not yet validated.
