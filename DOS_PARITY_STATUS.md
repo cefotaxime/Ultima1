@@ -12,3 +12,10 @@ Reference: current Windows `snapshot/HF97/src` and original HF94–HF97 migratio
 The DOS executable currently mixes modules from HF93, HF97 and DOS-specific resume sources. Changes are made only to the current HF99 source; do not restore or build historical versions as a replacement for HF99.
 
 Validation requirement: build/link success and DOSBox startup are not substitutes for a gameplay-level verification. No full parity claim is made.
+
+## 2026-10-17: Mondain defeat popup regression
+
+- Reported regression: while the player-death popup is shown, a new command line and cursor become visible in DOS.
+- Historical evidence: `apply_hf94_mondain.py`, Windows `main.cpp` timer/keyboard guard and log cursor guard.
+- DOS HF99 correction: ignore input during the popup; keep it for 50 BIOS ticks (~2747 ms), automatically acknowledge and run resurrection; suppress command-log cursor and command-entry overlays during defeated state.
+- New DOS build/link and emulator startup passed. In-game death-popup validation remains outstanding.

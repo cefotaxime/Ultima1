@@ -1844,6 +1844,8 @@ int main(int argc,char** argv){
     SpaceState space;
     MondainState mondain;
     bool mondainCollisionFlashPending=false;
+    std::uint32_t mondainDefeatPopupStartedMs=0;
+    static constexpr std::uint32_t MONDAIN_DEFEAT_POPUP_MS=2747; // 50 BIOS ticks
     if(testMondainEndingAudit){
         std::ofstream f("MONDAUD.LOG",std::ios::trunc);
         auto report=[&](const char* n,bool pass){f<<(pass?"PASS ":"FAIL ")<<n<<std::endl;};
@@ -3261,10 +3263,7 @@ int main(int argc,char** argv){
                     continue;
                 }
                 if(mondain.defeated){
-                    if(k==SDLK_SPACE || k==SDLK_RETURN || k==SDLK_ESCAPE){
-                        mondainSystem.acknowledgeDefeat(mondain);
-                        resurrectIfNeeded();
-                    }
+                    // Match the Windows HF94 fix: ignore input until 50 BIOS ticks elapse.
                     continue;
                 }
                 if(mondain.victorious){
@@ -3422,7 +3421,7 @@ int main(int argc,char** argv){
                         if(p.hits==0){
                             mondain.defeated=true;
                             log.push("당신은 사망했습니다!");
-                            /* Existing DOS defeat lifecycle */
+                            mondainDefeatPopupStartedMs=0;
                         }else{
                             finishCommand();
                         }
@@ -4516,6 +4515,16 @@ int main(int argc,char** argv){
             }
         }
 
+        // Original MONDAIN.EXE defeat popup stays up for 50 BIOS ticks.
+        if(mondain.active && mondain.defeated){
+            const std::uint32_t now=SDL_GetTicks();
+            if(mondainDefeatPopupStartedMs==0) mondainDefeatPopupStartedMs=now;
+            else if(static_cast<std::uint32_t>(now-mondainDefeatPopupStartedMs)>=MONDAIN_DEFEAT_POPUP_MS){
+                mondainSystem.acknowledgeDefeat(mondain);
+                mondainDefeatPopupStartedMs=0;
+                resurrectIfNeeded();
+            }
+        }else mondainDefeatPopupStartedMs=0;
         const bool mondainIntroBlocking=mondain.active && mondain.introActive;
         const std::uint32_t mondainNowForVictory=SDL_GetTicks();
         if(mondain.active && mondain.victorious &&
@@ -4812,6 +4821,7 @@ int main(int argc,char** argv){
         const bool spaceHyperBlocking=space.active && space.hyperPhase!=0;
         if(!mondainEndingFullScreen) drawLog(r,font,original,log,modalInput,
                 resurrectionPhase==ResurrectionPhase::Inactive &&
+                !(mondain.active && mondain.defeated) &&
                 !shuttleLaunchCountdownActive &&
                 !(space.active && space.sectorScan) &&
                 !spaceHyperBlocking &&
@@ -4821,7 +4831,8 @@ int main(int argc,char** argv){
                 !(pendingWorldCastSpell==3 || pendingWorldCastSpell==10) &&
                 !dungeonCastCommitPending && !dungeonPlayerSfxFinishPending && !worldPostHitSoundPending,
                 spaceHyperBlocking);
-        if(!mondainIntroBlocking && !(mondain.active && mondain.victorious) &&
+        if(!mondainIntroBlocking && !(mondain.active && mondain.defeated) &&
+           !(mondain.active && mondain.victorious) &&
            !timeMachineUnreadyPopup && !commandHelpPopup && !questPopup){
             if(commands.active()) drawReadyCommandInput(r,font,original,commands);
             if(!pendingAttackLine.empty())
