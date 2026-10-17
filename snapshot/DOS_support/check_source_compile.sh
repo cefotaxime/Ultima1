@@ -16,4 +16,6 @@ for name in KingSystem LocalSimulation; do
  echo "COMPILE $name"
  "$CXX" -std=gnu++17 -O1 -I"$SRC" -I"$PORT" -include "$PORT/dos_singlethread_mutex.h" -c "$SRC/$name.cpp" -o "$OUT/$name.o"
 done
-echo 'CHECKPOINT_OK: two DOS objects built from tracked sources without legacy object files'
+echo "COMPILE dos_hf93_keyboard"
+"$CXX" -std=gnu++17 -O1 -I"$SRC" -I"$PORT" -include "$PORT/dos_singlethread_mutex.h" -c "$PORT/dos_hf93_keyboard.cpp" -o "$OUT/dos_hf93_keyboard.o"
+echo "CHECKPOINT_OK: three DOS objects built from tracked sources without legacy object files"
