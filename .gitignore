@@ -1,0 +1,14 @@
+﻿
+## Local build/test byproducts
+**/__pycache__/
+*.pyc
+snapshot/HF97/tools/fixtures/
+build/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+*.o
+*.obj
+*.exe
+*.EXE
+*.log
