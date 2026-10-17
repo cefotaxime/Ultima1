@@ -69,7 +69,33 @@ inline std::string fromSave(std::string_view bytes){
  }
  return out;
 }
-inline std::string toCp949(std::string_view utf8){return std::string(utf8);}
+inline std::string toCp949(std::string_view utf8){
+ // DOS stores character names in the same 14-byte CP949 format as Windows.
+ std::string result;
+ for(size_t i=0;i<utf8.size();){
+  unsigned c=(unsigned char)utf8[i++];
+  if(c<0x80){result.push_back((char)c);continue;}
+  unsigned cp=0;
+  if(c>=0xC2 && c<=0xDF && i<utf8.size()){
+   unsigned b=(unsigned char)utf8[i++];if((b&0xC0)!=0x80)return {};
+   cp=((c&31)<<6)|(b&63);
+  }else if(c>=0xE0 && c<=0xEF && i+1<utf8.size()){
+   unsigned b=(unsigned char)utf8[i++],v=(unsigned char)utf8[i++];
+   if((b&0xC0)!=0x80||(v&0xC0)!=0x80)return {};
+   cp=((c&15)<<12)|((b&63)<<6)|(v&63);
+  }else return {};
+  bool mapped=false;
+  for(unsigned lead=0x81;lead<=0xFE && !mapped;++lead)
+   for(unsigned tail=0x41;tail<=0xFE;++tail){
+    if(kCp949ToHangul[(lead-0x81)*190+(tail-0x41)]==cp){
+     result.push_back((char)lead);result.push_back((char)tail);
+     mapped=true;break;
+    }
+   }
+  if(!mapped)return {};
+ }
+ return result;
+}
 #else
 inline std::string toCp949(std::string_view utf8){return std::string(utf8);}
 inline std::string fromSave(std::string_view bytes){return std::string(bytes);}
