@@ -3404,6 +3404,7 @@ int main(int argc,char** argv){
                 else continue;
 
                 if(!mondainMoveDir.empty()){
+                    const Log logBeforeMondainMove=log;
                     if(mondainMoved){
                         // MONDAIN.EXE 0x0718..0x0796 prints the direction, blits
                         // the avatar into its new cell, then calls sound(4).
@@ -3420,7 +3421,8 @@ int main(int argc,char** argv){
                         log.push("화상을 입습니다! "+std::to_string(damage)+"의 피해량!");
                         if(p.hits==0){
                             mondain.defeated=true;
-                            log.push("당신은 사망했습니다!");
+                            // Modal defeat popup must not scroll the command history.
+                            log=logBeforeMondainMove;
                             mondainDefeatPopupStartedMs=0;
                         }else{
                             finishCommand();
@@ -4818,8 +4820,9 @@ int main(int argc,char** argv){
             (commandHelpPopup ? std::string("스페이스바를 눌러 계속하세요:  ") :
             (showZ ? std::string("스페이스바를 눌러 계속하세요: ") :
             (king.active()?king.inputLine():std::string{}))));
+        const std::string defeatSafeModalInput=(mondain.active && mondain.defeated)?std::string{}:modalInput;
         const bool spaceHyperBlocking=space.active && space.hyperPhase!=0;
-        if(!mondainEndingFullScreen) drawLog(r,font,original,log,modalInput,
+        if(!mondainEndingFullScreen) drawLog(r,font,original,log,defeatSafeModalInput,
                 resurrectionPhase==ResurrectionPhase::Inactive &&
                 !(mondain.active && mondain.defeated) &&
                 !shuttleLaunchCountdownActive &&
