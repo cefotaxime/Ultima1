@@ -10,14 +10,18 @@ for n in main SpaceSystem; do
 done
 "$cxx" "${flags[@]}" -Isrc/HF97/src -c src/HF97/src/DungeonSystem.cpp -o "$d/DungeonSystem_HF97.o" > "$d/DungeonSystem.compile.log" 2>&1
 echo COMPILE_OK DungeonSystem_HF97
+for n in OriginalData OverworldSimulation; do
+ "$cxx" "${flags[@]}" -Isrc/HF97/src -c "src/HF97/src/$n.cpp" -o "$d/${n}_HF99.o" > "$d/$n.compile.log" 2>&1
+ echo "COMPILE_OK $n"
+done
 objects=()
 for obj in dos_port/HF93_OBJECT_AUDIT/*.o; do
  case "$(basename "$obj")" in
- HF93_main.o|HF97_main_port_check.o|HF97_DOS_CP949_main.o|FrontendSystem.o|SpaceSystem.o|DungeonSystem.o|dos_hf93_audio_diagnostic.o|dos_hf93_platform.o|dos_sb16_dma.o)continue;;
+ HF93_main.o|HF97_main_port_check.o|HF97_DOS_CP949_main.o|FrontendSystem.o|SpaceSystem.o|DungeonSystem.o|OriginalData.o|OverworldSimulation.o|dos_hf93_audio_diagnostic.o|dos_hf93_platform.o|dos_sb16_dma.o)continue;;
  esac
  objects+=("$obj")
 done
 mkdir -p "$d/game" "$d/game/SAVEGAME"
-"$cxx" -Wl,--gc-sections "$d/main.o" "$d/SpaceSystem.o" "$d/DungeonSystem_HF97.o" "${objects[@]}" dos_port/DOS_AUDIO_FIX_20261011/obj/dos_hf93_audio_diagnostic.o dos_port/DOS_AUDIO_FIX_20261011/obj/dos_hf93_platform.o dos_port/DOS_AUDIO_FIX_20261011/obj/dos_sb16_dma.o -o "$d/game/ULTIDIAG.EXE" > "$d/link.log" 2>&1
+"$cxx" -Wl,--gc-sections "$d/main.o" "$d/SpaceSystem.o" "$d/DungeonSystem_HF97.o" "$d/OriginalData_HF99.o" "$d/OverworldSimulation_HF99.o" "${objects[@]}" dos_port/DOS_AUDIO_FIX_20261011/obj/dos_hf93_audio_diagnostic.o dos_port/DOS_AUDIO_FIX_20261011/obj/dos_hf93_platform.o dos_port/DOS_AUDIO_FIX_20261011/obj/dos_sb16_dma.o -o "$d/game/ULTIDIAG.EXE" > "$d/link.log" 2>&1
 echo LINK_OK
 sha256sum "$d/game/ULTIDIAG.EXE"
