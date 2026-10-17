@@ -381,10 +381,9 @@ std::vector<std::string> OverworldSimulation::attack(PlayerSave& p,int dx,int dy
         return out;
     }
 
-    // M119 presentation: a lethal hit finishes the hit/damage row first.
-    // Kill + loot start on the next logical command-window row, then remain
-    // continuous there until the width-aware wrapper has to wrap visually.
-    out.push_back(result);
+    // Kill is instant destruction. The DOS spell prints no Hit/9999-damage row.
+    // Ordinary weapon and Magic Missile damage messages are unchanged.
+    if(mode!=WorldAttackMode::KillSpell) out.push_back(result);
 
     std::string killReward=targetObject+" 처치했습니다!";
     const int power=monsterPower(q);
