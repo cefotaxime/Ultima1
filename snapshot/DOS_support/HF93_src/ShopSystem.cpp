@@ -362,7 +362,12 @@ bool ShopSystem::handleKey(char key,const OriginalData& original,LocalState& loc
     }
     if(stage_==TradeStage::Item) return applyItem(key,original,local,p,msg);
     if(stage_==TradeStage::FoodQuantity){
-        if(key>='0'&&key<='9'){ if(number_.size()<5) number_.push_back(key); return false; }
+        if(key=='0' || (key!='\b' && key!='\r' && key!='\n' && (key<'1' || key>'9'))){
+            msg.push_back("안 산다");
+            close();
+            return true;
+        }
+        if(key>='1'&&key<='9'){ if(number_.size()<5) number_.push_back(key); return false; }
         if(key=='\b'){ if(!number_.empty()) number_.pop_back(); return false; }
         if(key=='\r'||key=='\n'){
             int packs=number_.empty()?0:std::stoi(number_);
