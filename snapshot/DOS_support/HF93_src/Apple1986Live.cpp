@@ -9,7 +9,7 @@
 #include <cmath>
 #include <stdexcept>
 extern "C" {
-#include "../third_party/fake6502/fake6502.h"
+#include "../../HF97/third_party/fake6502/fake6502.h"
 }
 namespace {
  Apple1986Live* activeCpu=nullptr;
