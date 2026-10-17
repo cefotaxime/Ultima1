@@ -28,3 +28,9 @@ CMakeCache.txt
 *.DSK
 *.zip
 *.ZIP
+
+## Project-created fonts intentionally versioned
+!assets/
+!assets/FONTS/
+!assets/FONTS/H12.FNT
+!assets/FONTS/ROBO.FNT

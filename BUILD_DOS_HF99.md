@@ -48,3 +48,7 @@ The 640x400 ARGB source frame is vertically bilinear-resampled to a 640x480 4:3 
 ## User visual confirmation
 
 User confirmed on 2026-10-17 that DOS palette, bilinear presentation and 800x600 window size look the same as the Windows edition.
+
+## Repository-managed fonts
+
+Project owner confirmed `H12.FNT` and `ROBO.FNT` were created for this project. Both are committed under `assets/FONTS/`. To stage a runtime with privately held commercial game data, run `bash snapshot/DOS_support/stage_runtime.sh OUTPUT_DIR PATH_TO_GAMEDATA`. The script copies the repository fonts and externally provided game data, and creates an empty SAVEGAME directory without transferring any personal saves.
