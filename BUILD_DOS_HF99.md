@@ -34,3 +34,7 @@ Original Ultima I `GAMEDATA`, fonts and user `SAVEGAME` are NOT stored on GitHub
 The first source-only DOS executable crashed with `Invalid Opcode` at `0x62301`, which mapped to the `lock cmpxchg8b` instruction emitted for an `std::atomic<uint64_t>` update in `SfxSystem::renderCallback`. The DOS build now compiles baseline DOS objects with `-march=i386` and links a source-controlled single-threaded 64-bit atomic adapter (`snapshot/DOS_support/V1_0K/dos_atomic64_singlethread.cpp`). This adapter is valid only while the DOS audio callback and game run synchronously in one thread; never use it for concurrent callbacks or interrupt handlers.
 
 After rebuilding, DOSBox remained in `Program: ULTIHF99`, screen-present calls appeared in `PRESENT.LOG`, and audio processing advanced beyond 768 blocks in `AUDPERF.LOG`. Actual game screen and input verification remain required.
+
+## Clean rebuild verification
+
+A completely fresh build with `U1_DOS_BUILD_DIR=/tmp/ultima1-hf99-clean-verification` succeeded on 2026-10-17; no cached `.o` files were used. Clean EXE SHA-256: `2fe2a7973d284a196b2810ff6c5f48baa95b7591088c7e6f4885477cb6353cdc`. The clean executable ran under DOSBox and remained in `Program: ULTIHF99` beyond initial boot. `PRESENT.LOG` recorded display calls and `AUDPERF.LOG` recorded audio blocks. This verifies execution progress but does not substitute for visual gameplay inspection.
