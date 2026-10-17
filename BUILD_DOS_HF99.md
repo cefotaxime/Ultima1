@@ -52,3 +52,7 @@ User confirmed on 2026-10-17 that DOS palette, bilinear presentation and 800x600
 ## Repository-managed fonts
 
 Project owner confirmed `H12.FNT` and `ROBO.FNT` were created for this project. Both are committed under `assets/FONTS/`. To stage a runtime with privately held commercial game data, run `bash snapshot/DOS_support/stage_runtime.sh OUTPUT_DIR PATH_TO_GAMEDATA`. The script copies the repository fonts and externally provided game data, and creates an empty SAVEGAME directory without transferring any personal saves.
+
+## Windows and DOS package assembly
+
+Use `bash snapshot/DOS_support/package_both.sh WINDOWS_EXE DOS_EXE EXTERNAL_GAMEDATA_DIR OUTPUT_DIR [WINDOWS_DLL_DIRECTORY] [DOS_CWSDPMI_EXE]`. The same repository-managed `H12.FNT` and `ROBO.FNT` are copied and checksum-verified in both package directories. Private saves are not included. This is local packaging using privately licensed game data; public redistribution of original game data and third-party binaries requires separate authorization.
