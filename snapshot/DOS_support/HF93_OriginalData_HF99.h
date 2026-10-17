@@ -135,7 +135,6 @@ private:
     std::vector<std::uint8_t> map_;
     std::vector<std::uint8_t> tcd_;
     std::array<SDL_Texture*,52> tileTex_{};
-    SDL_Texture* magicProjectileTex_{};
     std::array<SDL_Texture*,4> waterAnimTex_{};
     SDL_Texture* titleTex_=nullptr;
     SDL_Texture* launcherLogoTex_=nullptr;
@@ -153,4 +152,5 @@ private:
     std::array<std::string,8> princessNames_{};
     std::array<std::vector<DungeonVectorCommand>,30> dungeonVectors_{};
     std::array<std::uint16_t,5> dungeonMonsterVectorBaseY_{};
+    SDL_Texture* magicProjectileTex_{};
 };
