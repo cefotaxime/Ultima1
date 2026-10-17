@@ -113,9 +113,18 @@ static void pixel(int x,int y){
  }else _farpokeb(_dos_ds,0xA0000UL+(unsigned long)y*320u+(unsigned)x,renderer.color);
  ++writes;
 }
+// Match Windows' exact 16-color EGA palette, including bright colors 8..15.
 extern "C" int SDL_SetRenderDrawColor(SDL_Renderer*,uint8_t r,uint8_t g,uint8_t b,uint8_t){
- renderer.color=(r>128?4:0)|(g>128?2:0)|(b>128?1:0);
- if(r>220&&g>220&&b>220) renderer.color=15;
+ static const uint32_t ega[16]={0x000000,0x0000AA,0x00AA00,0x00AAAA,0xAA0000,0xAA00AA,0xAA5500,0xAAAAAA,0x555555,0x5555FF,0x55FF55,0x55FFFF,0xFF5555,0xFF55FF,0xFFFF55,0xFFFFFF};
+ unsigned bestDistance=~0u;int bestIndex=0;
+ for(int i=0;i<16;i++){
+  const int dr=(int)r-(int)((ega[i]>>16)&255);
+  const int dg=(int)g-(int)((ega[i]>>8)&255);
+  const int db=(int)b-(int)(ega[i]&255);
+  const unsigned distance=(unsigned)(dr*dr+dg*dg+db*db);
+  if(distance<bestDistance){bestDistance=distance;bestIndex=i;}
+ }
+ renderer.color=bestIndex;
  return 0;
 }
 extern "C" int SDL_RenderDrawPoint(SDL_Renderer*,int x,int y){pixel(x,y);return 0;}
