@@ -32,7 +32,20 @@ extern "C" int hf93PresentARGB(const uint32_t* argb,int w,int h){
  static unsigned char* indexed=nullptr;
  if(!indexed)indexed=(unsigned char*)malloc(640u*480u);
  if(!indexed)return -1;
- for(int y=0;y<480;y++)for(int x=0;x<640;x++)indexed[y*640+x]=(unsigned char)paletteIndex(argb[(y*400/480)*640+x]);
+ // Bilinear vertical interpolation from 640x400 to 640x480; X is already 640.
+ for(int y=0;y<480;y++){
+  const int fp=((2*y+1)*400*256/960)-128;
+  const int y0=fp<0?0:(fp>>8);
+  const int y1=y0>=399?399:y0+1;
+  const unsigned frac=fp<0?0u:(unsigned)(fp&255);
+  for(int x=0;x<640;x++){
+   const uint32_t a=argb[y0*640+x],b=argb[y1*640+x];
+   const unsigned r=((((a>>16)&255)*(256-frac))+(((b>>16)&255)*frac)+128)>>8;
+   const unsigned g=((((a>>8)&255)*(256-frac))+(((b>>8)&255)*frac)+128)>>8;
+   const unsigned bl=(((a&255)*(256-frac))+((b&255)*frac)+128)>>8;
+   indexed[y*640+x]=(unsigned char)paletteIndex((r<<16)|(g<<8)|bl);
+  }
+ }
  int status=hf93_commit_indexed(indexed);
  return status;
 }

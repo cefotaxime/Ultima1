@@ -38,3 +38,9 @@ After rebuilding, DOSBox remained in `Program: ULTIHF99`, screen-present calls a
 ## Clean rebuild verification
 
 A completely fresh build with `U1_DOS_BUILD_DIR=/tmp/ultima1-hf99-clean-verification` succeeded on 2026-10-17; no cached `.o` files were used. Clean EXE SHA-256: `2fe2a7973d284a196b2810ff6c5f48baa95b7591088c7e6f4885477cb6353cdc`. The clean executable ran under DOSBox and remained in `Program: ULTIHF99` beyond initial boot. `PRESENT.LOG` recorded display calls and `AUDPERF.LOG` recorded audio blocks. This verifies execution progress but does not substitute for visual gameplay inspection.
+
+## DOSBox scaling and window geometry
+
+DOSBox config `snapshot/DOS_support/dosbox_800x600.conf` uses OpenGL output and `windowresolution=800x600`. Run DOSBox with its working directory set to the staged game runtime: `DOSBox.exe -conf <repo>\snapshot\DOS_support\dosbox_800x600.conf`. Window content is 800x600; the measured outer window was 806x629 on Windows.
+
+The 640x400 ARGB source frame is vertically bilinear-resampled to a 640x480 4:3 indexed EGA frame before presentation. Horizontal source and destination resolutions are equal, so no horizontal interpolation is required. Indexed EGA quantization necessarily limits the smoothness of blended colors compared with truecolor Windows rendering. Verified compilation and emulator startup; subjective visual matching requires a human comparison.
