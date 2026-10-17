@@ -4803,7 +4803,9 @@ int main(int argc,char** argv){
                 case 3:facing="북쪽";break;
                 case 4:facing="남쪽";break;
             }
-            drawDungeonFramedLabel(r,font,facing,302,false);
+            // The bottom frame is owned by Ztats, quest status and command help popups.
+            if(!showZ && !questPopup && !commandHelpPopup)
+                drawDungeonFramedLabel(r,font,facing,302,false);
         }
         if(!mondainIntroBlocking){
             if(!space.active) drawKingServicePopup(r,font,king);
