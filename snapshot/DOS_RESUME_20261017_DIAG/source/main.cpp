@@ -1843,6 +1843,7 @@ int main(int argc,char** argv){
     DungeonState dungeon;
     SpaceState space;
     MondainState mondain;
+    bool mondainCollisionFlashPending=false;
     if(testMondainEndingAudit){
         std::ofstream f("MONDAUD.LOG",std::ios::trunc);
         auto report=[&](const char* n,bool pass){f<<(pass?"PASS ":"FAIL ")<<n<<std::endl;};
@@ -3410,12 +3411,21 @@ int main(int argc,char** argv){
                         log.pushCommand(mondainMoveDir);
                         pendingMondainMoveFinish=true;
                     }else{
-                        // Preserve the existing localized blocked result.
-                        if(!mm.empty()){
-                            log.pushCommand(mm.front());
-                            for(std::size_t i=1;i<mm.size();++i) log.push(mm[i]);
+                        // MONDAIN.EXE 0x07B3: sound(0), negative palette,
+                        // Burned + damage, sound(2), then restore palette.
+                        if(noiseEnabled) sfx.play(0);
+                        mondainCollisionFlashPending=true;
+                        const int damage=std::max(1,static_cast<int>(p.hits)/10);
+                        p.hits=static_cast<decltype(p.hits)>(std::max(0,static_cast<int>(p.hits)-damage));
+                        log.pushCommand(mondainMoveDir);
+                        log.push("화상을 입습니다! "+std::to_string(damage)+"의 피해량!");
+                        if(p.hits==0){
+                            mondain.defeated=true;
+                            log.push("당신은 사망했습니다!");
+                            /* Existing DOS defeat lifecycle */
+                        }else{
+                            finishCommand();
                         }
-                        finishCommand();
                     }
                     continue;
                 }
@@ -4879,13 +4889,17 @@ int main(int argc,char** argv){
             mondain.active && mondain.victorious && mondain.victoryPopup && mondain.victoryDrawPhase>=1;
         const bool landmarkBlueRestoreFramePresented =
             landmarkPresentation.active() && landmarkBlueRestorePending;
-        if(mondainPsionicFramePresented) invertCurrentGameFrame();
+        if(mondainPsionicFramePresented || mondainCollisionFlashPending) invertCurrentGameFrame();
 
         // M231: OUT.EXE draws first, then enters the synchronous PC-speaker
         // routine.  Do not start those sounds before presentation; present the
         // newly blitted frame first and execute sound() in the post-present
         // section below while that frame remains visible.
         presentFrame();
+        if(mondainCollisionFlashPending){
+            if(noiseEnabled) sfx.play(2);
+            mondainCollisionFlashPending=false;
+        }
         // DOS-only: trace emitted beam frames in standalone tests.
         if(testAlienHit && space.active && space.alienShotFrames>0){
             static int beamPresentCount=0;
