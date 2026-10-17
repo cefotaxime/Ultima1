@@ -513,6 +513,7 @@ void DungeonSystem::castDungeon(DungeonState& d,PlayerSave& p,int spell,std::vec
     const auto finishMonster=[&](DungeonCell& target,int id,const std::string& deathText){
         lastCastHit_=true;
         messages.push_back(std::string(monsterName(id))+deathText);
+        const std::size_t deathRowIndex=messages.size()-1;
         completeMonsterQuest(id,p,messages);
 
         const int reward=rng_.randomRange(2,d.level*3+10+id);
@@ -520,7 +521,7 @@ void DungeonSystem::castDungeon(DungeonState& d,PlayerSave& p,int spell,std::vec
         const int actual=std::max(0,std::min(room,reward));
         p.coin=static_cast<std::uint16_t>(static_cast<int>(p.coin)+actual);
         const std::string found=dungeonTreasureText(actual);
-        if(!found.empty()) messages.push_back(found);
+        if(!found.empty()) messages[deathRowIndex]+=" "+found;
 
         target.monster=0xFFFFu;
         target.hp=0;
@@ -997,120 +998,3 @@ void DungeonSystem::drawWireframe(SDL_Renderer* r,const DungeonState& d,SDL_Colo
             drawFrontFace(r,0,color);
             if(here.marker==4) drawDungeonVector(r,11,1,color);
             else if(here.marker==5) drawDungeonVector(r,25,1,color);
-            return;
-        }
-        drawSecretFrontFace(r,0,color);
-    }
-    // OUT.EXE raw 0x4411..0x44FC has an occluding-monster-only side-wall
-    // continuation after the main far->near pass.  Keep the monster test itself
-    // separate from feature blocking: raw 0x4013 examines only the monster slot.
-    const auto& farCell=cell(d,d.x+fx*far,d.y+fy*far);
-    const bool farBlockedByMonster=(farCell.monster!=0xFFFFu && farCell.monster!=9u &&
-                                    farCell.monster!=11u && farCell.monster!=20u);
-    std::array<int,6> leftClass{};
-    std::array<int,6> rightClass{};
-    std::array<std::uint16_t,6> leftFeature{};
-    std::array<std::uint16_t,6> rightFeature{};
-
-    // Segment d leads from forward distance d-1 to d.  This is the coordinate
-    // convention used by 0x33B0/3430/355A/35DC and by the 0x414A dispatcher.
-    for(int depth=1;depth<=far;++depth){
-        const int bx=d.x+fx*(depth-1), by=d.y+fy*(depth-1);
-        leftFeature[depth]=cell(d,bx+lx,by+ly).feature;
-        rightFeature[depth]=cell(d,bx-lx,by-ly).feature;
-        leftClass[depth]=sideClass(leftFeature[depth]);
-        rightClass[depth]=sideClass(rightFeature[depth]);
-    }
-
-    // OUT.EXE traverses far -> near.  Preserve that ordering; it matters where
-    // diagonal rails and transition caps share pixels.
-    int fartherLeft=-1, fartherRight=-1;
-    for(int depth=far;depth>=1;--depth){
-        // raw 0x42FF..0x43CC: while standing in a revealed secret doorway,
-        // depth 1 deliberately skips both side dispatchers and their class
-        // transition logic.  This is the missing state behind both M133
-        // screenshots: ordinary near-side rails made the wall appear broken.
-        const bool skipNearSecretSides=(insideSecret && depth==1);
-        if(!skipNearSecretSides){
-            drawLeftByFeature(r,leftFeature[depth],depth,color);
-            drawRightByFeature(r,rightFeature[depth],depth,color);
-
-            if(fartherLeft!=-1 && fartherLeft!=leftClass[depth]) drawLeftTransition(r,depth,color);
-            if(fartherRight!=-1 && fartherRight!=rightClass[depth]) drawRightTransition(r,depth,color);
-            fartherLeft=leftClass[depth]; fartherRight=rightClass[depth];
-        }
-
-        // OUT.EXE raw 0x3DF5 is mutually exclusive at the center-cell layer:
-        // if a monster is present, it jumps directly to the monster dispatcher
-        // (raw 0x3D6C) and skips feature rendering entirely.  Only an empty
-        // monster slot dispatches feature 1..8.  This matters for a monster
-        // standing on a ladder/bars/door square: the feature must NOT show
-        // through the monster.  Marker 5/4 checks still run afterwards.
-        const auto& c=cell(d,d.x+fx*depth,d.y+fy*depth);
-        if(c.monster!=0xFFFFu){
-            drawMonsterVector(r,static_cast<int>(c.monster),depth,color);
-        }else{
-            if(c.feature==1 || c.feature==2){
-                drawFrontFace(r,depth,color);
-            }else if(c.feature==3){
-                drawSecretFrontFace(r,depth,color);
-            }else if(c.feature==8){
-                drawExactBars(r,depth,color);
-            }
-
-            if(c.feature==6 || c.feature==7){
-                const bool northSouth=(d.orientation==3 || d.orientation==4);
-                // The raw 0x3DF5 cell dispatcher increments the perspective
-                // argument before calling either ladder wrapper.
-                drawDungeonVector(r,c.feature==7 ? 26 : 27,depth+1,color);
-                drawDungeonVector(r,northSouth ? 28 : 29,depth+1,color);
-            }
-        }
-        // Marker 4/5 wrappers are called with depth+1 in raw 0x3DF5.
-        if(c.marker==4) drawDungeonVector(r,11,depth+1,color);
-        else if(c.marker==5) drawDungeonVector(r,25,depth+1,color);
-    }
-
-    // OUT.EXE raw 0x4401 calls the ordinary cell dispatcher once more for the
-    // player's current square with perspective depth 0.  The ladder/chest/coffin
-    // wrappers inside raw 0x3DF5 then increment that argument, so objects under
-    // the player are drawn at visual depth 1.  M132 omitted this current-cell
-    // dispatch, which made ladders (and floor treasure markers) disappear as
-    // soon as the player stepped onto their square.
-    //
-    // A revealed secret doorway (feature 3) follows the dedicated depth-0
-    // path restored above and deliberately skips this 0x4401 dispatch; the
-    // cases below are the remaining occupiable current-square contents.
-    if(here.feature==6 || here.feature==7){
-        const bool northSouth=(d.orientation==3 || d.orientation==4);
-        drawDungeonVector(r,here.feature==7 ? 26 : 27,1,color);
-        drawDungeonVector(r,northSouth ? 28 : 29,1,color);
-    }
-    if(here.marker==4) drawDungeonVector(r,11,1,color);
-    else if(here.marker==5) drawDungeonVector(r,25,1,color);
-
-    // OUT.EXE raw 0x4411..0x44FC: when the far blocker is an ordinary
-    // occluding monster, the renderer does NOT stop the side geometry at that
-    // depth.  If the monster is nearer than depth 5 and is not sharing a
-    // revealed-secret feature, it samples the cells immediately left/right of
-    // the monster and draws one additional side segment at perspective far+1.
-    // This is why original DOS screenshots retain substantially more corridor
-    // wall around a near monster than the pre-M180 clean-room renderer did.
-    //
-    // The two transition calls below intentionally test only whether the newly
-    // sampled side is open, matching raw 0x44CE..0x44FC exactly; this is not the
-    // ordinary adjacent-class transition rule used by the main loop above.
-    if(far>=1 && farBlockedByMonster && farCell.feature!=3 && far<5){
-        const int bx=d.x+fx*far, by=d.y+fy*far;
-        const auto extraLeftFeature=cell(d,bx+lx,by+ly).feature;
-        const auto extraRightFeature=cell(d,bx-lx,by-ly).feature;
-        drawLeftByFeature(r,extraLeftFeature,far+1,color);
-        drawRightByFeature(r,extraRightFeature,far+1,color);
-        if(sideClass(extraLeftFeature)==0) drawLeftTransition(r,far,color);
-        if(sideClass(extraRightFeature)==0) drawRightTransition(r,far,color);
-    }else if(far>=1){
-        // raw 0x44FE/0x450C ordinary far-side closure.
-        if(leftClass[far]) drawLeftTransition(r,far,color);
-        if(rightClass[far]) drawRightTransition(r,far,color);
-    }
-}
