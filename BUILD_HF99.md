@@ -7,7 +7,7 @@ The repository checkout is the source of truth. Do not build from Downloads/Ulti
 - Windows `u1kr_clean.exe` compiled and linked from `snapshot/HF97` (HF99 source) using WSL CMake and `x86_64-w64-mingw32-g++`.
 - The independent build successfully used SDL2 installed outside the old Downloads worktree, at `~/.cache/ultima1-build/SDL2-2.30.0/x86_64-w64-mingw32` (Windows home directory).
 - The Linux/WSL application target also compiled successfully. Runtime and packaging validation are separate and still required.
-- DOS build is NOT yet independent: its script references the old Downloads directory and stale compiled `.o` files. Do not delete that directory until it is replaced and the DOS build passes.
+- DOS compilation and linking are now independent of legacy `.o` files. See `BUILD_DOS_HF99.md`. DOSBox runtime validation and packaged delivery are still pending; do not delete the old work directory until acceptance tests pass.
 
 ## Windows build example (WSL)
 
