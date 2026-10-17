@@ -12,3 +12,19 @@ CMakeCache.txt
 *.exe
 *.EXE
 *.log
+
+## Private or proprietary game assets and player state
+**/SAVEGAME/
+**/savegame/
+**/PLAYER*.U1
+**/PLAYER*.SAV
+**/gamedata/
+**/fonts/
+*.FNT
+*.fnt
+*.BIN
+*.bin
+*.dsk
+*.DSK
+*.zip
+*.ZIP
