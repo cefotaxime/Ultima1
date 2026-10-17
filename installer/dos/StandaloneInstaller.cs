@@ -19,7 +19,7 @@ class InstallerEntry {
    p.StartInfo.Arguments="-NoProfile -ExecutionPolicy Bypass -STA -File \""+Path.Combine(temp,"setup.ps1")+"\"";
    p.StartInfo.UseShellExecute=false;
    p.Start();p.WaitForExit();
-  }catch(Exception ex){MessageBox.Show(ex.Message,"울티마 1 한국어판 (Windows) 설치 프로그램");}
+  }catch(Exception ex){MessageBox.Show(ex.Message,"Ultima I Korean DOS Setup");}
   finally{try{Directory.Delete(temp,true);}catch{}}
  }
 }

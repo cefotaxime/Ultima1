@@ -16,7 +16,6 @@ Copy-Item "$src\Ultima1K.bat" "$stage\Ultima1K.bat" -Force
 $config=[IO.File]::ReadAllText("$root\snapshot\DOS_support\dosbox_800x600.conf")
 $config=$config.Replace('fullscreen=false','fullscreen=true')
 [IO.File]::WriteAllText("$stage\dosbox_ultima1.conf",$config,[Text.Encoding]::ASCII)
-Copy-Item 'C:\Users\hojun\Downloads\Ultima1_KR_Work_BACKUP\distribution_build\HF99_V1.0K\StandaloneInstaller.cs' "$src\StandaloneInstaller.cs" -Force
 $zip="$src\payload.zip"
 if(Test-Path $zip){Remove-Item $zip -Force}
 Add-Type -AssemblyName System.IO.Compression.FileSystem
