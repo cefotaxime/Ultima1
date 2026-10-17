@@ -1,4 +1,4 @@
-﻿#ifdef __DJGPP__
+#ifdef __DJGPP__
 extern "C" void hf93AudioCaptureTick(void);
 #endif
 #include <cstring>
@@ -2052,6 +2052,10 @@ int main(int argc,char** argv){
     int commandSfxHoldContinuation=0;
     std::deque<int> dungeonPlayerSfxQueue;
     bool dungeonPlayerSfxFinishPending=false;
+    bool dungeonCastCommitPending=false;
+    DungeonState dungeonCastStagedDungeon{};
+    PlayerSave dungeonCastStagedPlayer{};
+    std::vector<std::string> dungeonCastStagedMessages;
     // HF96: display-only snapshot; gameplay death/rewards stay authoritative.
     DungeonState dungeonLethalVisualSnapshot{};
     bool dungeonLethalPrePresent=false;
@@ -3484,7 +3488,10 @@ int main(int argc,char** argv){
                     if(sp==0){
                         castLine+=" \""+std::string(INCANT[sp])+"\"";
                         log.pushCommand(castLine);
-                        dungeonSystem.castDungeon(dungeon,p,sp,dm);
+                        dungeonCastStagedDungeon=dungeon;
+                        dungeonCastStagedPlayer=p;
+                        dungeonSystem.castDungeon(dungeonCastStagedDungeon,dungeonCastStagedPlayer,sp,dm);
+                        dungeonCastCommitPending=true;
                     }else if(p.spells[static_cast<std::size_t>(sp)]==0){
                         log.pushCommand(castLine);
                         dm.push_back("해당 주문이 소진되었습니다!");
@@ -3493,9 +3500,12 @@ int main(int argc,char** argv){
                         --p.spells[static_cast<std::size_t>(sp)];
                         castLine+=" \""+std::string(INCANT[sp])+"\"";
                         log.pushCommand(castLine);
-                        dungeonSystem.castDungeon(dungeon,p,sp,dm);
+                        dungeonCastStagedDungeon=dungeon;
+                        dungeonCastStagedPlayer=p;
+                        dungeonSystem.castDungeon(dungeonCastStagedDungeon,dungeonCastStagedPlayer,sp,dm);
+                        dungeonCastCommitPending=true;
                     }
-                    pushMessages(dm);
+                    dungeonCastStagedMessages=dm;
                     if(noiseEnabled){
                         dungeonPlayerSfxQueue.clear();
                         const bool failed=inventoryFailure || dungeonSystem.lastCastFailed();
@@ -3508,7 +3518,12 @@ int main(int argc,char** argv){
                                 dungeonPlayerSfxQueue.push_back(sfxId(SfxEvent::CombatHit));
                         }
                         dungeonPlayerSfxFinishPending=true;
-                    }else finishCommand();
+                    }else{
+                        if(dungeonCastCommitPending){ dungeon=dungeonCastStagedDungeon; p=dungeonCastStagedPlayer; dungeonCastCommitPending=false; }
+                        pushMessages(dungeonCastStagedMessages);
+                        dungeonCastStagedMessages.clear();
+                        finishCommand();
+                    }
                     continue;
                 }
                 else if(k==SDLK_d){ log.pushCommand("버리기?"); finishCommandWithBeep(); continue; }
@@ -4689,7 +4704,8 @@ int main(int argc,char** argv){
             }
             if(worldProjectileActive && worldProjectileIndex<worldProjectilePath.size()){
                 const auto [sx,sy]=worldProjectilePath[worldProjectileIndex];
-                SDL_Texture* effect=original.physicalTexture(50); // OUT.EXE caller 0x1257: BX=0x32
+                SDL_Texture* effect=(pendingAttackResolveMode==3 || pendingAttackResolveMode==4)
+                    ?original.magicProjectileTexture():original.physicalTexture(50);
                 if(effect){
                     SDL_Rect ed{VIEW_X+(WORLD_COLS/2+sx)*WORLD_TILE,
                                 VIEW_Y+(WORLD_ROWS/2+sy)*WORLD_TILE,
@@ -4790,7 +4806,10 @@ int main(int argc,char** argv){
                 !(space.active && space.sectorScan) &&
                 !spaceHyperBlocking &&
                 !(mondain.active && mondain.victorious) &&
-                !timeMachineUnreadyPopup,
+                !timeMachineUnreadyPopup &&
+                !(pendingAttackResolveMode==3 || pendingAttackResolveMode==4) &&
+                !(pendingWorldCastSpell==3 || pendingWorldCastSpell==10) &&
+                !dungeonCastCommitPending && !dungeonPlayerSfxFinishPending && !worldPostHitSoundPending,
                 spaceHyperBlocking);
         if(!mondainIntroBlocking && !(mondain.active && mondain.victorious) &&
            !timeMachineUnreadyPopup && !commandHelpPopup && !questPopup){
@@ -5105,6 +5124,8 @@ int main(int argc,char** argv){
                 if(noiseEnabled) sfx.play(id);
             }
             dungeonPlayerSfxFinishPending=false;
+            if(dungeonCastCommitPending){ dungeon=dungeonCastStagedDungeon; p=dungeonCastStagedPlayer; dungeonCastCommitPending=false; }
+            if(!dungeonCastStagedMessages.empty()){ pushMessages(dungeonCastStagedMessages); dungeonCastStagedMessages.clear(); }
             if(!dungeonLethalResultNeedsPresent) finishCommand();
         }
 
