@@ -81,6 +81,7 @@ public:
     SDL_Texture* terrainTexture(int logicalTile) const;
     SDL_Texture* animatedTerrainTexture(int logicalTile, std::uint32_t animationStep) const;
     SDL_Texture* physicalTexture(int physicalTile) const;
+    SDL_Texture* magicProjectileTexture() const { return magicProjectileTex_; }
     SDL_Texture* titleTexture() const { return titleTex_; }
     SDL_Texture* launcherLogoTexture() const { return launcherLogoTex_; }
     const std::array<std::uint8_t,275*64>& launcherLogoMask() const { return launcherLogoMask_; }
@@ -134,6 +135,7 @@ private:
     std::vector<std::uint8_t> map_;
     std::vector<std::uint8_t> tcd_;
     std::array<SDL_Texture*,52> tileTex_{};
+    SDL_Texture* magicProjectileTex_{};
     std::array<SDL_Texture*,4> waterAnimTex_{};
     SDL_Texture* titleTex_=nullptr;
     SDL_Texture* launcherLogoTex_=nullptr;
