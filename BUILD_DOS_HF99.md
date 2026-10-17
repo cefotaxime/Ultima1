@@ -28,3 +28,9 @@ Original Ultima I `GAMEDATA`, fonts and user `SAVEGAME` are NOT stored on GitHub
 - Windows native executable launch and packaged asset/dependency smoke check.
 - All private saves verified separately and retained before removing old working tree.
 - Temporary rename of old working tree with successful Windows + DOS rebuild and launch, then ask user to approve deletion.
+
+## 2026-10-17 CPU compatibility correction
+
+The first source-only DOS executable crashed with `Invalid Opcode` at `0x62301`, which mapped to the `lock cmpxchg8b` instruction emitted for an `std::atomic<uint64_t>` update in `SfxSystem::renderCallback`. The DOS build now compiles baseline DOS objects with `-march=i386` and links a source-controlled single-threaded 64-bit atomic adapter (`snapshot/DOS_support/V1_0K/dos_atomic64_singlethread.cpp`). This adapter is valid only while the DOS audio callback and game run synchronously in one thread; never use it for concurrent callbacks or interrupt handlers.
+
+After rebuilding, DOSBox remained in `Program: ULTIHF99`, screen-present calls appeared in `PRESENT.LOG`, and audio processing advanced beyond 768 blocks in `AUDPERF.LOG`. Actual game screen and input verification remain required.
