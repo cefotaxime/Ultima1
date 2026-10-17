@@ -25,7 +25,7 @@ SDL_Color ega(int i) {
     return p[i&15];
 }
 
-SDL_Texture* decode16x16(SDL_Renderer* r, const std::vector<std::uint8_t>& raw, int tile, std::string& error) {
+SDL_Texture* decode16x16(SDL_Renderer* r, const std::vector<std::uint8_t>& raw, int tile, std::string& error, bool magicBlue=false) {
     SDL_Surface* s=SDL_CreateRGBSurfaceWithFormat(0,16,16,32,SDL_PIXELFORMAT_RGBA32);
     if(!s){error=SDL_GetError();return nullptr;}
     auto* px=static_cast<std::uint32_t*>(s->pixels);
@@ -38,6 +38,7 @@ SDL_Texture* decode16x16(SDL_Renderer* r, const std::vector<std::uint8_t>& raw, 
                 const auto v=raw[base + y*8 + plane*2 + byte];
                 if(v&(1u<<bit)) idx|=(1<<plane); // B,G,R,I plane order
             }
+            if(magicBlue && idx==12) idx=9; // exact source silhouette; bright red -> bright blue
             auto c=ega(idx);
             px[y*(s->pitch/4)+x]=SDL_MapRGBA(s->format,c.r,c.g,c.b,255);
         }
@@ -231,6 +232,9 @@ bool OriginalData::load(const std::string& d, SDL_Renderer* r, std::string& erro
         tileTex_[t]=decode16x16(r,raw,t,error);
         if(!tileTex_[t]) return false;
     }
+
+    magicProjectileTex_=decode16x16(r,raw,50,error,true);
+    if(!magicProjectileTex_) return false;
 
     // M79 / OUT.EXE 0xA754: the overworld water animation mutates only the
     // first 16x16 tile.  In EGA mode each scanline occupies 8 bytes, and each
