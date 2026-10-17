@@ -44,3 +44,7 @@ A completely fresh build with `U1_DOS_BUILD_DIR=/tmp/ultima1-hf99-clean-verifica
 DOSBox config `snapshot/DOS_support/dosbox_800x600.conf` uses OpenGL output and `windowresolution=800x600`. Run DOSBox with its working directory set to the staged game runtime: `DOSBox.exe -conf <repo>\snapshot\DOS_support\dosbox_800x600.conf`. Window content is 800x600; the measured outer window was 806x629 on Windows.
 
 The 640x400 ARGB source frame is vertically bilinear-resampled to a 640x480 4:3 indexed EGA frame before presentation. Horizontal source and destination resolutions are equal, so no horizontal interpolation is required. Indexed EGA quantization necessarily limits the smoothness of blended colors compared with truecolor Windows rendering. Verified compilation and emulator startup; subjective visual matching requires a human comparison.
+
+## User visual confirmation
+
+User confirmed on 2026-10-17 that DOS palette, bilinear presentation and 800x600 window size look the same as the Windows edition.

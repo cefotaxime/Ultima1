@@ -23,3 +23,7 @@ cmake --build /tmp/ultima1-hf99-win --target u1kr_clean -j 4
 ```
 
 The generated EXE is under `/tmp/ultima1-hf99-win/u1kr_clean.exe`. At runtime, SDL2 DLL plus the original Ultima I game data and fonts must be provided separately where required. User savegames and redistributable third-party/game binaries are not part of this source-only Git commit.
+
+## Independent Windows launch
+
+On 2026-10-17, the GitHub-built Windows EXE was launched from `C:\Users\hojun\.cache\ultima1-build\win-runtime` with external SDL2/MinGW DLLs and privately backed-up game data/fonts. The process remained responsive with its game window open; saves in that isolated runtime were empty. This is a startup smoke test, not a full gameplay regression. The source tree under the old Downloads working folder was not used.
