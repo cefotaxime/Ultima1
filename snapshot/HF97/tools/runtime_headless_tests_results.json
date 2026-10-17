@@ -1,0 +1,254 @@
+[
+  {
+    "target": "u1kr_actor_translation_test_m96",
+    "status": "PASS",
+    "sec": 0.04,
+    "out": "M109 actor-name/Killed localization test OK\n"
+  },
+  {
+    "target": "u1kr_attack_presentation_test_m109",
+    "status": "PASS",
+    "sec": 0.05,
+    "out": "M109 attack direction/projectile/castle wording test OK\n"
+  },
+  {
+    "target": "u1kr_attack_translation_test_m111",
+    "status": "PASS",
+    "sec": 0.03,
+    "out": "M111 all-weapon Attack phrase test OK\n"
+  },
+  {
+    "target": "u1kr_campaign_smoke",
+    "status": "FAIL",
+    "sec": 0.03,
+    "out": "M39 campaign smoke FAIL: PLAYER1.U1 is not the expected fresh combat-stat fixture\n"
+  },
+  {
+    "target": "u1kr_castle_combat_test_m95",
+    "status": "PASS",
+    "sec": 0.04,
+    "out": "M95 castle combat localization test OK\n"
+  },
+  {
+    "target": "u1kr_castle_commands_test_m122",
+    "status": "PASS",
+    "sec": 0.03,
+    "out": "M122 castle command translations + Drop Pence no-popup test OK\n"
+  },
+  {
+    "target": "u1kr_castle_entry_test_m103",
+    "status": "PASS",
+    "sec": 0.03,
+    "out": "M103 castle name/entry-line test OK\n"
+  },
+  {
+    "target": "u1kr_castle_inform_test_m123",
+    "status": "PASS",
+    "sec": 0.04,
+    "out": "M123 castle Inform/search name test OK\n"
+  },
+  {
+    "target": "u1kr_castle_labels_test_m108",
+    "status": "PASS",
+    "sec": 0.04,
+    "out": "M108 castle Korean label overlay test OK\n"
+  },
+  {
+    "target": "u1kr_combat_message_layout_test_m119",
+    "status": "PASS",
+    "sec": 0.04,
+    "out": "M119 field/castle combat message layout test OK\n"
+  },
+  {
+    "target": "u1kr_drop_ready_popup_test_m121",
+    "status": "PASS",
+    "sec": 0.03,
+    "out": "M121 Drop/Ready popup + none + cursor-gap test OK\n"
+  },
+  {
+    "target": "u1kr_enemy_projectile_direction_test_m140",
+    "status": "PASS",
+    "sec": 0.04,
+    "out": "M140 fixed 8-direction enemy projectile test OK\n"
+  },
+  {
+    "target": "u1kr_enemy_projectile_test_m118",
+    "status": "PASS",
+    "sec": 0.05,
+    "out": "M118 OUT.EXE 0x83FC enemy projectile event test OK\n"
+  },
+  {
+    "target": "u1kr_frigate_direction_test_m136",
+    "status": "PASS",
+    "sec": 0.04,
+    "out": "M136 Frigate direction state test OK\n"
+  },
+  {
+    "target": "u1kr_frigate_direction_test_m137",
+    "status": "PASS",
+    "sec": 0.03,
+    "out": "M137 Frigate input-facing state test OK\n"
+  },
+  {
+    "target": "u1kr_gameplay_text_wrap_test_m113",
+    "status": "PASS",
+    "sec": 0.03,
+    "out": "M113 gameplay text wrap test OK\n"
+  },
+  {
+    "target": "u1kr_jester_smoke_m87",
+    "status": "PASS",
+    "sec": 0.02,
+    "out": "M87 jester song smoke OK\n"
+  },
+  {
+    "target": "u1kr_king_landmark_localization_test_m131",
+    "status": "PASS",
+    "sec": 0.03,
+    "out": "M131 landmark localization/reward regression OK\n"
+  },
+  {
+    "target": "u1kr_king_reward_popup_test_m132",
+    "status": "PASS",
+    "sec": 0.03,
+    "out": "M132 king reward popup state regression OK\n"
+  },
+  {
+    "target": "u1kr_korean_particle_test_m94",
+    "status": "PASS",
+    "sec": 0.03,
+    "out": "M98 받침/조사 처리 test OK\n"
+  },
+  {
+    "target": "u1kr_local_actor_dialogue_delay_test_m124",
+    "status": "PASS",
+    "sec": 0.03,
+    "out": "M124 Bard/Jester delayed-dialogue separation test OK\n"
+  },
+  {
+    "target": "u1kr_local_actor_dialogue_presentation_test_m127",
+    "status": "PASS",
+    "sec": 0.03,
+    "out": "M127 two-sided dialogue presentation state test OK\n"
+  },
+  {
+    "target": "u1kr_localization_test_m133",
+    "status": "PASS",
+    "sec": 0.03,
+    "out": "M133 requested localization regression OK\n"
+  },
+  {
+    "target": "u1kr_overworld_combat_stream_test_m115",
+    "status": "PASS",
+    "sec": 0.05,
+    "out": "M115 four-line-conscious overworld combat stream test OK\n"
+  },
+  {
+    "target": "u1kr_overworld_combat_translation_test_m112",
+    "status": "PASS",
+    "sec": 0.05,
+    "out": "M112/M114 overworld combat/reward translation test OK\n"
+  },
+  {
+    "target": "u1kr_overworld_combat_translation_test_m114",
+    "status": "PASS",
+    "sec": 0.05,
+    "out": "M114 shortened combat text + inline reward test OK\n"
+  },
+  {
+    "target": "u1kr_pc_speaker_test_m230",
+    "status": "PASS",
+    "sec": 0.02,
+    "out": "M235 PC-speaker impulse renderer / footstep tone smoke OK\n"
+  },
+  {
+    "target": "u1kr_princess_unlock_presentation_test_m129",
+    "status": "PASS",
+    "sec": 0.05,
+    "out": "M129 Princess popup/name + Unlock translation test OK\n"
+  },
+  {
+    "target": "u1kr_quit_system_test_m107",
+    "status": "PASS",
+    "sec": 0.03,
+    "out": "M107 Quit outdoor-only/save-delay test OK\n"
+  },
+  {
+    "target": "u1kr_ready_popup_test_m97",
+    "status": "PASS",
+    "sec": 0.02,
+    "out": "M97 Ready popup state test OK\n"
+  },
+  {
+    "target": "u1kr_ready_translation_test_m99",
+    "status": "PASS",
+    "sec": 0.03,
+    "out": "M100 Ready/armour/Bow/spell translation test OK\n"
+  },
+  {
+    "target": "u1kr_steal_ready_test_m102",
+    "status": "PASS",
+    "sec": 0.04,
+    "out": "M102 Steal prompt/nothing-here + Ready none test OK\n"
+  },
+  {
+    "target": "u1kr_steal_route_m40",
+    "status": "FAIL",
+    "sec": 0.03,
+    "out": "M39 campaign smoke FAIL: unexpected fresh baseline\n"
+  },
+  {
+    "target": "u1kr_steal_translation_test_m101",
+    "status": "PASS",
+    "sec": 0.04,
+    "out": "M101 steal translation test OK\n"
+  },
+  {
+    "target": "u1kr_vehicle_board_access_test_m135",
+    "status": "PASS",
+    "sec": 0.03,
+    "out": "M135 vehicle object-aware movement / Frigate boarding test OK\n"
+  },
+  {
+    "target": "u1kr_vehicle_facing_test_m268",
+    "status": "PASS",
+    "sec": 0.03,
+    "out": "M268 vehicle facing / Frigate animation test OK\n"
+  },
+  {
+    "target": "u1kr_vehicle_localization_test_m136",
+    "status": "PASS",
+    "sec": 0.03,
+    "out": "M136 vehicle localization test OK\n"
+  },
+  {
+    "target": "u1kr_vehicle_xit_occupied_cell_test_m219",
+    "status": "PASS",
+    "sec": 0.03,
+    "out": "M219 occupied-cell X-it stacking regression OK\n"
+  },
+  {
+    "target": "u1kr_visible_presentation_hold_test_m126",
+    "status": "PASS",
+    "sec": 0.03,
+    "out": "M126 visible-after-present 1-second hold test OK\n"
+  },
+  {
+    "target": "u1kr_world_cast_test_m141",
+    "status": "PASS",
+    "sec": 0.05,
+    "out": "M141 overworld Magic Missile/Kill ray test OK\n"
+  },
+  {
+    "target": "u1kr_world_tile_animation_test_m117",
+    "status": "PASS",
+    "sec": 0.03,
+    "out": "M117 B157 physical-pair frame selection test OK\n"
+  },
+  {
+    "target": "u1kr_ztats_model_test_m104",
+    "status": "PASS",
+    "sec": 0.03,
+    "out": "M106 Ztats dense leader/two-column model test OK\n"
+  }
+]

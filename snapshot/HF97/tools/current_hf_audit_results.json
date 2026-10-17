@@ -1,0 +1,157 @@
+[
+  {
+    "file": "audit_hf19_regressions.py",
+    "status": "PASS",
+    "out": "HF19 host-extension/presentation regression audit OK\n"
+  },
+  {
+    "file": "audit_hf20_drop_pence_localization.py",
+    "status": "FAIL",
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF42\\tools\\audit_hf20_drop_pence_localization.py\", line 13, in <module>\n    assert local.count('out.push_back(\"Ok!\");')==3\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "file": "audit_hf22_reachable_english.py",
+    "status": "PASS",
+    "out": "HF22 reachable English localization audit OK\n"
+  },
+  {
+    "file": "audit_hf23_apple_ending.py",
+    "status": "PASS",
+    "out": "HF23 Apple-inspired dissolve/scroll ending audit OK\n"
+  },
+  {
+    "file": "audit_hf24_ending_hold_scroll_stop.py",
+    "status": "FAIL",
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF42\\tools\\audit_hf24_ending_hold_scroll_stop.py\", line 8, in <module>\n    assert 'ENDING_SCROLL_STOP_OFFSET=400' in ms\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "file": "audit_hf25_mondain_ending_timing.py",
+    "status": "PASS",
+    "out": "HF25 Mondain ending timing/layout audit OK\n"
+  },
+  {
+    "file": "audit_hf26_mondain_player_spell_sfx.py",
+    "status": "PASS",
+    "out": "HF26 MONDAIN player spell SFX audit OK\n"
+  },
+  {
+    "file": "audit_hf26_reachable_english_followup.py",
+    "status": "PASS",
+    "out": "HF26 reachable-English cleanup audit OK\n"
+  },
+  {
+    "file": "audit_hf27_spell_sfx_matrix.py",
+    "status": "PASS",
+    "out": "HF27 field/dungeon/Mondain spell SFX matrix audit OK\n"
+  },
+  {
+    "file": "audit_hf28_reachable_output_english.py",
+    "status": "FAIL",
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF42\\tools\\audit_hf28_reachable_output_english.py\", line 14, in <module>\n    assert 'if(localActive){ m.push_back(\"Board?\"); return true; }' in veh\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "file": "audit_hf29_space_crunch_sfx.py",
+    "status": "FAIL",
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF42\\tools\\audit_hf29_space_crunch_sfx.py\", line 14, in <module>\n    data=Path(r\"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Test_Hotfix28\\GAMEDATA\\SPACE.EXE\").read_bytes()\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_abc.py\", line 625, in read_bytes\n    with self.open(mode='rb') as f:\n         ~~~~~~~~~^^^^^^^^^^^\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_local.py\", line 537, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: 'C:\\\\Users\\\\hojun\\\\Downloads\\\\Ultima1_KR_1.0K_Test_Hotfix28\\\\GAMEDATA\\\\SPACE.EXE'\n"
+  },
+  {
+    "file": "audit_hf30_space_combat_sfx.py",
+    "status": "FAIL",
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF42\\tools\\audit_hf30_space_combat_sfx.py\", line 25, in <module>\n    b=Path(r\"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Test_Hotfix29\\GAMEDATA\\SPACE.EXE\").read_bytes()\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_abc.py\", line 625, in read_bytes\n    with self.open(mode='rb') as f:\n         ~~~~~~~~~^^^^^^^^^^^\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_local.py\", line 537, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: 'C:\\\\Users\\\\hojun\\\\Downloads\\\\Ultima1_KR_1.0K_Test_Hotfix29\\\\GAMEDATA\\\\SPACE.EXE'\n"
+  },
+  {
+    "file": "audit_hf31_command_beep_matrix.py",
+    "status": "FAIL",
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF42\\tools\\audit_hf31_command_beep_matrix.py\", line 29, in <module>\n    assert q in main,q\n           ^^^^^^^^^\nAssertionError: else if(k==SDLK_o){ spaceSystem.invalidCommand(\"열기?\",sm); spaceBeep=true; }\n"
+  },
+  {
+    "file": "audit_hf31_local_guard_sfx.py",
+    "status": "FAIL",
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF42\\tools\\audit_hf31_local_guard_sfx.py\", line 21, in <module>\n    b=Path(r\"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Test_Hotfix30\\GAMEDATA\\OUT.EXE\").read_bytes()\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_abc.py\", line 625, in read_bytes\n    with self.open(mode='rb') as f:\n         ~~~~~~~~~^^^^^^^^^^^\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_local.py\", line 537, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: 'C:\\\\Users\\\\hojun\\\\Downloads\\\\Ultima1_KR_1.0K_Test_Hotfix30\\\\GAMEDATA\\\\OUT.EXE'\n"
+  },
+  {
+    "file": "audit_hf32_resurrection_sfx.py",
+    "status": "FAIL",
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF42\\tools\\audit_hf32_resurrection_sfx.py\", line 11, in <module>\n    b=Path(r\"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Test_Hotfix31\\GAMEDATA\\OUT.EXE\").read_bytes()\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_abc.py\", line 625, in read_bytes\n    with self.open(mode='rb') as f:\n         ~~~~~~~~~^^^^^^^^^^^\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_local.py\", line 537, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: 'C:\\\\Users\\\\hojun\\\\Downloads\\\\Ultima1_KR_1.0K_Test_Hotfix31\\\\GAMEDATA\\\\OUT.EXE'\n"
+  },
+  {
+    "file": "audit_hf32_sound_call_inventory.py",
+    "status": "FAIL",
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF42\\tools\\audit_hf32_sound_call_inventory.py\", line 6, in <module>\n    b=(pkg/name).read_bytes()\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_abc.py\", line 625, in read_bytes\n    with self.open(mode='rb') as f:\n         ~~~~~~~~~^^^^^^^^^^^\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_local.py\", line 537, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: 'C:\\\\Users\\\\hojun\\\\Downloads\\\\Ultima1_KR_1.0K_Test_Hotfix31\\\\GAMEDATA\\\\OUT.EXE'\n"
+  },
+  {
+    "file": "audit_hf33_king_pence_sfx.py",
+    "status": "FAIL",
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF42\\tools\\audit_hf33_king_pence_sfx.py\", line 12, in <module>\n    b=Path(r\"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Test_Hotfix32\\GAMEDATA\\OUT.EXE\").read_bytes()\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_abc.py\", line 625, in read_bytes\n    with self.open(mode='rb') as f:\n         ~~~~~~~~~^^^^^^^^^^^\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_local.py\", line 537, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: 'C:\\\\Users\\\\hojun\\\\Downloads\\\\Ultima1_KR_1.0K_Test_Hotfix32\\\\GAMEDATA\\\\OUT.EXE'\n"
+  },
+  {
+    "file": "audit_hf34_shop_afford_sfx.py",
+    "status": "FAIL",
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF42\\tools\\audit_hf34_shop_afford_sfx.py\", line 11, in <module>\n    b=Path(r\"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Test_Hotfix33\\GAMEDATA\\OUT.EXE\").read_bytes()\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_abc.py\", line 625, in read_bytes\n    with self.open(mode='rb') as f:\n         ~~~~~~~~~^^^^^^^^^^^\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_local.py\", line 537, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: 'C:\\\\Users\\\\hojun\\\\Downloads\\\\Ultima1_KR_1.0K_Test_Hotfix33\\\\GAMEDATA\\\\OUT.EXE'\n"
+  },
+  {
+    "file": "audit_hf35_local_label_draw_order.py",
+    "status": "PASS",
+    "out": "HF35 local label draw-order audit OK\n"
+  },
+  {
+    "file": "audit_hf36_local_command_sfx_matrix.py",
+    "status": "FAIL",
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF42\\tools\\audit_hf36_local_command_sfx_matrix.py\", line 5, in <module>\n    b=Path(r\"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Test_Hotfix36\\GAMEDATA\\OUT.EXE\").read_bytes()\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_abc.py\", line 625, in read_bytes\n    with self.open(mode='rb') as f:\n         ~~~~~~~~~^^^^^^^^^^^\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_local.py\", line 537, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: 'C:\\\\Users\\\\hojun\\\\Downloads\\\\Ultima1_KR_1.0K_Test_Hotfix36\\\\GAMEDATA\\\\OUT.EXE'\n"
+  },
+  {
+    "file": "audit_hf36_spell_matrix.py",
+    "status": "FAIL",
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF42\\tools\\audit_hf36_spell_matrix.py\", line 5, in <module>\n    b=Path(r\"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Test_Hotfix36\\GAMEDATA\\OUT.EXE\").read_bytes()\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_abc.py\", line 625, in read_bytes\n    with self.open(mode='rb') as f:\n         ~~~~~~~~~^^^^^^^^^^^\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_local.py\", line 537, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: 'C:\\\\Users\\\\hojun\\\\Downloads\\\\Ultima1_KR_1.0K_Test_Hotfix36\\\\GAMEDATA\\\\OUT.EXE'\n"
+  },
+  {
+    "file": "audit_hf36_world_spell_sfx.py",
+    "status": "FAIL",
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF42\\tools\\audit_hf36_world_spell_sfx.py\", line 5, in <module>\n    b=Path(r\"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Test_Hotfix35\\GAMEDATA\\OUT.EXE\").read_bytes()\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_abc.py\", line 625, in read_bytes\n    with self.open(mode='rb') as f:\n         ~~~~~~~~~^^^^^^^^^^^\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_local.py\", line 537, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: 'C:\\\\Users\\\\hojun\\\\Downloads\\\\Ultima1_KR_1.0K_Test_Hotfix35\\\\GAMEDATA\\\\OUT.EXE'\n"
+  },
+  {
+    "file": "audit_hf37_open_label_regression.py",
+    "status": "FAIL",
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF42\\tools\\audit_hf37_open_label_regression.py\", line 4, in <module>\n    b=Path(r\"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Test_Hotfix36\\GAMEDATA\\OUT.EXE\").read_bytes()\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_abc.py\", line 625, in read_bytes\n    with self.open(mode='rb') as f:\n         ~~~~~~~~~^^^^^^^^^^^\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_local.py\", line 537, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: 'C:\\\\Users\\\\hojun\\\\Downloads\\\\Ultima1_KR_1.0K_Test_Hotfix36\\\\GAMEDATA\\\\OUT.EXE'\n"
+  },
+  {
+    "file": "audit_hf38_rumor_esc_regression.py",
+    "status": "PASS",
+    "out": "HF38 rumor + gameplay ESC regression audit OK\n"
+  },
+  {
+    "file": "audit_hf39_prayer_sound_coverage.py",
+    "status": "FAIL",
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF42\\tools\\audit_hf39_prayer_sound_coverage.py\", line 8, in <module>\n    b=Path(r\"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Test_Hotfix38\\GAMEDATA\\OUT.EXE\").read_bytes()\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_abc.py\", line 625, in read_bytes\n    with self.open(mode='rb') as f:\n         ~~~~~~~~~^^^^^^^^^^^\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_local.py\", line 537, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: 'C:\\\\Users\\\\hojun\\\\Downloads\\\\Ultima1_KR_1.0K_Test_Hotfix38\\\\GAMEDATA\\\\OUT.EXE'\n"
+  },
+  {
+    "file": "audit_hf40_noeffect_gold.py",
+    "status": "PASS",
+    "out": "HF40 unified no-effect text + gold localization audit OK\n"
+  },
+  {
+    "file": "audit_hf41_drop_pence_prompt.py",
+    "status": "PASS",
+    "out": "HF41 Drop Pence prompt audit OK\n"
+  },
+  {
+    "file": "audit_hf42_reachable_english_cleanup.py",
+    "status": "PASS",
+    "out": "HF42 defensive reachable-English cleanup audit OK\n"
+  },
+  {
+    "file": "audit_known_remake_bugs_policy.py",
+    "status": "PASS",
+    "out": "Known remake bug policy/regression audit OK\n"
+  },
+  {
+    "file": "audit_shift_h_v_restoration.py",
+    "status": "PASS",
+    "out": "Shift-H / Shift-V restoration audit OK\n"
+  },
+  {
+    "file": "audit_windows_video_config_restore.py",
+    "status": "PASS",
+    "out": "Windows video/config/Alt-Enter restoration audit OK\n"
+  }
+]

@@ -1,0 +1,284 @@
+[
+  {
+    "m": 241,
+    "file": "audit_m241_rollback_audio.py",
+    "status": "PASS",
+    "out": "M241 baseline-preservation audio audit OK\n"
+  },
+  {
+    "m": 243,
+    "file": "audit_m243_m241_baseline.py",
+    "status": "PASS",
+    "out": "M243/M246 M241-hotfix1 baseline-preservation audit OK\n"
+  },
+  {
+    "m": 245,
+    "file": "audit_m245_windows_host_bridge.py",
+    "status": "FAIL",
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF43\\tools\\_late_audit_m245_windows_host_bridge.py\", line 19, in <module>\n    assert q in (sfx+'\\n'+h),q\n           ^^^^^^^^^^^^^^^^^\nAssertionError: driver=windows-host-waveout-bridge\n"
+  },
+  {
+    "m": 246,
+    "file": "audit_m246_windows_host_bridge.py",
+    "status": "PASS",
+    "out": "M246 Windows-host event-driven WASAPI / exact-PCM audit OK\n"
+  },
+  {
+    "m": 247,
+    "file": "audit_m247_space_keys.py",
+    "status": "PASS",
+    "out": "M247 SPACE Noise/Ztats/key-dispatch audit OK\n"
+  },
+  {
+    "m": 248,
+    "file": "audit_m248_space_beep_and_sfx.py",
+    "status": "FAIL",
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF43\\tools\\_late_audit_m248_space_beep_and_sfx.py\", line 33, in <module>\n    assert q in main, q\n           ^^^^^^^^^\nAssertionError: m==\"열기?\"\n"
+  },
+  {
+    "m": 248,
+    "file": "audit_m248_space_keys.py",
+    "status": "FAIL",
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF43\\tools\\_late_audit_m248_space_keys.py\", line 33, in <module>\n    assert q in main, q\n           ^^^^^^^^^\nAssertionError: m==\"열기?\"\n"
+  },
+  {
+    "m": 249,
+    "file": "audit_m249_command_sfx_matrix.py",
+    "status": "PASS",
+    "out": "M249 environment command/BEEP/dungeon-attack SFX audit OK\n"
+  },
+  {
+    "m": 250,
+    "file": "audit_m250_space_translation_scan_reveal.py",
+    "status": "FAIL",
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF43\\tools\\_late_audit_m250_space_translation_scan_reveal.py\", line 31, in <module>\n    ]: assert q in space_block,q\n              ^^^^^^^^^^^^^^^^\nAssertionError: spaceSystem.invalidCommand(\"열기?\",sm)\n"
+  },
+  {
+    "m": 251,
+    "file": "audit_m251_dungeon_combat_sfx.py",
+    "status": "PASS",
+    "out": "M251 dungeon combat SFX audit OK\n"
+  },
+  {
+    "m": 251,
+    "file": "audit_m251_launcher_auditdata_lifetime.py",
+    "status": "PASS",
+    "out": "M251 launcher AUDIT_DATA lifetime audit OK\n"
+  },
+  {
+    "m": 252,
+    "file": "audit_m252_space_hyperjump_timing.py",
+    "status": "PASS",
+    "out": "M252 SPACE HyperJump source timing audit OK\n"
+  },
+  {
+    "m": 253,
+    "file": "audit_m253_space_hyperjump_blocking_row.py",
+    "status": "PASS",
+    "out": "M253 SPACE HyperJump blocking-row audit OK\n"
+  },
+  {
+    "m": 254,
+    "file": "audit_m254_death_resurrection_timing.py",
+    "status": "PASS",
+    "out": "M254 death/resurrection timing audit OK\n"
+  },
+  {
+    "m": 255,
+    "file": "audit_m255_time_machine_intro.py",
+    "status": "FAIL",
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF43\\tools\\_late_audit_m255_time_machine_intro.py\", line 36, in <module>\n    assert re.search(\n           ~~~~~~~~~^\n        r'if\\(mondain\\.introDrawPhase>=3\\s*&&\\s*\\(k==SDLK_SPACE\\s*\\|\\|\\s*k==SDLK_RETURN\\)\\)\\s*\\{',\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n        main\n        ^^^^\n    ), 'Time Machine intro must accept Space/Return only after the wait phase is visible'\n    ^\nAssertionError: Time Machine intro must accept Space/Return only after the wait phase is visible\n"
+  },
+  {
+    "m": 256,
+    "file": "audit_m256_time_machine_popup.py",
+    "status": "FAIL",
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF43\\tools\\_late_audit_m256_time_machine_popup.py\", line 42, in <module>\n    assert 'mondainIntroBlocking && mondain.introDrawPhase>=3 ? std::string(\"스페이스바를 눌러 계속하세요: \")' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 257,
+    "file": "audit_m257_time_machine_backdrop_gems.py",
+    "status": "PASS",
+    "out": "M257 Time Machine backdrop + 16x16 BIOS gem audit OK\n"
+  },
+  {
+    "m": 258,
+    "file": "audit_m258_hotfix1_runtime_startup.py",
+    "status": "PASS",
+    "out": "M258 hotfix1 runtime-startup / launcher audit OK\n"
+  },
+  {
+    "m": 258,
+    "file": "audit_m258_time_machine_sequence.py",
+    "status": "PASS",
+    "out": "M258 Time Machine four-page Korean sequence audit OK\n"
+  },
+  {
+    "m": 259,
+    "file": "audit_m259_hotfix1_relocatable_build.py",
+    "status": "FAIL",
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF43\\tools\\_late_audit_m259_hotfix1_relocatable_build.py\", line 16, in <module>\n    assert cache.exists(), 'CMakeCache.txt missing after configure/build'\n           ~~~~~~~~~~~~^^\nAssertionError: CMakeCache.txt missing after configure/build\n"
+  },
+  {
+    "m": 259,
+    "file": "audit_m259_hotfix2_final_marker.py",
+    "status": "PASS",
+    "out": "M259 hotfix2 final-audit-marker compatibility OK\n"
+  },
+  {
+    "m": 259,
+    "file": "audit_m259_hotfix3_relocation_order.py",
+    "status": "PASS",
+    "out": "M259 hotfix3 relocation-order/cache audit OK\n"
+  },
+  {
+    "m": 259,
+    "file": "audit_m259_mondain_slot_mapping.py",
+    "status": "PASS",
+    "out": "M259 Mondain composite-slot / three-post-launch-page audit OK\n"
+  },
+  {
+    "m": 260,
+    "file": "audit_m260_hotfix1_historical_m164_compat.py",
+    "status": "PASS",
+    "out": "M260 hotfix1 historical M164/M260 miss-message compatibility audit OK\n"
+  },
+  {
+    "m": 260,
+    "file": "audit_m260_mondain_combat_localization.py",
+    "status": "FAIL",
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF43\\tools\\_late_audit_m260_mondain_combat_localization.py\", line 49, in <module>\n    ]: assert q in (hdr+mond+main),q\n              ^^^^^^^^^^^^^^^^^^^^\nAssertionError: void acknowledgeVictory(MondainState& s) const\n"
+  },
+  {
+    "m": 261,
+    "file": "audit_m261_mondain_attack_audio_animation.py",
+    "status": "PASS",
+    "out": "M261 MONDAIN attack/audio/input-wait animation audit OK\n  live Attack prompt + same-row direction        OK\n  attack sound(7) source call                    OK\n  avatar movement sound(4) source call           OK\n  3-BIOS-tick idle animation polling             OK\n  gem/transient animation moved off turn updates OK\n"
+  },
+  {
+    "m": 262,
+    "file": "audit_m262_mondain_popup_text_color.py",
+    "status": "FAIL",
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF43\\tools\\_late_audit_m262_mondain_popup_text_color.py\", line 40, in <module>\n    assert 'utf8Prefix(line,shown),WHITE' in ms\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 263,
+    "file": "audit_m263_mondain_audio_commands_effects.py",
+    "status": "FAIL",
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF43\\tools\\_late_audit_m263_mondain_audio_commands_effects.py\", line 61, in <module>\n    ]: assert q in main,q\n              ^^^^^^^^^\nAssertionError: case SDLK_o:text=\"열기?\";\n"
+  },
+  {
+    "m": 264,
+    "file": "audit_m264_mondain_final_oracle.py",
+    "status": "PASS",
+    "out": "M264 MONDAIN final-arena oracle correction audit OK\n"
+  },
+  {
+    "m": 265,
+    "file": "audit_m265_mondain_campaign_popup_sequence.py",
+    "status": "FAIL",
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF43\\tools\\_late_audit_m265_mondain_campaign_popup_sequence.py\", line 25, in <module>\n    assert q in mh+ms+main,q\n           ^^^^^^^^^^^^^^^\nAssertionError: if(s.introDrawPhase>=1)\n"
+  },
+  {
+    "m": 266,
+    "file": "audit_m266_mondain_transient_overlay.py",
+    "status": "PASS",
+    "out": "M266/M274 Mondain transient occupied-cell correction audit OK\n"
+  },
+  {
+    "m": 268,
+    "file": "audit_m268_vehicle_facing_animation.py",
+    "status": "PASS",
+    "out": "M268 vehicle horizontal-facing / Frigate animation audit OK\n"
+  },
+  {
+    "m": 269,
+    "file": "audit_m269_mondain_create_rules.py",
+    "status": "PASS",
+    "out": "M269 MONDAIN Create/Destroy/distance oracle audit OK\n"
+  },
+  {
+    "m": 270,
+    "file": "audit_m270_mondain_gem_death_sfx.py",
+    "status": "PASS",
+    "out": "M270/M271 MONDAIN gem-destruction/death/victory SFX compatibility audit OK\n"
+  },
+  {
+    "m": 271,
+    "file": "audit_m271_mondain_victory_popup_sfx.py",
+    "status": "FAIL",
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF43\\tools\\_late_audit_m271_mondain_victory_popup_sfx.py\", line 13, in <module>\n    ]: assert q in main+ms+mh,q\n              ^^^^^^^^^^^^^^^\nAssertionError: if(mondain.victoryPopupSfxPending && mondainVictoryPopupFramePresented)\n"
+  },
+  {
+    "m": 272,
+    "file": "audit_m272_mondain_form_death_state.py",
+    "status": "PASS",
+    "out": "M272 MONDAIN human/bat/corpse/death-state audit OK\n"
+  },
+  {
+    "m": 273,
+    "file": "audit_m273_mondain_victory_draw_order.py",
+    "status": "FAIL",
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF43\\tools\\_late_audit_m273_mondain_victory_draw_order.py\", line 17, in <module>\n    ]: assert q in main+ms+mh,q\n              ^^^^^^^^^^^^^^^\nAssertionError: if(mondain.victoryPopupSfxPending && mondainVictoryPopupFramePresented)\n"
+  },
+  {
+    "m": 274,
+    "file": "audit_m274_mondain_ai_state_machine.py",
+    "status": "PASS",
+    "out": "M274 MONDAIN full AI/control state-machine audit OK\n"
+  },
+  {
+    "m": 275,
+    "file": "audit_m275_mondain_false_death_victory_popup.py",
+    "status": "PASS",
+    "out": "M275 false-death/Create/victory-popup audit OK\n"
+  },
+  {
+    "m": 276,
+    "file": "audit_m276_false_death_single_row.py",
+    "status": "PASS",
+    "out": "M276 Mondain false-death single-row localization audit OK\n"
+  },
+  {
+    "m": 277,
+    "file": "audit_m277_korean_ending_and_victory_text.py",
+    "status": "FAIL",
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF43\\tools\\_late_audit_m277_korean_ending_and_victory_text.py\", line 29, in <module>\n    ]: assert q in ms+mh+main,q\n              ^^^^^^^^^^^^^^^\nAssertionError: constexpr std::uint32_t ENDING_TYPE_INTERVAL_MS=6;\n"
+  },
+  {
+    "m": 278,
+    "file": "audit_m278_ending_restart_victory_hold.py",
+    "status": "FAIL",
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF43\\tools\\_late_audit_m278_ending_restart_victory_hold.py\", line 23, in <module>\n    ]: assert q in ms,q\n              ^^^^^^^\nAssertionError: constexpr std::uint32_t ENDING_TYPE_INTERVAL_MS=6;\n"
+  },
+  {
+    "m": 279,
+    "file": "audit_m279_ending_color_restart_opening.py",
+    "status": "FAIL",
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF43\\tools\\_late_audit_m279_ending_color_restart_opening.py\", line 11, in <module>\n    assert 'static_cast<std::uint32_t>(mondainNowForVictory-mondain.victoryPopupPresentedMs)>=7000u' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 280,
+    "file": "audit_m280_time_machine_unready_popup.py",
+    "status": "PASS",
+    "out": "M280 Time Machine insufficient-gems popup audit OK\n"
+  },
+  {
+    "m": 281,
+    "file": "audit_m281_sfx_default_on_restart.py",
+    "status": "PASS",
+    "out": "M281 SFX default-on/restart audit OK\n"
+  },
+  {
+    "m": 282,
+    "file": "audit_m282_mondain_message_localization.py",
+    "status": "PASS",
+    "out": "M282 Mondain message localization audit OK\n"
+  },
+  {
+    "m": 283,
+    "file": "audit_m283_mondain_bat_recovery.py",
+    "status": "PASS",
+    "out": "M283 Mondain false-death/bat recovery oracle audit OK\n  corpse recovery +25                              OK\n  bat heals +5 only when both flee moves fail     OK\n  human threshold is strictly HP > 500            OK\n  96 blocked bat actions -> 505; next turn human  OK\n"
+  }
+]

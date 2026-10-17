@@ -1,0 +1,20 @@
+{
+  "superseded": {
+    "audit_m245_windows_host_bridge.py": "WaveOut host bridge was superseded by the later Windows WASAPI audio path.",
+    "audit_m248_space_beep_and_sfx.py": "Space Open prompt later changed from 열기? to approved 관 열기?.",
+    "audit_m248_space_keys.py": "Space Open prompt later changed from 열기? to approved 관 열기?.",
+    "audit_m250_space_translation_scan_reveal.py": "Space Open prompt later changed from 열기? to approved 관 열기?.",
+    "audit_m255_time_machine_intro.py": "Time-machine intro input gating was superseded by the later multi-phase popup sequence.",
+    "audit_m256_time_machine_popup.py": "Time-machine popup continuation presentation was superseded by later popup sequencing work.",
+    "audit_m259_hotfix1_relocatable_build.py": "Historical CMakeCache/build-directory existence check; current native build is performed directly and passes.",
+    "audit_m260_mondain_combat_localization.py": "Victory acknowledgement API/state was superseded by later Mondain victory state-machine work.",
+    "audit_m262_mondain_popup_text_color.py": "Old WHITE popup text expectation was superseded by the user-approved light-cyan popup text.",
+    "audit_m263_mondain_audio_commands_effects.py": "Mondain Open prompt later changed from 열기? to approved 관 열기?.",
+    "audit_m265_mondain_campaign_popup_sequence.py": "Older introDrawPhase shape was superseded by subsequent Mondain/time-machine popup sequencing fixes.",
+    "audit_m271_mondain_victory_popup_sfx.py": "Victory-popup SFX timing was superseded by the later user-approved no-delay death-to-popup flow with separate pre-BEEP delay.",
+    "audit_m273_mondain_victory_draw_order.py": "Old victory-popup SFX/frame gate was superseded by later victory presentation timing changes.",
+    "audit_m277_korean_ending_and_victory_text.py": "Old 6 ms typewriter ending was superseded by the later upward scrolling ending presentation.",
+    "audit_m278_ending_restart_victory_hold.py": "Old 6 ms typewriter ending was superseded by the later upward scrolling ending presentation.",
+    "audit_m279_ending_color_restart_opening.py": "Old 7000 ms victory hold was superseded by later ending-scroll stop and 5-second restart timing."
+  }
+}

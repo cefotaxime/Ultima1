@@ -1,0 +1,1598 @@
+[
+  {
+    "m": 3,
+    "file": "audit_m3_data.py",
+    "status": "PASS",
+    "sec": 0.06,
+    "out": "M3 original-data/gameplay audit OK\n  locations: 84\n  active local actors: 111 per map: [9, 10, 14, 12, 10, 14, 6, 15, 8, 13]\n  actor types: {17: 56, 19: 8, 20: 2, 21: 37, 22: 2, 50: 6}\n  weapon ranges: [1, 1, 1, 1, 0, 1, 1, 3, 0, 0, 0, 1, 3, 1, 3, 3]\n  dynamic NPC strings: verified\n  routine signatures: 0x2203, 0x252C, 0x266C, 0x2776, 0x286B, 0x2D4A, 0xB4C3\n"
+  },
+  {
+    "m": 4,
+    "file": "audit_m4_data.py",
+    "status": "PASS",
+    "sec": 0.06,
+    "out": "M4 oracle audit OK\nOUT.EXE: 69858 bytes\nTCD.BIN: 6840 bytes\ncounter-marker totals: 36=48 37=69 38=49 39=80 3A=62 3B=81 3C=66 3D=116 3E=85\nverified shop strings: 24\nverified routine signatures: 9\n"
+  },
+  {
+    "m": 5,
+    "file": "audit_m5_data.py",
+    "status": "PASS",
+    "sec": 0.06,
+    "out": "M5 oracle audit OK\nverified king/transport strings: 51\nverified M5 routine signatures: 11\nPLAYER1 world record 0: [10, 1, 44, 38, 0, 0, 0, 0]\nworld object layer: 40 x 16 bytes\n"
+  },
+  {
+    "m": 6,
+    "file": "audit_m6_data.py",
+    "status": "PASS",
+    "sec": 0.05,
+    "out": "M6 oracle audit OK\n  Board/X-it strings       OK\n  8 transport names        OK\n  7 movement messages      OK\n  board routine file 0x138D     OK\n  X-it routine file 0x7F6B      OK\n  move routine file 0x06AF      OK\n  object delete file 0xB78E     OK\n"
+  },
+  {
+    "m": 7,
+    "file": "audit_m7_data.py",
+    "status": "PASS",
+    "sec": 0.06,
+    "out": "M7 oracle audit OK\nmonster names: 15\nspawn thresholds: [35, 55, 75, 95, 115, 135, 155, 175, 195, 205]\ntransport move chances: [100, 50, 33, 100, 50, 25, 10, 10]\nverified combat strings: 11\nverified M7 routine signatures: 12\n"
+  },
+  {
+    "m": 8,
+    "file": "audit_m8_data.py",
+    "status": "PASS",
+    "sec": 0.06,
+    "out": "M8 oracle audit OK\nperspective X: [0, 72, 108, 126, 135, 144]\nperspective Y: [0, 36, 54, 63, 68, 72]\nextra X: [4, 8, 5, 2, 8, 1, 5, 4, 6, 1, 3, 7, 3, 9, 2, 6]\nextra Y: [1, 1, 2, 3, 3, 4, 4, 5, 5, 6, 6, 6, 8, 8, 9, 9]\nverified M8 strings: 12\nverified M8 routine signatures: 14\nstring offsets: {'Attempting resurrection!': '0x1108a', 'Turn around': '0xdf0e', 'Turn left': '0xdf1a', 'Turn right': '0xdf24', 'Forward': '0xdf2f', ' - path blocked!': '0xdf37', 'a secret door!': '0xe2ca', ' up to level ': '0xe331', ' down to level ': '0xe34c', 'Thou must face the ladder!': '0xe36a', 'Coffin': '0xd961', 'Chest': '0xd968'}\n"
+  },
+  {
+    "m": 9,
+    "file": "audit_m9_data.py",
+    "status": "PASS",
+    "sec": 0.05,
+    "out": "M9 oracle audit OK\ndungeon monster names: 25\nquest monster ids: [24, 19, 14, 9]\nverified special-effect ids: [9,16,21,2]\nverified M9 strings: 11\nverified M9 routine signatures: 6\n"
+  },
+  {
+    "m": 10,
+    "file": "audit_m10_data.py",
+    "status": "PASS",
+    "sec": 0.06,
+    "out": "M10 oracle audit OK\nvector streams: 25\nvector baselines: [139, 112, 96, 88, 84]\ntotal commands: 813\ntotal line-to commands: 655\nInvisible seeker commands: 0\nverified M10 renderer signatures: 8\n"
+  },
+  {
+    "m": 11,
+    "file": "audit_m11_data.py",
+    "status": "PASS",
+    "sec": 0.06,
+    "out": "M11 oracle audit OK\nfeature dispatch: [15972, 15972, 15982, 16074, 16074, 16002, 16039, 15992]\nenvironment vector ptrs: ['0x2421', '0x2443', '0x244f', '0x245b', '0x247a']\nenvironment vector counts: [(15, 3, 12), (5, 1, 4), (5, 1, 4), (12, 6, 6), (2, 1, 1)]\nverified M11 renderer signatures: 12\n"
+  },
+  {
+    "m": 12,
+    "file": "audit_m12_data.py",
+    "status": "PASS",
+    "sec": 0.06,
+    "out": "M12 oracle audit OK\nverified transition/visibility signatures: 13\nside classifier open features: 0,6,7,8\nnon-occluding monster IDs: 9,11,20 (+FFFF empty)\n"
+  },
+  {
+    "m": 13,
+    "file": "audit_m13_data.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M13 audit OK\n  deterministic dungeon scenarios: 4\n  logical comparison ROI: x=16..303, y=8..151\n  alignment search + mismatch metrics: present\n"
+  },
+  {
+    "m": 14,
+    "file": "audit_m14_data.py",
+    "status": "PASS",
+    "sec": 0.06,
+    "out": "M14 audit OK\n  ladder/marker dispatcher depth: +1\n  bars EGA color: #FF5555\n  occluding-monster blocker branch: present; monster depth remains logical depth\n  exact RGB ROI comparator: present\n"
+  },
+  {
+    "m": 15,
+    "file": "audit_m15_data.py",
+    "status": "PASS",
+    "sec": 0.06,
+    "out": "OK  SPACE.EXE size = 39,824 bytes\nOK  startup sets DS=072Dh\nOK  INUSE.U1 handoff filename\nOK  OUT.EXE return filename\nOK  outer universe loop is 0..6\nOK  inner universe loop is 0..6\nOK  sector X stride = 0196h\nOK  sector Y stride = 003Ah\nOK  initial current craft slot = 2\nOK  home sector begins at DS:2C30 with fixed object data\nOK  saved Shuttle fuel/shield copied into home craft\nOK  ship type 0 max fuel = 1000\nOK  ship type 2 max fuel = 2500\nOK  ship type 1 max fuel = 5000\nOK  ship type 0 max shield = 1000\nOK  ship type 2 max shield = 5000\nOK  ship type 1 max shield = 1000\nOK  SPACE RNG core\nOK  top-view default thrust/retro fuel cost = 5\nOK  rotation fuel cost = 2\nOK  front-view directional command requires 2 fuel\nOK  HyperJump requires at least 100 fuel\nOK  Fire requires at least 10 fuel\nOK  enemy hit adds 100 experience\nOK  PLAYER +A6 kill count increments; Space Ace threshold = 20\nOK  enemy hit decrements current sector enemy count\nOK  safe-landing routine requires sector X=3\nOK  safe-landing routine requires sector Y=3\nOK  home-world landing target X=60\nOK  home-world landing target Y=75\nOK  only ship type 0 is heat-shielded for landing\nOK  landing persists current fuel/shield to PLAYER +B0/+B2\nOK  docking requires ready armour >=4 to survive vacuum\nOK  docking fee check = 500 coin\nOK  successful docking subtracts 500 coin\nOK  collision-free move checks exact dock geometry then calls docking service\nOK  docking service zeroes Y/X velocity\nOK  ship-choice service reads shared key helper\nOK  ship-choice accepts normalized direction codes 1..4\nOK  extended arrow scans map Left/Right/Up/Down -> 1/2/3/4\nOK  SPACE string Sector Scan:\nOK  SPACE string HyperJump\nOK  SPACE string Space Ace!\nOK  SPACE string Hit!!!\nOK  SPACE string Thy ship melts near the star!\nOK  SPACE string Thou hast landed safely!\nOK  SPACE string Docked!  Welcome to base!\nOK  SPACE string Thou hast lifted off!\nM15 SPACE.EXE oracle audit passed.\nOK  no zero-velocity precondition on docking\nOK  PlayerSave persists SPACE kill count\nOK  Shuttle boarding enters transport 6\nOK  M15 internal SPACE state\nOK  7x7 generated sector model\nOK  home-space fixed sector\nOK  Space Ace persistent increment\nOK  safe landing persists Shuttle fuel\nOK  safe landing persists Shuttle shield\nOK  shield-drain message only on shield depletion\nOK  dock ship-choice consumes arrow directions before flight steering\nOK  dock trigger is geometric without manual stop\nM15 clean-room source integration audit passed.\n"
+  },
+  {
+    "m": 16,
+    "file": "audit_m16_data.py",
+    "status": "PASS",
+    "sec": 0.06,
+    "out": "OK  SPACE.EXE size = 39,824 bytes\nOK  front Left installs aim velocity (-4,0)\nOK  front Right installs aim velocity (+4,0)\nOK  front Climb installs aim velocity (0,-4)\nOK  front Dive installs aim velocity (0,+4)\nOK  continuous front loop applies aim velocities\nOK  crosshair X boundaries are 20..300\nOK  crosshair Y boundaries are 20..140\nOK  enemy X-max hitbox table exact\nOK  enemy Y-max hitbox table exact\nOK  enemy X-min hitbox table exact\nOK  enemy Y-min hitbox table exact\nOK  Fire indexes stage-dependent X/Y max tables\nOK  Fire indexes stage-dependent min tables\nOK  HyperJump transfer addresses sector with X stride 0196h\nOK  HyperJump transfer addresses sector with Y stride 003Ah\nOK  HyperJump requires 100 fuel\nOK  enemy flight loop entry / pacing counter\nOK  enemy X upper bound = 280\nOK  enemy X lower bound = 30\nOK  enemy Y upper bound = 125\nOK  enemy Y lower bound = 24\nOK  alien fire first RNG range = 1..200\nOK  alien fire enters only for roll <4\nOK  alien hit second RNG range = 1..255\nOK  alien hit succeeds for roll <64\nOK  alien hit shield-drain cap = 321\nOK  generic collision calls special contacts then prints Crunch!\nOK  Crunch damage helper = shield/4 + 5\nOK  surviving Crunch reverses both top-view velocity axes\nOK  docked direction command except Retro enters Crunch path\nOK  top X adds velocity then tests >275\nOK  top X wraps high edge to 20\nOK  top X wraps low edge to 275\nOK  top Y adds velocity then tests >130\nOK  top Y wraps high edge to 10\nOK  top Y wraps low edge to 130\nOK  top-view poll loop waits exactly 2 BIOS ticks\nOK  Thrust adds 10 to exhaust lifetime counter\nOK  thrust exhaust helper decrements lifetime by one\nOK  front speed 1..8 maps to vertical-retrace waits 8..1\nOK  front flight indexes DS:0C9E by DS:0126 speed and calls retrace wait\nOK  vertical-retrace wait helper entry\nOK  retrace helper counts port 03DAh bit-3 vertical retraces\nOK  front aim velocity state\nOK  continuous flight tick API\nOK  exact hitbox X max\nOK  exact hitbox Y max\nOK  exact hitbox X min\nOK  exact hitbox Y min\nOK  top X wrap\nOK  top Y wrap\nOK  alien shield damage 321\nOK  Crunch damage formula\nOK  Crunch localization\nOK  shield-drained localization\nOK  moving Crunch reverses velocity\nOK  docked non-Retro Crunch\nOK  SDL main-loop flight tick\nOK  original top-view 2-BIOS-tick cadence\nOK  front 8..1 retrace wait table\nOK  front mode-0Dh retrace clock\nOK  front wall-clock pacing state\nOK  front speed-dependent retrace threshold\nOK  front retrace accumulator\nOK  thrust exhaust counter decays per top tick\nOK  thrust exhaust raster\nOK  HyperJump fixed placement\nM16 SPACE.EXE flight/enemy oracle audit passed.\n"
+  },
+  {
+    "m": 17,
+    "file": "audit_m17_data.py",
+    "status": "PASS",
+    "sec": 0.06,
+    "out": "OK  SPACE.EXE size = 39,824 bytes\nOK  EGASPACE.BIN size = 7,296 bytes\nOK  EGAFIGHT.BIN size = 3,192 bytes\nOK  SPACE.EXE loads 0x1C80 bytes into DS:31DA\nOK  SPACE.EXE loads 0x0C78 bytes into DS:4E5A\nOK  top EGA sprite row width = 4 bytes (32 pixels)\nOK  top EGA alignment mask = 7\nOK  top EGA alignment stride = 76 bytes (32x19 mask)\nOK  fight EGA sprite row width = 3 bytes (24 pixels)\nOK  fight EGA alignment mask = 7\nOK  fight EGA alignment stride = 57 bytes (24x19 mask)\nOK  top blitter collision flag starts clear\nOK  top blitter detects framebuffer-mask overlap\nOK  top blitter XORs sprite mask into framebuffer\nOK  EGASPACE = 12 images x 8 exact bit-shift variants x 32x19\nOK  EGAFIGHT = 7 images x 8 exact bit-shift variants x 24x19\nOK  star raster is 19x18 values {0,1,2}\nOK  base raster is 20x20 binary mask\nOK  Ultima world raster is 21x18 values {0..4}\nOK  runtime graphics loader\nOK  top exact mask decoder\nOK  fight exact mask decoder\nOK  framebuffer-mask collision\nOK  top exact raster renderer\nOK  front exact fighter renderer\nOK  main loads original graphics\nM17 SPACE sprite/raster/collision oracle audit passed.\n"
+  },
+  {
+    "m": 18,
+    "file": "audit_m18_data.py",
+    "status": "PASS",
+    "sec": 0.06,
+    "out": "OK  SPACE.EXE size = 39,824 bytes\nOK  space frame defaults to colour 7 before EGA foreground selection\nOK  top frame bar = (8,8)..(311,15)\nOK  bottom frame bar = (8,144)..(311,151)\nOK  frame top/bottom notch x = i*15+10\nOK  frame side notch y = i*15+3\nOK  gunsight horizontal endpoints = crosshairX +/- 2\nOK  gunsight vertical endpoints = crosshairY +/- 2\nOK  front starfield contains 40 stars\nOK  star X expansion uses signed divide by 8\nOK  star Y expansion uses signed divide by 6\nOK  reticle X bounds are 20..300\nOK  reticle Y bounds are 20..140\nOK  HyperJump command name print\nOK  HyperJump appends ellipsis before animation\nOK  HyperJump appends Lightspeed during jump\nOK  HyperJump completion suffix print\nOK  HyperJump trail mode = 1\nOK  HyperJump trail loop runs counters 0..200 (201 updates)\nOK  HyperJump erase/move mode = 3\nOK  HyperJump erase loop runs counters 0..199 (200 updates)\nOK  HyperJump restores normal star mode = 2\nOK  HyperJump deducts 100 fuel after animation\nOK  front speed maps to 8..1 retrace waits\nOK  normal front loop indexes retrace table and calls wait helper\nOK  front wait helper counts port 03DAh vertical retraces\nOK  front speed command computes delta from DS:0126\nOK  front speed change costs abs(delta)*4 fuel\nOK  Speed command prints DS:0BCA `Speed ` in command colour\nOK  Speed command prints the selected numeric speed on the same row\nOK  Fire draws red beam from (20,140) to crosshair\nOK  Fire draws red beam from (300,140) to crosshair\nOK  Fire erases lower-left beam with colour 0\nOK  Fire erases lower-right beam with colour 0\nOK  alien hit beam endpoint = (159,135)\nOK  alien upper miss endpoint = (159,20)\nOK  alien left miss endpoint = (20,79)\nOK  alien right miss endpoint = (290,79)\nOK  top craft blitter XORs mask with EGA framebuffer\nOK  scan popup clears logical (31,23)..(287,127)\nOK  scan popup top edge uses y=26, x=34..284\nOK  EGA scan popup frame colour = blue (1)\nOK  EGA scan title colour = light cyan (11)\nOK  Sector Scan title selects light-cyan colour then string\nOK  Sector Scan popup frame selects blue colour\nOK  scan X anchor = sectorX*10 + 132\nOK  scan Y anchor = sectorY*10 + 46\nOK  scan visible phase waits 7 BIOS timer ticks before erase\nOK  scan blink erases the current 8x9 sector-symbol cell with colour 0\nOK  scan blank phase waits 7 BIOS timer ticks before redraw\nOK  scan blink redraws the current sector glyph itself\nOK  exact SPACE frame\nOK  SPACE bezel uses EGA gray\nOK  five-pixel gunsight\nOK  forty-star state\nOK  star phase updater\nOK  HyperJump phase state machine\nOK  front speed command\nOK  front Speed is localized command-row output\nOK  front Speed permanent overlay removed\nOK  front 8..1 retrace runtime table\nOK  front retrace accumulator\nOK  player Fire beam transient\nOK  player Fire left-beam geometry\nOK  player Fire right-beam geometry\nOK  alien beam transient\nOK  EGA XOR collision transient\nOK  exact scan glyph renderer\nOK  persistent global gameplay frame\nOK  no permanent Speed HUD overlay\nM18 SPACE presentation/oracle audit passed.\n"
+  },
+  {
+    "m": 19,
+    "file": "audit_m19_data.py",
+    "status": "PASS",
+    "sec": 0.06,
+    "out": "OK  OUT.EXE size = 69,858 bytes\nOK  Open is dungeon-only\nOK  Open checks current marker == coffin(5)\nOK  coffin trap roll = rng(1,255)\nOK  coffin trap branch threshold = 104\nOK  Steal recognizes food marker 0x39\nOK  Steal recognizes weapon marker 0x3B\nOK  Steal recognizes armour marker 0x37\nOK  Steal caught helper roll = rng(1,255)\nOK  Steal escape threshold = 38\nOK  Steal class special-case = class 3\nOK  food theft amount = rng(2,31)\nOK  armour theft index = rng(1,5)\nOK  weapon theft index = rng(1,15)\nOK  View routine prints DS:1637 = View?\nOK  Unlock dispatch has dungeon mode branch\nOK  Unlock dispatch has local/castle branch\nOK  local Unlock accepts key tile 0x3C\nOK  local Unlock accepts key tile 0x3D\nOK  local Unlock requires key flag\nOK  local Unlock compares against randomized correct-key tile\nOK  castle setup can select key tile 0x3D\nOK  castle setup can select key tile 0x3C\nOK  Open key wired\nOK  Steal key wired\nOK  Unlock key wired\nOK  View key wired\nOK  mutable local tiles rendered\nOK  mutable local tiles collide\nOK  Steal state handler\nOK  local Unlock state handler\nOK  random key state\nOK  coffin Open handler\nOK  dungeon chest Unlock handler\nOK  coffin trap monster helper\nM19 oracle audit OK\n"
+  },
+  {
+    "m": 20,
+    "file": "audit_m20_data.py",
+    "status": "PASS",
+    "sec": 0.05,
+    "out": "OK  OUT.EXE size = 69,858 bytes\nOK  main dispatcher G calls Get routine 0x5750\nOK  main dispatcher H calls HyperJump? routine 0x579A\nOK  Get requires castle mode 2\nOK  Get food marker = 0x39\nOK  Get armour marker = 0x37\nOK  Get weapon marker = 0x3B\nOK  Get decrements storeroom allowance\nOK  king storeroom reward sets allowance = 9\nOK  OUT HyperJump command prints DS:0C2F only\nOK  Get key wired\nOK  HyperJump key wired\nOK  runtime storeroom allowance\nOK  Get state handler\nOK  Get food range\nOK  Get armour range\nOK  Get weapon range\nOK  king reward grants nine Get uses\nM20 oracle audit OK\n"
+  },
+  {
+    "m": 21,
+    "file": "audit_m21_data.py",
+    "status": "PASS",
+    "sec": 0.06,
+    "out": "OK  OUT.EXE size = 69,858 bytes\nOK  Cast rejects town mode 1\nOK  Cast rejects castle mode 2\nOK  Cast rejects runtime mode 4\nOK  Cast consumes ready spell inventory\nOK  Magic Missile spell id = 3\nOK  Kill spell id = 10\nOK  Magic Missile base damage uses Intelligence\nOK  ready Wand id 9 doubles spell damage\nOK  ready Amulet id 8 multiplies spell damage by 3/2\nOK  Drop permits town mode 1\nOK  Drop permits castle mode 2\nOK  Drop category P = Pence\nOK  Drop category W = Weapon\nOK  Drop category A = Armour\nOK  Drop weapon decrements inventory\nOK  Drop armour decrements inventory\nOK  Drop Pence subtracts coin first\nOK  castle marker 0x33 random stat 1..6\nOK  castle marker 0x34 random weapon 1..15\nOK  Ready category W = Weapon\nOK  Ready category A = Armour\nOK  Ready category S = Spell\nOK  Ready weapon writes DS:3AA2\nOK  Ready armour writes DS:3AA6\nOK  Ready spell writes DS:3AA4\nOK  Cast key wired\nOK  Drop key wired\nOK  Ready key wired\nOK  overworld directional Cast state\nOK  Ready prompt state\nOK  Drop prompt state\nOK  numeric Pence state\nOK  Ready weapon update\nOK  Ready armour update\nOK  Ready spell update\nOK  Drop Pence side effects\nOK  castle food donation multiplier\nOK  donation weapon range\nOK  dungeon spell dispatcher\nOK  Magic Missile damage\nOK  Wand amplifier\nOK  dungeon Cast has no outdoor Wisdom gate\nM21 oracle audit OK\n"
+  },
+  {
+    "m": 22,
+    "file": "audit_m22_data.py",
+    "status": "PASS",
+    "sec": 0.06,
+    "out": "OK  OUT.EXE size = 69,858 bytes\nOK  castle-local mode = 2 on exit\nOK  castle exit calls princess-adjacent then rescue\nOK  princess tile = 0x16\nOK  Space Ace condition requires 20 kills\nOK  extra gift requires EXP >= 7000\nOK  princess reward coin += 500\nOK  princess reward hits += 500\nOK  princess reward EXP += 500\nOK  Time Machine inventory capped at 9\nOK  Time Machine inventory increment\nOK  spawn X range 12..21\nOK  spawn Y range 11..15\nOK  spawn requires terrain class 2\nOK  spawn object class 2 / tile 0x12\nOK  level = EXP/1000 + 1\nOK  Hits helper compares against 9999\nOK  Hits helper clamps to 9999\nOK  Food helper compares against 9999\nOK  Food helper clamps to 9999\nOK  EXP helper compares against 9999\nOK  EXP helper clamps to 9999\nOK  Coin helper compares against 9999\nOK  Coin helper clamps to 9999\nOK  castle exit rescue hook\nOK  castle-only rescue hook\nOK  8-neighbour rescue predicate\nOK  princess reward handler\nOK  pre-reward extra-gift condition\nOK  Time Machine count cap\nOK  Time Machine X search\nOK  Time Machine Y search\nOK  Time Machine world tile\nOK  reward/EXP cap\nOK  princess names parsed from OUT.EXE\nM22 oracle audit OK\n"
+  },
+  {
+    "m": 23,
+    "file": "audit_m23_data.py",
+    "status": "PASS",
+    "sec": 0.06,
+    "out": "M23 oracle audit OK\n  Time Machine board-before-gem-test ordering OK\n  four-gem MONDAIN handoff branch             OK\n  MONDAIN.EXE identity / DS base              OK\n  Time Machine four-page rows / waits          OK\n  19x9 final arena / victory entry signatures OK\n"
+  },
+  {
+    "m": 24,
+    "file": "audit_m24_data.py",
+    "status": "PASS",
+    "sec": 0.06,
+    "out": "M24 oracle audit OK\n  arena initial player=(3,4), Mondain=(15,4) OK\n  Mondain initial HP=1000                    OK\n  arena dimensions/indexing 19x9 x-major      OK\n  movement occupancy/bounds signatures         OK\n  Get Gem = adjacent tile 6                    OK\n  Gem destruction current-HP 3/4 damage        OK\n  death / false-death / victory anchors         OK\n"
+  },
+  {
+    "m": 25,
+    "file": "audit_m25_data.py",
+    "status": "PASS",
+    "sec": 0.06,
+    "out": "M25 oracle audit OK\n  EGAMOND = 19 * 128-byte EGA tiles          OK\n  initial arena / Time Machine / Gem cells   OK\n  EGA blitter DS:238C + tile*128             OK\n  Mondain melee formula signature             OK\n  three-spell selector/effect signatures      OK\n  HP-state / melee / spell / flee AI branches OK\n  transient creation gate                     OK\n"
+  },
+  {
+    "m": 26,
+    "file": "audit_m26_data.py",
+    "status": "PASS",
+    "sec": 0.06,
+    "out": "M26 oracle audit OK\n  tile20 = staged EGATILES tile10 after overlay  OK\n  NIF.BIN = 320x168 1-bit source ending bitmap  OK\n  victory restart cursor/string anchors          OK\n  defeat presentation string anchors             OK\n"
+  },
+  {
+    "m": 27,
+    "file": "audit_m27_data.py",
+    "status": "PASS",
+    "sec": 0.06,
+    "out": "M27 oracle audit OK\n"
+  },
+  {
+    "m": 28,
+    "file": "audit_m28_data.py",
+    "status": "PASS",
+    "sec": 0.07,
+    "out": "M28 frontend/oracle audit: PASS\n"
+  },
+  {
+    "m": 29,
+    "file": "audit_m29_data.py",
+    "status": "PASS",
+    "sec": 0.05,
+    "out": "M29 GEN frontend presentation audit: PASS\n"
+  },
+  {
+    "m": 30,
+    "file": "audit_m30_data.py",
+    "status": "PASS",
+    "sec": 0.05,
+    "out": "M30 character-generation presentation audit: PASS\n"
+  },
+  {
+    "m": 31,
+    "file": "audit_m31_data.py",
+    "status": "PASS",
+    "sec": 0.05,
+    "out": "M31 four-slot roster/selection/replacement audit: PASS\n"
+  },
+  {
+    "m": 32,
+    "file": "audit_m32_data.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m32_data.py\", line 70, in <module>\n    ]: assert q in front or q in hdr or q in main_cpp, q\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: Insert Ultima I diskette\n"
+  },
+  {
+    "m": 33,
+    "file": "audit_m33_data.py",
+    "status": "PASS",
+    "sec": 11.3,
+    "out": "M33 campaign prerequisite audit OK\n  GEN-compatible space-universe hostile minimum: 17\n  even-castle quadrants: [0, 1, 2, 3]\n  Time Machine woods per quadrant: [24, 27, 18, 14]\n  fresh-position nearby grass: 6\n  princess-path door markers: [['0x3d'], ['0x3c']]\n  GEN-seed dungeon descent guarantee: level 9 reachable in at least one original dungeon\n"
+  },
+  {
+    "m": 34,
+    "file": "audit_m34_data.py",
+    "status": "PASS",
+    "sec": 0.11,
+    "out": "M34 live-path campaign audit OK\n"
+  },
+  {
+    "m": 35,
+    "file": "audit_m35_data.py",
+    "status": "PASS",
+    "sec": 0.1,
+    "out": "M35 oracle audit OK\n"
+  },
+  {
+    "m": 36,
+    "file": "audit_m36_data.py",
+    "status": "PASS",
+    "sec": 0.1,
+    "out": "M36 oracle audit OK\n"
+  },
+  {
+    "m": 37,
+    "file": "audit_m37_data.py",
+    "status": "PASS",
+    "sec": 0.1,
+    "out": "OK  OUT.EXE size = 69,858 bytes\nOK  castle setup derives location/castle index\nOK  castle setup stores (location-1)%2 layout parity\nOK  castle setup mutates TCD/local-map bytes\nOK  castle key roll uses rng(1,255)\nOK  castle setup can choose key type 0x3D\nOK  castle setup can choose key type 0x3C\nOK  Unlock accepts both key markers\nOK  Unlock compares marker with DS:AD4E\nOK  campaign kills the real Jester through gameplay combat\nOK  campaign uses the real local Unlock handler\nOK  campaign leads the real Princess to the castle exit\nOK  campaign models wrong-door leave/re-entry\nOK  final castle regression RNG is deterministic\nOK  castle exit calls the real Princess rescue predicate\nOK  synthetic Princess-adjacent placement removed\nM37 oracle audit OK\n"
+  },
+  {
+    "m": 38,
+    "file": "audit_m38_data.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "OK  strict driver has a dungeon command finisher\nOK  every strict dungeon command can run the monster-response pass\nOK  strict driver contains real dungeon ascent\nOK  quest attempts verify level-0 exit\nOK  strict route repairs Cube-destroyed armour through a real shop\nOK  strict route fights adjacent threats instead of ignoring them\nOK  DungeonSystem has compile-time regression-only time-hash branch\nOK  campaign smoke fixes a reproducible valid dungeon time hash\nOK  fixed dungeon hash is scoped after the smoke target, not the production target\nOK  M38 does not overclaim fresh-character Victory certification\nM38 oracle audit OK\n"
+  },
+  {
+    "m": 39,
+    "file": "audit_m39_data.py",
+    "status": "PASS",
+    "sec": 0.11,
+    "out": "OK  fresh save is asserted, not rewritten\nOK  3000+ steps come from real command completions\nOK  fresh route buys ranged weapon normally\nOK  castle/healer progression uses Drop Pence command\nOK  fresh route earns Coin/EXP/Hits through dungeon sorties\nOK  attributes are trained through castle donation\nOK  deep attempts use normal healer recovery\nOK  fresh route reaches Victory\nOK  no M38-style direct bootstrap assignment to p.hits\nOK  no M38-style direct bootstrap assignment to p.coin\nOK  no M38-style direct bootstrap assignment to p.experience\nOK  no M38-style direct bootstrap assignment to p.strength\nOK  no M38-style direct bootstrap assignment to p.agility\nOK  no M38-style direct bootstrap assignment to p.stamina\nOK  no M38-style direct bootstrap assignment to p.wisdom\nOK  no M38-style direct bootstrap assignment to p.intelligence\nOK  no M38-style direct bootstrap assignment to p.steps\nOK  no M38-style direct bootstrap assignment to p.readyWeapon\nOK  no M38-style direct bootstrap assignment to p.readyArmour\nOK  CMake smoke target uses M39 source\nOK  M39 smoke links overworld implementation\nOK  M39 smoke links Ready/Drop command implementation\nOK  M39 notes record repeated fresh Victory validation\nOK  top-port smoke approach faces into dock before contact\nOK  left-port smoke approach faces into dock before contact\nOK  smoke accepts automatic geometric docking\nOK  stale post-contact stop/turn docking shim removed\nM39 oracle audit OK\n"
+  },
+  {
+    "m": 40,
+    "file": "audit_m40_data.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M40 oracle audit OK\n"
+  },
+  {
+    "m": 41,
+    "file": "audit_m41_data.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M41 oracle audit OK\n"
+  },
+  {
+    "m": 42,
+    "file": "audit_m42_data.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M42 launcher timing/order audit OK\n"
+  },
+  {
+    "m": 43,
+    "file": "audit_m43_data.py",
+    "status": "PASS",
+    "sec": 0.07,
+    "out": "M43 launcher geometry audit OK\n"
+  },
+  {
+    "m": 44,
+    "file": "audit_m44_data.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M44 copyright/raster oracle audit OK\n"
+  },
+  {
+    "m": 45,
+    "file": "audit_m45_data.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M45 HUD oracle audit OK\n"
+  },
+  {
+    "m": 46,
+    "file": "audit_m46_data.py",
+    "status": "PASS",
+    "sec": 0.07,
+    "out": "M46 HUD numeric/frame audit OK\n"
+  },
+  {
+    "m": 47,
+    "file": "audit_m47_data.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M47 oracle audit OK\n"
+  },
+  {
+    "m": 48,
+    "file": "audit_m48_data.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M48 oracle audit OK\n"
+  },
+  {
+    "m": 49,
+    "file": "audit_m49_input.py",
+    "status": "PASS",
+    "sec": 0.07,
+    "out": "M49 input audit OK\n"
+  },
+  {
+    "m": 50,
+    "file": "audit_m50_ui.py",
+    "status": "PASS",
+    "sec": 0.07,
+    "out": "M50 Korean name UI audit OK (M51-compatible)\n"
+  },
+  {
+    "m": 51,
+    "file": "audit_m51_localization.py",
+    "status": "PASS",
+    "sec": 0.07,
+    "out": "M51 GEN Korean localization audit OK\n"
+  },
+  {
+    "m": 52,
+    "file": "audit_m52_typography.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M52 frontend typography audit OK\n"
+  },
+  {
+    "m": 53,
+    "file": "audit_m53_data.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M53 title flag animation audit OK\n"
+  },
+  {
+    "m": 54,
+    "file": "audit_m54_data.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M54 launcher BIOS-font separation audit OK\n"
+  },
+  {
+    "m": 55,
+    "file": "audit_m55_startup.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M55/M58 startup copyright dwell audit OK\n"
+  },
+  {
+    "m": 56,
+    "file": "audit_m56_launcher.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M56 ORIGIN launcher animation audit OK\n"
+  },
+  {
+    "m": 57,
+    "file": "audit_m57_ui.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M57 2x window + localized centered copyright title audit OK\n"
+  },
+  {
+    "m": 58,
+    "file": "audit_m58_ui.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M58 startup dwell + centered localized GEN menu audit OK\n"
+  },
+  {
+    "m": 59,
+    "file": "audit_m59_ui.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M59 localized centered attribute-distribution UI audit OK\n"
+  },
+  {
+    "m": 60,
+    "file": "audit_m60_ui.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M60 GEN title/help audit OK\n"
+  },
+  {
+    "m": 61,
+    "file": "audit_m61_ui.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M61 GEN confirmation alignment audit OK\n"
+  },
+  {
+    "m": 62,
+    "file": "audit_m62_ui.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M62 prompt cursor spacing audit OK\n"
+  },
+  {
+    "m": 63,
+    "file": "audit_m63_ui.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M63 main-menu cursor spacing audit OK\n"
+  },
+  {
+    "m": 64,
+    "file": "audit_m64_ui.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M64 Korean launcher marketing-card audit OK\n"
+  },
+  {
+    "m": 65,
+    "file": "audit_m65_ui.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M65 intro indentation + Korean trademark/conversion audit OK\n"
+  },
+  {
+    "m": 66,
+    "file": "audit_m66_ui.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M66 credits layout/localization audit OK\n"
+  },
+  {
+    "m": 67,
+    "file": "audit_m67_ui.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M67 credit spacing audit OK\n"
+  },
+  {
+    "m": 68,
+    "file": "audit_m68_ui.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M68 centered 8x16 frontend copyright audit OK\n"
+  },
+  {
+    "m": 69,
+    "file": "audit_m69_ui.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M69 enlarged host-window audit OK\n"
+  },
+  {
+    "m": 70,
+    "file": "audit_m70_ui.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M70 Character Selection localization/layout audit OK\n"
+  },
+  {
+    "m": 71,
+    "file": "audit_m71_ui.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M71 credit block one-row-up audit OK\n"
+  },
+  {
+    "m": 72,
+    "file": "audit_m72_ui.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M72 conversion/localization colon-alignment audit OK\n"
+  },
+  {
+    "m": 73,
+    "file": "audit_m73_ui.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M73 Character Replacement localization/layout audit OK\n"
+  },
+  {
+    "m": 74,
+    "file": "audit_m74_ui.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M74 empty-roster Character Selection localization/layout audit OK\n"
+  },
+  {
+    "m": 75,
+    "file": "audit_m75_ui.py",
+    "status": "PASS",
+    "sec": 0.07,
+    "out": "M75 five-space credit shift + clean runtime audit OK\n"
+  },
+  {
+    "m": 76,
+    "file": "audit_m76_ui.py",
+    "status": "PASS",
+    "sec": 0.07,
+    "out": "M76 centered Korean loading-text audit OK\n"
+  },
+  {
+    "m": 77,
+    "file": "audit_m77_ui.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M77 300ms loading-card hold audit OK\n"
+  },
+  {
+    "m": 78,
+    "file": "audit_m78_ui.py",
+    "status": "FAIL",
+    "sec": 0.12,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m78_ui.py\", line 15, in <module>\n    assert q in main, q\n           ^^^^^^^^^\nAssertionError: const SDL_Rect dst{PRESENT_X,PRESENT_Y,PRESENT_W,PRESENT_H};\n"
+  },
+  {
+    "m": 79,
+    "file": "audit_m79_ui.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M79 800x600 + OUT.EXE overworld animation audit OK\n"
+  },
+  {
+    "m": 80,
+    "file": "audit_m80_ui.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M80 standalone tile-animation inspector audit OK\n"
+  },
+  {
+    "m": 81,
+    "file": "audit_m81_ui.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M81 exhaustive EGATILES 0..51 animation/use audit OK\n  standard A7B4 world-tile draw call sites: 20\n  periodic groups: 19\n  periodic physical members: 37\n  static-used physical tiles: 12\n  transient effects: 49,50\n  no normal OUT.EXE draw path found: 51\n"
+  },
+  {
+    "m": 82,
+    "file": "audit_m82_ui.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M82 original command prompt + clean startup log audit OK\n"
+  },
+  {
+    "m": 83,
+    "file": "audit_m83_ui.py",
+    "status": "PASS",
+    "sec": 0.1,
+    "out": "M83 OUT.EXE prompt marker + animated cursor audit OK\n  prompt: blue 0x10 body with white/blue A5EA edge geometry\n  cursor: OUT DS:3A24 == GEN DS:09FE, 4 frames, cyan, 3 BIOS ticks/frame\n"
+  },
+  {
+    "m": 84,
+    "file": "audit_m84_ui.py",
+    "status": "FAIL",
+    "sec": 0.1,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m84_ui.py\", line 55, in <module>\n    assert ('log.pushCommand(\"Open what?\")' in main or\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n            'log.pushCommand(inCastle ? \"열기?\" : \"Open what?\")' in main or\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n            'log.pushCommand(inCastle ? \"열기?\" : \"열기?\")' in main)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 85,
+    "file": "audit_m85_ui.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M85 original EGA frame geometry audit OK\n"
+  },
+  {
+    "m": 86,
+    "file": "audit_m86_ui.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M86 lower-pane corners + Korean HUD alignment audit OK (label colour superseded by M182)\n"
+  },
+  {
+    "m": 87,
+    "file": "audit_m87_gameplay.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M87 food cadence + direction wording + Jester regression audit OK\n"
+  },
+  {
+    "m": 88,
+    "file": "audit_m88_king_ui.py",
+    "status": "PASS",
+    "sec": 0.1,
+    "out": "M88 original king transaction command-window UI audit OK\n"
+  },
+  {
+    "m": 89,
+    "file": "audit_m89_localization.py",
+    "status": "PASS",
+    "sec": 0.07,
+    "out": "M89 castle/king/jester/landmark localization audit OK\n"
+  },
+  {
+    "m": 90,
+    "file": "audit_m90_ui.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M90 cyan command window + original service quest popup audit OK\n"
+  },
+  {
+    "m": 91,
+    "file": "audit_m91_build.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M91 popup BLACK color/build regression audit OK\n"
+  },
+  {
+    "m": 92,
+    "file": "audit_m92_campaign.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M92 campaign smoke service-popup regression audit OK\n"
+  },
+  {
+    "m": 93,
+    "file": "audit_m93_batchim.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M93 받침 감별기 source/audit OK\n"
+  },
+  {
+    "m": 94,
+    "file": "audit_m94_particles.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M94 Korean particle/template processor audit OK\n"
+  },
+  {
+    "m": 95,
+    "file": "audit_m95_castle_combat.py",
+    "status": "FAIL",
+    "sec": 0.09,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m95_castle_combat.py\", line 78, in <module>\n    assert 'out.push_back(\"Attacked by guard!\");' in local\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 96,
+    "file": "audit_m96_actor_names.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M96 approved actor names + Killed localization audit OK\n"
+  },
+  {
+    "m": 97,
+    "file": "audit_m97_ready_ui.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M97 original Ready popup + Korean category prompt audit OK\n"
+  },
+  {
+    "m": 98,
+    "file": "audit_m98_particles_ready_title.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M98 @을 particle + 장비하기 Ready title audit OK\n"
+  },
+  {
+    "m": 99,
+    "file": "audit_m99_ready_armour_bow.py",
+    "status": "FAIL",
+    "sec": 0.09,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m99_ready_armour_bow.py\", line 44, in <module>\n    assert '\"Steal\"' in cmd\n           ^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 100,
+    "file": "audit_m100_spell_names.py",
+    "status": "FAIL",
+    "sec": 0.09,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m100_spell_names.py\", line 16, in <module>\n    assert cmd_literal in cmd\n           ^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 101,
+    "file": "audit_m101_steal_localization.py",
+    "status": "FAIL",
+    "sec": 0.11,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m101_steal_localization.py\", line 43, in <module>\n    assert '\"Steal\"' in source\n           ^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 102,
+    "file": "audit_m102_steal_ready.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M102 Steal command marker + nothing-here + Ready none audit OK\n"
+  },
+  {
+    "m": 103,
+    "file": "audit_m103_location_entry.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M103 castle names + one-line location entry audit OK\n"
+  },
+  {
+    "m": 104,
+    "file": "audit_m104_ztats_ui.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M104 original Ztats/Inventory + Enter/Steal prompt audit OK\n"
+  },
+  {
+    "m": 105,
+    "file": "audit_m105_ztats_localized_layout.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M105 localized Ztats title/labels/alignment/frame audit OK\n"
+  },
+  {
+    "m": 106,
+    "file": "audit_m106_ztats_dense_columns.py",
+    "status": "PASS",
+    "sec": 0.07,
+    "out": "M106 dense Ztats leaders + extended two-column layout audit OK\n"
+  },
+  {
+    "m": 107,
+    "file": "audit_m107_quit.py",
+    "status": "FAIL",
+    "sec": 0.09,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m107_quit.py\", line 81, in <module>\n    assert q in main,q\n           ^^^^^^^^^\nAssertionError: log.appendLast(saved?quitSavedSuffix():\"save failed\");\n"
+  },
+  {
+    "m": 108,
+    "file": "audit_m108_castle_labels.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M108 castle A..Z tile labels -> centered black Korean overlay audit OK\n"
+  },
+  {
+    "m": 109,
+    "file": "audit_m109_attack.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M109 Attack input-turn/direction delay/castle wording/world projectile audit OK\n"
+  },
+  {
+    "m": 110,
+    "file": "audit_m110_attack_cursor.py",
+    "status": "PASS",
+    "sec": 0.1,
+    "out": "M110 Attack live-row cursor/two-space direction prompt audit OK\n"
+  },
+  {
+    "m": 111,
+    "file": "audit_m111_attack_translation.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M111 all-weapon Attack source wiring audit OK\n"
+  },
+  {
+    "m": 112,
+    "file": "audit_m112_overworld_combat_translation.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M112 historical overworld localization guarantees OK\n"
+  },
+  {
+    "m": 113,
+    "file": "audit_m113_command_wrap.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M113 command-window width-aware UTF-8 wrapping audit OK\n"
+  },
+  {
+    "m": 114,
+    "file": "audit_m114_overworld_combat_short.py",
+    "status": "PASS",
+    "sec": 0.11,
+    "out": "M114 historical shortened combat/reward guarantees OK\n"
+  },
+  {
+    "m": 115,
+    "file": "audit_m115_overworld_combat_stream.py",
+    "status": "PASS",
+    "sec": 0.07,
+    "out": "M115 four-line-conscious overworld combat stream + monster-name audit OK\n"
+  },
+  {
+    "m": 116,
+    "file": "audit_m116_ready_frame_thief.py",
+    "status": "PASS",
+    "sec": 0.07,
+    "out": "M116 Ready frame + Thief translation audit OK\n"
+  },
+  {
+    "m": 117,
+    "file": "audit_m117_world_sprite_animation.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M117 OUT.EXE B157 world sprite physical-pair animation audit OK\n"
+  },
+  {
+    "m": 118,
+    "file": "audit_m118_enemy_projectile.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M118 OUT.EXE 0x83FC enemy projectile presentation audit OK\n"
+  },
+  {
+    "m": 119,
+    "file": "audit_m119_combat_message_layout.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M119 field/castle combat-message layout audit OK\n"
+  },
+  {
+    "m": 120,
+    "file": "audit_m120_actor_regression.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M120 M96 actor-name regression compatibility audit OK\n"
+  },
+  {
+    "m": 121,
+    "file": "audit_m121_drop_ready_popup.py",
+    "status": "PASS",
+    "sec": 0.07,
+    "out": "M121 Drop/Ready popup + two-space cursor + 안 한다 audit OK\n"
+  },
+  {
+    "m": 122,
+    "file": "audit_m122_castle_commands.py",
+    "status": "FAIL",
+    "sec": 0.09,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m122_castle_commands.py\", line 67, in <module>\n    assert q in main,q\n           ^^^^^^^^^\nAssertionError: else log.pushCommand(inCastle ? \"열기?\" : \"열기?\")\n"
+  },
+  {
+    "m": 123,
+    "file": "audit_m123_castle_inform.py",
+    "status": "PASS",
+    "sec": 0.07,
+    "out": "M123 OUT.EXE 0x584B castle Inform/search audit OK\n"
+  },
+  {
+    "m": 124,
+    "file": "audit_m124_local_actor_dialogue_delay.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M124 Bard/Jester delayed-dialogue audit OK\n"
+  },
+  {
+    "m": 125,
+    "file": "audit_m125_actor_dialogue_delay.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M125 1-second Bard/Jester delay + one-line Jester dialogue audit OK\n"
+  },
+  {
+    "m": 126,
+    "file": "audit_m126_visible_dialogue_hold.py",
+    "status": "PASS",
+    "sec": 0.1,
+    "out": "M126 visible-frame hold historical audit OK\n"
+  },
+  {
+    "m": 127,
+    "file": "audit_m127_actor_dialogue_two_sided_delay.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M127 action -> 0.5s -> dialogue -> 0.5s presentation audit OK\n"
+  },
+  {
+    "m": 128,
+    "file": "audit_m128_historical_audit_compat.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M128 historical audit forward-compatibility audit OK\n"
+  },
+  {
+    "m": 129,
+    "file": "audit_m129_princess_unlock_dialogue.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M129 Princess popup/names + Unlock + 100ms post-dialogue audit OK\n"
+  },
+  {
+    "m": 130,
+    "file": "audit_m130_princess_layout.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M130 Julia + four centered Princess reward lines audit OK\n"
+  },
+  {
+    "m": 131,
+    "file": "audit_m131_king_landmarks.py",
+    "status": "FAIL",
+    "sec": 0.1,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m131_king_landmarks.py\", line 86, in <module>\n    assert 'KingSystem::visitLandmark(loc->id,p,lastLandmarkIndex,m);' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 132,
+    "file": "audit_m132_king_reward_popup.py",
+    "status": "PASS",
+    "sec": 0.1,
+    "out": "M132 completed-quest king reward popup oracle audit OK\n"
+  },
+  {
+    "m": 133,
+    "file": "audit_m133_localization_ladder.py",
+    "status": "FAIL",
+    "sec": 0.11,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m133_localization_ladder.py\", line 49, in <module>\n    assert '{\"우주 왕복선\",\"Type-1 ship\",\"Type-2 ship\"}' in space\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 134,
+    "file": "audit_m134_secret_door_renderer.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M134 current-secret-door renderer oracle audit OK\n"
+  },
+  {
+    "m": 135,
+    "file": "audit_m135_vehicle_board_access.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M135 Frigate/Raft boarding-access oracle audit OK\n"
+  },
+  {
+    "m": 136,
+    "file": "audit_m136_transport_localization.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M136 transport localization / command prompt / vehicle-facing audit OK\n"
+  },
+  {
+    "m": 137,
+    "file": "audit_m137_frigate_input_facing.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M137 generalized vehicle input-facing audit OK\n"
+  },
+  {
+    "m": 138,
+    "file": "audit_m138_landmark_paragraphs.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M138 landmark paragraph-break audit OK\n"
+  },
+  {
+    "m": 139,
+    "file": "audit_m139_princess_time_machine_korean.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M139 princess Time-Machine Korean translation audit OK\n"
+  },
+  {
+    "m": 140,
+    "file": "audit_m140_enemy_projectile_direction.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M140 enemy projectile direction audit OK\n"
+  },
+  {
+    "m": 141,
+    "file": "audit_m141_world_cast.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "OK  OUT.EXE size = 69,858 bytes\nOK  Cast no-effect mode 1\nOK  Cast no-effect mode 2\nOK  Cast no-effect mode 4\nOK  Prayer ready-spell id 0\nOK  real spell is consumed\nOK  Magic Missile id 3\nOK  Kill id 10\nOK  invalid direction refunds spell\nOK  class 1 auto-success check\nOK  Wisdom + 50 threshold\nOK  Prayer low Hits threshold 15\nOK  Prayer low Food threshold 15\nOK  Prayer monster-removal roll is <25\nOK  world directional Cast state\nOK  Prayer incantation\nOK  Magic Missile incantation\nOK  Kill incantation\nOK  localized outdoor dungeon-only rejection\nOK  Prayer <25 roll\nOK  Prayer source range check\nOK  Magic Missile world mode\nOK  Kill world mode\nOK  successful world spell has no second miss roll\nOK  Kill uses lethal damage\nM141 oracle audit OK\n"
+  },
+  {
+    "m": 142,
+    "file": "audit_m142_cast_localization.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "OK  Cast command format\nOK  used-up spell localization\nOK  dungeon-only localization\nOK  generic Cast failure localization\nOK  no-effect localization\nOK  Prayer monster removal localization\nOK  Nothing localization\nOK  Shazam localization\nOK  Prayer incantation note\nOK  Magic Missile incantation note\nOK  Kill incantation note\nOK  old world Cast command removed\nOK  old dungeon Cast command removed\nOK  old used-up output removed\nOK  old dungeon-only output removed\nOK  old no-effect output removed\nOK  old monster-removed output removed\nOK  overworld Cast command text\nOK  non-directional overworld Cast on command row\nOK  dungeon Cast command row assembly\nOK  dungeon Cast committed on command row\nOK  castle/town Cast fixed no-effect line\nOK  dungeon failure localized\nOK  dungeon used-up localization\nM142 Cast localization/layout audit OK\n"
+  },
+  {
+    "m": 145,
+    "file": "audit_m145_cast_direction_prompt.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M145 directional Cast live-prompt oracle audit OK\n"
+  },
+  {
+    "m": 146,
+    "file": "audit_m146_local_cast_scope.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M146 local Cast scope audit OK\n"
+  },
+  {
+    "m": 147,
+    "file": "audit_m147_field_noeffect_commands.py",
+    "status": "FAIL",
+    "sec": 0.1,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m147_field_noeffect_commands.py\", line 26, in <module>\n    assert q in main, q\n           ^^^^^^^^^\nAssertionError: if(!local.active) log.pushCommand(\"열기?\");\n"
+  },
+  {
+    "m": 148,
+    "file": "audit_m148_field_inform.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M148 outdoor Inform/Search location and continent audit OK\n"
+  },
+  {
+    "m": 149,
+    "file": "audit_m149_town_commands_shop.py",
+    "status": "FAIL",
+    "sec": 0.1,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m149_town_commands_shop.py\", line 25, in <module>\n    ]: assert q in main,q\n              ^^^^^^^^^\nAssertionError: log.pushCommand(local.inTown ? \"발포하기?\" : \"Fire?\")\n"
+  },
+  {
+    "m": 151,
+    "file": "audit_m151_town_inform_trade_iolo.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M151 town Inform/transaction/Iolo audit OK\n"
+  },
+  {
+    "m": 152,
+    "file": "audit_m152_sold_popup.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M152 Sold popup placement audit OK\n"
+  },
+  {
+    "m": 156,
+    "file": "audit_m156_shop_localization.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M156 shop localization/layout audit OK\n"
+  },
+  {
+    "m": 157,
+    "file": "audit_m157_shop_original_timing.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M157 shop original-timing audit OK\n"
+  },
+  {
+    "m": 158,
+    "file": "audit_m158_shop_messages_done_popup.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M158 shop messages / Done popup audit OK\n"
+  },
+  {
+    "m": 159,
+    "file": "audit_m159_pub_food_popup.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M159 pub/food modal popup + pub rumor timing audit OK\n"
+  },
+  {
+    "m": 160,
+    "file": "audit_m160_town_shop_original.py",
+    "status": "PASS",
+    "sec": 0.11,
+    "out": "M160 original-alignment / town-label audit OK\n"
+  },
+  {
+    "m": 161,
+    "file": "audit_m161_town_shop_original.py",
+    "status": "PASS",
+    "sec": 0.1,
+    "out": "M161 original-alignment / town-label audit OK\n"
+  },
+  {
+    "m": 163,
+    "file": "audit_m163_town_sign_inverse_blocks.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M163 town inverse-sign white-block audit OK\n"
+  },
+  {
+    "m": 164,
+    "file": "audit_m164_miss_noise_pub_seduction.py",
+    "status": "PASS",
+    "sec": 0.1,
+    "out": "M164 miss/noise + original pub seduction/rumor audit OK\n"
+  },
+  {
+    "m": 165,
+    "file": "audit_m165_seduction_localization.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M165 seduction localization audit OK\n"
+  },
+  {
+    "m": 166,
+    "file": "audit_m166_town_sign_glyph_blocks.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M166 town sign per-glyph white-block audit OK\n"
+  },
+  {
+    "m": 168,
+    "file": "audit_m168_pub_rumor_localization.py",
+    "status": "FAIL",
+    "sec": 0.1,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m168_pub_rumor_localization.py\", line 32, in <module>\n    for q in need: assert q in shop,q\n                          ^^^^^^^^^\nAssertionError: \"여러 호수와 연못에는\"\n"
+  },
+  {
+    "m": 169,
+    "file": "audit_m169_location_names.py",
+    "status": "PASS",
+    "sec": 0.1,
+    "out": "M169 location-name localization audit OK\n"
+  },
+  {
+    "m": 170,
+    "file": "audit_m170_status_spacing.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M170 HUD spacing audit OK (label colour may be superseded)\n"
+  },
+  {
+    "m": 171,
+    "file": "audit_m171_dungeon_attack_localization.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M171 dungeon Attack presentation/localization audit OK\n"
+  },
+  {
+    "m": 172,
+    "file": "audit_m172_dungeon_movement_prompts.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M172 dungeon movement prompt/localization audit OK\n"
+  },
+  {
+    "m": 173,
+    "file": "audit_m173_enemy_attack_stream.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M173 enemy attack one-stream audit OK\n"
+  },
+  {
+    "m": 174,
+    "file": "audit_m174_dungeon_frame_and_sight.py",
+    "status": "PASS",
+    "sec": 0.1,
+    "out": "M174 dungeon frame + visible-entity message audit OK\n"
+  },
+  {
+    "m": 175,
+    "file": "audit_m175_m48_compat.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M175 M48 compatibility audit OK\n"
+  },
+  {
+    "m": 176,
+    "file": "audit_m176_dungeon_overlap_and_sight_stream.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M176 dungeon overlap order + visible-entity one-stream audit OK\n"
+  },
+  {
+    "m": 177,
+    "file": "audit_m177_dungeon_sight_occlusion.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M177 dungeon sight occlusion regression OK\n"
+  },
+  {
+    "m": 178,
+    "file": "audit_m178_monster_feature_exclusion.py",
+    "status": "PASS",
+    "sec": 0.1,
+    "out": "M178 monster-vs-feature dispatcher regression OK\n"
+  },
+  {
+    "m": 179,
+    "file": "audit_m179_dungeon_depth_and_blocked_forward_stream.py",
+    "status": "FAIL",
+    "sec": 0.1,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m179_dungeon_depth_and_blocked_forward_stream.py\", line 15, in <module>\n    assert 'm.back()+=\" - path blocked!\";' in fwd\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 180,
+    "file": "audit_m180_monster_blocker_side_extension.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M180 occluding-monster side-extension audit OK\n  monster stays at logical depth\n  side cells beside blocker are rendered once more at far+1\n  ordinary far caps remain on the non-extension branch\n"
+  },
+  {
+    "m": 181,
+    "file": "audit_m181_m133_compat.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M181 M133 compatibility + M180 side-extension regression OK\n"
+  },
+  {
+    "m": 182,
+    "file": "audit_m182_dungeon_frame_hud.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M182 dungeon frame-title raster + HUD cyan-label audit OK\n"
+  },
+  {
+    "m": 183,
+    "file": "audit_m183_historical_hud_compat.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M183 historical HUD audit compatibility OK\n"
+  },
+  {
+    "m": 184,
+    "file": "audit_m184_dungeon_commands.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M184 dungeon command localization audit OK\n"
+  },
+  {
+    "m": 185,
+    "file": "audit_m185_dungeon_monster_names.py",
+    "status": "PASS",
+    "sec": 0.1,
+    "out": "M185 dungeon W-key + monster localization audit OK\n"
+  },
+  {
+    "m": 186,
+    "file": "audit_m186_enemy_special_stream_localization.py",
+    "status": "PASS",
+    "sec": 0.1,
+    "out": "M186 enemy special stream/localization audit OK\n"
+  },
+  {
+    "m": 187,
+    "file": "audit_m187_dungeon_cast.py",
+    "status": "FAIL",
+    "sec": 0.11,
+    "out": "OK  runtime title present\nOK  full dungeon Cast dispatcher present\nOK  old dungeon direction-prompt Cast removed\nOK  no outdoor Wisdom gate in dungeon Cast\nTraceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m187_dungeon_cast.py\", line 39, in <module>\n    ]: need(q in main or q in dung,label)\n       ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m187_dungeon_cast.py\", line 8, in need\n    assert cond,msg\n           ^^^^\nAssertionError: approved spell labels\n"
+  },
+  {
+    "m": 188,
+    "file": "audit_m188_time_machine_king_quest.py",
+    "status": "PASS",
+    "sec": 0.11,
+    "out": "M188 Time Machine / king monster quest localization OK\n"
+  },
+  {
+    "m": 189,
+    "file": "audit_m189_resurrection.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M189 resurrection audit OK\n"
+  },
+  {
+    "m": 190,
+    "file": "audit_m190_resurrection_bitmap.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M190 resurrection bitmap audit OK\n"
+  },
+  {
+    "m": 191,
+    "file": "audit_m191_shuttle_resurrection.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M191 shuttle/resurrection audit OK\n"
+  },
+  {
+    "m": 192,
+    "file": "audit_m192_m88_compat.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M192 M88 compatibility audit OK\n"
+  },
+  {
+    "m": 193,
+    "file": "audit_m193_ready_category_none.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M193 Ready category invalid-key one-row localization audit OK\n"
+  },
+  {
+    "m": 194,
+    "file": "audit_m194_xit_restriction.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M194 X-it terrain/shore restriction audit OK\n"
+  },
+  {
+    "m": 195,
+    "file": "audit_m195_xit_all_transport.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M195 X-it all-transport / Horse-Cart parity audit OK\n"
+  },
+  {
+    "m": 196,
+    "file": "audit_m196_movement_failure_prompt.py",
+    "status": "PASS",
+    "sec": 0.07,
+    "out": "M196 movement-failure prompt/original-flow audit OK\n"
+  },
+  {
+    "m": 197,
+    "file": "audit_m197_move_on_land_localization.py",
+    "status": "PASS",
+    "sec": 0.1,
+    "out": "M197 movement-failure localization/audit compatibility OK\n"
+  },
+  {
+    "m": 198,
+    "file": "audit_m198_audit_version_compat.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M198+ audit version compatibility OK\n"
+  },
+  {
+    "m": 199,
+    "file": "audit_m199_space_frame_hud_earth.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M199 SPACE persistent frame / gray bezel / Earth / four-row HUD audit OK\n"
+  },
+  {
+    "m": 200,
+    "file": "audit_m200_shuttle_countdown_localization.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M200 shuttle countdown localization audit OK\n"
+  },
+  {
+    "m": 201,
+    "file": "audit_m201_space_localization_ship_choice.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M201 SPACE localization / arrow ship-choice audit OK\n"
+  },
+  {
+    "m": 202,
+    "file": "audit_m202_space_docking_flight_timing.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M202 SPACE automatic docking / original top timing / thrust flame audit OK\n"
+  },
+  {
+    "m": 203,
+    "file": "audit_m203_space_command_rows_hyperjump.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M203 SPACE command-prompt / HyperJump single-row presentation audit OK\n"
+  },
+  {
+    "m": 204,
+    "file": "audit_m204_space_sector_scan.py",
+    "status": "FAIL",
+    "sec": 0.1,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m204_space_sector_scan.py\", line 16, in <module>\n    assert 'if(space.active && space.sectorScan){\\n                spaceSystem.dismissScan(space);\\n                continue;\\n            }\\n            if(k==SDLK_ESCAPE)' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 205,
+    "file": "audit_m205_space_front_retrace_timing.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M205 SPACE normal front-view speed/retrace timing audit OK\n"
+  },
+  {
+    "m": 206,
+    "file": "audit_m206_space_fire_speed_crunch.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M206 SPACE Dive / Fire beam / Speed row / Crunch damage audit OK\n"
+  },
+  {
+    "m": 207,
+    "file": "audit_m207_space_command_localization.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M207 SPACE command localization audit OK\n"
+  },
+  {
+    "m": 208,
+    "file": "audit_m208_m35_dock_compat.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M208 M35 dock-audit compatibility OK\n"
+  },
+  {
+    "m": 209,
+    "file": "audit_m209_m39_auto_dock_compat.py",
+    "status": "PASS",
+    "sec": 0.1,
+    "out": "M209 M39 automatic-docking smoke compatibility OK\n"
+  },
+  {
+    "m": 210,
+    "file": "audit_m210_status_caps.py",
+    "status": "PASS",
+    "sec": 0.1,
+    "out": "OK  OUT.EXE canonical size\nOK  SPACE.EXE canonical size\nOK  MONDAIN.EXE canonical size\nOK  OUT Hits compares against 9999\nOK  OUT Hits stores 9999 on overflow\nOK  OUT Food compares against 9999\nOK  OUT Food stores 9999 on overflow\nOK  OUT Experience compares against 9999\nOK  OUT Experience stores 9999 on overflow\nOK  OUT Coin compares against 9999\nOK  OUT Coin stores 9999 on overflow\nOK  SPACE Hits compares against 9999\nOK  SPACE Hits stores 9999 on overflow\nOK  SPACE Food compares against 9999\nOK  SPACE Food stores 9999 on overflow\nOK  SPACE Experience compares against 9999\nOK  SPACE Experience stores 9999 on overflow\nOK  SPACE Coin compares against 9999\nOK  SPACE Coin stores 9999 on overflow\nOK  MONDAIN Hits compares against 9999\nOK  MONDAIN Hits stores 9999 on overflow\nOK  MONDAIN Food compares against 9999\nOK  MONDAIN Food stores 9999 on overflow\nOK  MONDAIN Experience compares against 9999\nOK  MONDAIN Experience stores 9999 on overflow\nOK  MONDAIN Coin compares against 9999\nOK  MONDAIN Coin stores 9999 on overflow\nOK  load normalization caps hits\nOK  load normalization caps food\nOK  load normalization caps experience\nOK  load normalization caps coin\nOK  castle guard +14 EXP capped\nOK  castle food Get/Steal capped\nOK  castle food donation capped\nOK  king HP reward capped\nOK  shop resale Coin capped\nOK  food purchase capped\nOK  space kill +100 EXP capped\nOK  save serialization caps p.hits\nOK  save serialization caps p.coin\nOK  save serialization caps p.experience\nOK  save serialization caps p.food\nM210 four-primary-status 9999 cap audit OK\n"
+  },
+  {
+    "m": 211,
+    "file": "audit_m211_localization_pass.py",
+    "status": "FAIL",
+    "sec": 0.1,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m211_localization_pass.py\", line 41, in <module>\n    assert stale not in command+king+space+vehicle+main, stale\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: \"Thou hast not that much!\"\n"
+  },
+  {
+    "m": 212,
+    "file": "audit_m212_sfx_fire_laser.py",
+    "status": "PASS",
+    "sec": 0.1,
+    "out": "M212 PC-speaker foundation compatibility audit OK (M230 source emulator)\n"
+  },
+  {
+    "m": 213,
+    "file": "audit_m213_player_combat_sfx.py",
+    "status": "PASS",
+    "sec": 0.07,
+    "out": "M213 player combat SFX compatibility audit OK (M230 synchronous sound())\n"
+  },
+  {
+    "m": 214,
+    "file": "audit_m214_sfx_dosbox_timing.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M214 historical timing compatibility audit OK (superseded by M230 calibrated routine emulator)\n"
+  },
+  {
+    "m": 215,
+    "file": "audit_m215_sfx_dosbox_speaker_async.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M215 speaker-model compatibility audit OK (M230 source-synchronous)\n"
+  },
+  {
+    "m": 216,
+    "file": "audit_m216_validated_pcm_sfx.py",
+    "status": "PASS",
+    "sec": 0.17,
+    "out": "M216 capture reference compatibility audit OK (oracle-only in M230++)\n"
+  },
+  {
+    "m": 217,
+    "file": "audit_m217_movement_sfx.py",
+    "status": "PASS",
+    "sec": 0.11,
+    "out": "M217 movement sound(4) / draw-before-sound compatibility audit OK\n"
+  },
+  {
+    "m": 218,
+    "file": "audit_m218_sfx_equivalence_groups.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M218 SFX equivalence-group compatibility audit OK\n"
+  },
+  {
+    "m": 219,
+    "file": "audit_m219_xit_occupied_cell.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M219 occupied-cell X-it stacking oracle/runtime audit OK\n"
+  },
+  {
+    "m": 220,
+    "file": "audit_m220_campaign_xit_compat.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M220 campaign X-it compatibility audit OK\n"
+  },
+  {
+    "m": 221,
+    "file": "audit_m221_attack_effect_timing.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M221 attack first-cell draw/synchronous-sound compatibility audit OK\n"
+  },
+  {
+    "m": 222,
+    "file": "audit_m222_sfx_oracle_policy.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M222 centralized SFX oracle policy audit OK (M230)\n"
+  },
+  {
+    "m": 224,
+    "file": "audit_m224_sfx_latency_fire.py",
+    "status": "PASS",
+    "sec": 0.1,
+    "out": "M224 latency / Fire-ID compatibility audit OK (M230)\n"
+  },
+  {
+    "m": 225,
+    "file": "audit_m225_capture_oracle_sfx.py",
+    "status": "PASS",
+    "sec": 0.11,
+    "out": "M225 capture-oracle compatibility audit OK (oracle-only in M230++)\n"
+  },
+  {
+    "m": 226,
+    "file": "audit_m226_invalid_attack_weapon.py",
+    "status": "PASS",
+    "sec": 0.1,
+    "out": "M226 zero-range Ready weapon Attack ? + sound(1) audit OK\n"
+  },
+  {
+    "m": 227,
+    "file": "audit_m227_sfx_overlap_input_pacing.py",
+    "status": "PASS",
+    "sec": 0.1,
+    "out": "M227 overlap/input-pacing compatibility audit OK (M230)\n"
+  },
+  {
+    "m": 228,
+    "file": "audit_m228_queued_overlap_backend.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M228 overlap compatibility audit OK (M234 direct callback supersedes queued transport)\n"
+  },
+  {
+    "m": 229,
+    "file": "audit_m229_streaming_queue_audio.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M229 streaming-audio compatibility audit OK (M234 direct-callback compatibility)\n"
+  },
+  {
+    "m": 230,
+    "file": "audit_m230_pc_speaker_emulator.py",
+    "status": "PASS",
+    "sec": 0.1,
+    "out": "M230 original PC-speaker routine emulator / draw-before-sound audit OK\n"
+  },
+  {
+    "m": 231,
+    "file": "audit_m231_audio_lead_probe.py",
+    "status": "PASS",
+    "sec": 0.1,
+    "out": "M231 no-idle-prefill / host-audio instrumentation audit OK\n"
+  },
+  {
+    "m": 232,
+    "file": "audit_m232_audio_latency_pitch.py",
+    "status": "PASS",
+    "sec": 0.1,
+    "out": "M232 sound4 pitch calibration compatibility audit OK\n"
+  },
+  {
+    "m": 233,
+    "file": "audit_m233_m231_transport_m232_pitch.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M233 transport/pitch compatibility audit OK (M234 direct callback)\n"
+  },
+  {
+    "m": 234,
+    "file": "audit_m234_direct_callback_impulse.py",
+    "status": "PASS",
+    "sec": 0.1,
+    "out": "M234 direct-callback / DOSBox-style impulse-model audit OK\n"
+  },
+  {
+    "m": 235,
+    "file": "audit_m235_callback_source_sync.py",
+    "status": "PASS",
+    "sec": 0.1,
+    "out": "M235 direct callback source-synchronous clock audit OK\n"
+  },
+  {
+    "m": 236,
+    "file": "audit_m236_windows_wasapi.py",
+    "status": "PASS",
+    "sec": 0.1,
+    "out": "M236 native Windows SDL2/WASAPI comparison/fallback-path audit OK\n"
+  },
+  {
+    "m": 237,
+    "file": "audit_m237_windows_low_latency.py",
+    "status": "PASS",
+    "sec": 0.11,
+    "out": "M237 Windows IAudioClient3 minimum-period low-latency audit OK\n"
+  },
+  {
+    "m": 238,
+    "file": "audit_m238_hotfix1_incomplete_state.py",
+    "status": "PASS",
+    "sec": 0.1,
+    "out": "M238 hotfix1 incomplete audio-state constructor audit OK\n"
+  },
+  {
+    "m": 238,
+    "file": "audit_m238_wsl_direct_pulse.py",
+    "status": "PASS",
+    "sec": 0.1,
+    "out": "M238 canonical WSL direct-PulseAudio low-latency audit OK\n"
+  }
+]

@@ -1,0 +1,34 @@
+English	Korean
+Human	인간
+Elf	엘프
+Dwarf	드워프
+Bobbit	보비트
+Fighter	전사
+Cleric	사제
+Wizard	마법사
+Thief	도적
+from darkest / dungeons, to	가장 어두운 던전에서
+deepest space!	가장 먼 우주까지!
+a) Generate new character	a) 새 캐릭터를 생성합니다
+b) Continue previous game	b) 이전 게임을 지속합니다
+Thy choice:	선택하세요:
+Select thy race:	종족을 선택하세요:
+Race:	종족:
+Select thy sex:	성별을 선택하세요:
+Sex:	성별:
+Male	남성
+Female	여성
+Select thy class:	직업을 선택하세요:
+Class:	직업:
+Enter thy name:	이름을 입력하세요:
+Character Generation	캐릭터 생성하기
+Save this character? (Y-N)	이 캐릭터를 저장합니까?(Y/N)
+Yes	예
+Points left to distribute:	남은 포인트를 분배하세요:
+Move cursor with up and down arrows; increase and decrease attributes with left and right arrows. Press space bar when finished, or escape to return to the main menu.	상/하 화살표를 사용하여 커서를 이동합니다. 좌/우 화살표를 사용하여 특성치를 키우거나 줄입니다. 스페이스바를 눌러 작업을 끝내거나, ESC를 눌러 메인 메뉴로 돌아갑니다.
+Strength	힘
+Agility	민첩
+Stamina	지구력
+Charisma	매력
+Wisdom	지혜
+Intelligence	지능

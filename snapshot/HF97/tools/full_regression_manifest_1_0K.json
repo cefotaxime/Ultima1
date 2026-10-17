@@ -1,0 +1,40 @@
+{
+  "missing_numbers": [
+    1,
+    2,
+    143,
+    144,
+    150,
+    153,
+    154,
+    155,
+    162,
+    167,
+    223
+  ],
+  "superseded": {
+    "audit_m32_data.py": "Frontend diskette prompt was localized later; old English literal is no longer required.",
+    "audit_m78_ui.py": "Static 800x600 destination rectangle was replaced by configurable/window-resize 4:3 aspect-preserving presentation.",
+    "audit_m84_ui.py": "Open prompt localization was later changed to project-approved 관 열기?.",
+    "audit_m95_castle_combat.py": "Guard combat output was localized after M95; old English literal is obsolete.",
+    "audit_m99_ready_armour_bow.py": "Steal command literal was localized later.",
+    "audit_m100_spell_names.py": "Command/spell literals were localized/revised after M100.",
+    "audit_m101_steal_localization.py": "Steal command literal was localized later; old English marker is obsolete.",
+    "audit_m104_ztats_ui.py": "The executable M104/M106 Ztats model is localized; old source audit still expects the English Enemy vessels label while the current approved label is 적함 격추.",
+    "audit_m107_quit.py": "Save-failure fallback is now localized as 저장에 실패했습니다.; quit timing/path remains present.",
+    "audit_m112_overworld_combat_translation.py": "Gold reward was deliberately localized in HF40 as 금화 N냥!.",
+    "audit_m121_drop_ready_popup.py": "Drop Pence numeric prompt was deliberately changed in HF41 from 코인 버리기: to 코인 던지기:; category/weapon/armour prompts remain unchanged.",
+    "audit_m122_castle_commands.py": "Open prompt localization was later changed to project-approved 관 열기?.",
+    "audit_m131_king_landmarks.py": "visitLandmark signature was extended with reward-SFX output; landmark path remains wired.",
+    "audit_m133_localization_ladder.py": "Space hull labels Type-1/Type-2 ship were later localized to 1형/2형 우주선.",
+    "audit_m142_cast_localization.py": "Castle/town fixed no-effect Cast line was deliberately unified in HF40 to 흐음...아무런 효과도 없습니다!.",
+    "audit_m146_local_cast_scope.py": "Castle/town fixed no-effect Cast line was deliberately unified in HF40 to 흐음...아무런 효과도 없습니다!.",
+    "audit_m147_field_noeffect_commands.py": "Open prompt localization was later changed to 관 열기?.",
+    "audit_m149_town_commands_shop.py": "Town/castle Fire prompt was later fully localized to 발포하기? instead of mixed English Fire?.",
+    "audit_m168_pub_rumor_localization.py": "Rumor 6 was deliberately revised in HF38 at user request.",
+    "audit_m179_dungeon_depth_and_blocked_forward_stream.py": "path blocked! was later localized to 길이 막혔습니다!.",
+    "audit_m187_dungeon_cast.py": "Dungeon spell labels/incantation annotations were revised by later approved localization rules.",
+    "audit_m204_space_sector_scan.py": "HF38 inserted gameplay-ESC regression comments/guard; scan still consumes input before ESC no-op, so old exact adjacency assertion is obsolete.",
+    "audit_m211_localization_pass.py": "English Thou hast not that much! remains only in an oracle comment; reachable output is localized."
+  }
+}

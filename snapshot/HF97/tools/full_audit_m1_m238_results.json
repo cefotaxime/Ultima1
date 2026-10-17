@@ -1,0 +1,1598 @@
+[
+  {
+    "m": 3,
+    "file": "audit_m3_data.py",
+    "status": "PASS",
+    "sec": 0.14,
+    "out": "M3 original-data/gameplay audit OK\n  locations: 84\n  active local actors: 111 per map: [9, 10, 14, 12, 10, 14, 6, 15, 8, 13]\n  actor types: {17: 56, 19: 8, 20: 2, 21: 37, 22: 2, 50: 6}\n  weapon ranges: [1, 1, 1, 1, 0, 1, 1, 3, 0, 0, 0, 1, 3, 1, 3, 3]\n  dynamic NPC strings: verified\n  routine signatures: 0x2203, 0x252C, 0x266C, 0x2776, 0x286B, 0x2D4A, 0xB4C3\n"
+  },
+  {
+    "m": 4,
+    "file": "audit_m4_data.py",
+    "status": "PASS",
+    "sec": 0.1,
+    "out": "M4 oracle audit OK\nOUT.EXE: 69858 bytes\nTCD.BIN: 6840 bytes\ncounter-marker totals: 36=48 37=69 38=49 39=80 3A=62 3B=81 3C=66 3D=116 3E=85\nverified shop strings: 24\nverified routine signatures: 9\n"
+  },
+  {
+    "m": 5,
+    "file": "audit_m5_data.py",
+    "status": "PASS",
+    "sec": 0.11,
+    "out": "M5 oracle audit OK\nverified king/transport strings: 51\nverified M5 routine signatures: 11\nPLAYER1 world record 0: [10, 1, 44, 38, 0, 0, 0, 0]\nworld object layer: 40 x 16 bytes\n"
+  },
+  {
+    "m": 6,
+    "file": "audit_m6_data.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M6 oracle audit OK\n  Board/X-it strings       OK\n  8 transport names        OK\n  7 movement messages      OK\n  board routine file 0x138D     OK\n  X-it routine file 0x7F6B      OK\n  move routine file 0x06AF      OK\n  object delete file 0xB78E     OK\n"
+  },
+  {
+    "m": 7,
+    "file": "audit_m7_data.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M7 oracle audit OK\nmonster names: 15\nspawn thresholds: [35, 55, 75, 95, 115, 135, 155, 175, 195, 205]\ntransport move chances: [100, 50, 33, 100, 50, 25, 10, 10]\nverified combat strings: 11\nverified M7 routine signatures: 12\n"
+  },
+  {
+    "m": 8,
+    "file": "audit_m8_data.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M8 oracle audit OK\nperspective X: [0, 72, 108, 126, 135, 144]\nperspective Y: [0, 36, 54, 63, 68, 72]\nextra X: [4, 8, 5, 2, 8, 1, 5, 4, 6, 1, 3, 7, 3, 9, 2, 6]\nextra Y: [1, 1, 2, 3, 3, 4, 4, 5, 5, 6, 6, 6, 8, 8, 9, 9]\nverified M8 strings: 12\nverified M8 routine signatures: 14\nstring offsets: {'Attempting resurrection!': '0x1108a', 'Turn around': '0xdf0e', 'Turn left': '0xdf1a', 'Turn right': '0xdf24', 'Forward': '0xdf2f', ' - path blocked!': '0xdf37', 'a secret door!': '0xe2ca', ' up to level ': '0xe331', ' down to level ': '0xe34c', 'Thou must face the ladder!': '0xe36a', 'Coffin': '0xd961', 'Chest': '0xd968'}\n"
+  },
+  {
+    "m": 9,
+    "file": "audit_m9_data.py",
+    "status": "PASS",
+    "sec": 0.09,
+    "out": "M9 oracle audit OK\ndungeon monster names: 25\nquest monster ids: [24, 19, 14, 9]\nverified special-effect ids: [9,16,21,2]\nverified M9 strings: 11\nverified M9 routine signatures: 6\n"
+  },
+  {
+    "m": 10,
+    "file": "audit_m10_data.py",
+    "status": "PASS",
+    "sec": 0.07,
+    "out": "M10 oracle audit OK\nvector streams: 25\nvector baselines: [139, 112, 96, 88, 84]\ntotal commands: 813\ntotal line-to commands: 655\nInvisible seeker commands: 0\nverified M10 renderer signatures: 8\n"
+  },
+  {
+    "m": 11,
+    "file": "audit_m11_data.py",
+    "status": "PASS",
+    "sec": 0.07,
+    "out": "M11 oracle audit OK\nfeature dispatch: [15972, 15972, 15982, 16074, 16074, 16002, 16039, 15992]\nenvironment vector ptrs: ['0x2421', '0x2443', '0x244f', '0x245b', '0x247a']\nenvironment vector counts: [(15, 3, 12), (5, 1, 4), (5, 1, 4), (12, 6, 6), (2, 1, 1)]\nverified M11 renderer signatures: 12\n"
+  },
+  {
+    "m": 12,
+    "file": "audit_m12_data.py",
+    "status": "PASS",
+    "sec": 0.06,
+    "out": "M12 oracle audit OK\nverified transition/visibility signatures: 13\nside classifier open features: 0,6,7,8\nnon-occluding monster IDs: 9,11,20 (+FFFF empty)\n"
+  },
+  {
+    "m": 13,
+    "file": "audit_m13_data.py",
+    "status": "FAIL",
+    "sec": 0.11,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m13_data.py\", line 5, in <module>\n    main=(root/'src/main.cpp').read_text()\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_local.py\", line 546, in read_text\n    return PathBase.read_text(self, encoding, errors, newline)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_abc.py\", line 633, in read_text\n    return f.read()\n           ~~~~~~^^\nUnicodeDecodeError: 'cp949' codec can't decode byte 0xeb in position 16582: illegal multibyte sequence\n"
+  },
+  {
+    "m": 14,
+    "file": "audit_m14_data.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m14_data.py\", line 4, in <module>\n    src=(root/'src/DungeonSystem.cpp').read_text()\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_local.py\", line 546, in read_text\n    return PathBase.read_text(self, encoding, errors, newline)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_abc.py\", line 633, in read_text\n    return f.read()\n           ~~~~~~^^\nUnicodeDecodeError: 'cp949' codec can't decode byte 0xeb in position 1023: illegal multibyte sequence\n"
+  },
+  {
+    "m": 15,
+    "file": "audit_m15_data.py",
+    "status": "FAIL",
+    "sec": 0.1,
+    "out": "OK  SPACE.EXE size = 39,824 bytes\nOK  startup sets DS=072Dh\nOK  INUSE.U1 handoff filename\nOK  OUT.EXE return filename\nOK  outer universe loop is 0..6\nOK  inner universe loop is 0..6\nOK  sector X stride = 0196h\nOK  sector Y stride = 003Ah\nOK  initial current craft slot = 2\nOK  home sector begins at DS:2C30 with fixed object data\nOK  saved Shuttle fuel/shield copied into home craft\nOK  ship type 0 max fuel = 1000\nOK  ship type 2 max fuel = 2500\nOK  ship type 1 max fuel = 5000\nOK  ship type 0 max shield = 1000\nOK  ship type 2 max shield = 5000\nOK  ship type 1 max shield = 1000\nOK  SPACE RNG core\nOK  top-view default thrust/retro fuel cost = 5\nOK  rotation fuel cost = 2\nOK  front-view directional command requires 2 fuel\nOK  HyperJump requires at least 100 fuel\nOK  Fire requires at least 10 fuel\nOK  enemy hit adds 100 experience\nOK  PLAYER +A6 kill count increments; Space Ace threshold = 20\nOK  enemy hit decrements current sector enemy count\nOK  safe-landing routine requires sector X=3\nOK  safe-landing routine requires sector Y=3\nOK  home-world landing target X=60\nOK  home-world landing target Y=75\nOK  only ship type 0 is heat-shielded for landing\nOK  landing persists current fuel/shield to PLAYER +B0/+B2\nOK  docking requires ready armour >=4 to survive vacuum\nOK  docking fee check = 500 coin\nOK  successful docking subtracts 500 coin\nOK  collision-free move checks exact dock geometry then calls docking service\nOK  docking service zeroes Y/X velocity\nOK  ship-choice service reads shared key helper\nOK  ship-choice accepts normalized direction codes 1..4\nOK  extended arrow scans map Left/Right/Up/Down -> 1/2/3/4\nOK  SPACE string Sector Scan:\nOK  SPACE string HyperJump\nOK  SPACE string Space Ace!\nOK  SPACE string Hit!!!\nOK  SPACE string Thy ship melts near the star!\nOK  SPACE string Thou hast landed safely!\nOK  SPACE string Docked!  Welcome to base!\nOK  SPACE string Thou hast lifted off!\nM15 SPACE.EXE oracle audit passed.\nTraceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m15_data.py\", line 89, in <module>\n    space_src=(proj/'src/SpaceSystem.cpp').read_text()\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_local.py\", line 546, in read_text\n    return PathBase.read_text(self, encoding, errors, newline)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_abc.py\", line 633, in read_text\n    return f.read()\n           ~~~~~~^^\nUnicodeDecodeError: 'cp949' codec can't decode byte 0xec in position 16686: illegal multibyte sequence\n"
+  },
+  {
+    "m": 16,
+    "file": "audit_m16_data.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "OK  SPACE.EXE size = 39,824 bytes\nOK  front Left installs aim velocity (-4,0)\nOK  front Right installs aim velocity (+4,0)\nOK  front Climb installs aim velocity (0,-4)\nOK  front Dive installs aim velocity (0,+4)\nOK  continuous front loop applies aim velocities\nOK  crosshair X boundaries are 20..300\nOK  crosshair Y boundaries are 20..140\nOK  enemy X-max hitbox table exact\nOK  enemy Y-max hitbox table exact\nOK  enemy X-min hitbox table exact\nOK  enemy Y-min hitbox table exact\nOK  Fire indexes stage-dependent X/Y max tables\nOK  Fire indexes stage-dependent min tables\nOK  HyperJump transfer addresses sector with X stride 0196h\nOK  HyperJump transfer addresses sector with Y stride 003Ah\nOK  HyperJump requires 100 fuel\nOK  enemy flight loop entry / pacing counter\nOK  enemy X upper bound = 280\nOK  enemy X lower bound = 30\nOK  enemy Y upper bound = 125\nOK  enemy Y lower bound = 24\nOK  alien fire first RNG range = 1..200\nOK  alien fire enters only for roll <4\nOK  alien hit second RNG range = 1..255\nOK  alien hit succeeds for roll <64\nOK  alien hit shield-drain cap = 321\nOK  generic collision calls special contacts then prints Crunch!\nOK  Crunch damage helper = shield/4 + 5\nOK  surviving Crunch reverses both top-view velocity axes\nOK  docked direction command except Retro enters Crunch path\nOK  top X adds velocity then tests >275\nOK  top X wraps high edge to 20\nOK  top X wraps low edge to 275\nOK  top Y adds velocity then tests >130\nOK  top Y wraps high edge to 10\nOK  top Y wraps low edge to 130\nOK  top-view poll loop waits exactly 2 BIOS ticks\nOK  Thrust adds 10 to exhaust lifetime counter\nOK  thrust exhaust helper decrements lifetime by one\nOK  front speed 1..8 maps to vertical-retrace waits 8..1\nOK  front flight indexes DS:0C9E by DS:0126 speed and calls retrace wait\nOK  vertical-retrace wait helper entry\nOK  retrace helper counts port 03DAh bit-3 vertical retraces\nTraceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m16_data.py\", line 105, in <module>\n    c=(proj/'src/SpaceSystem.cpp').read_text()\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_local.py\", line 546, in read_text\n    return PathBase.read_text(self, encoding, errors, newline)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_abc.py\", line 633, in read_text\n    return f.read()\n           ~~~~~~^^\nUnicodeDecodeError: 'cp949' codec can't decode byte 0xec in position 16686: illegal multibyte sequence\n"
+  },
+  {
+    "m": 17,
+    "file": "audit_m17_data.py",
+    "status": "FAIL",
+    "sec": 0.1,
+    "out": "OK  SPACE.EXE size = 39,824 bytes\nOK  EGASPACE.BIN size = 7,296 bytes\nOK  EGAFIGHT.BIN size = 3,192 bytes\nOK  SPACE.EXE loads 0x1C80 bytes into DS:31DA\nOK  SPACE.EXE loads 0x0C78 bytes into DS:4E5A\nOK  top EGA sprite row width = 4 bytes (32 pixels)\nOK  top EGA alignment mask = 7\nOK  top EGA alignment stride = 76 bytes (32x19 mask)\nOK  fight EGA sprite row width = 3 bytes (24 pixels)\nOK  fight EGA alignment mask = 7\nOK  fight EGA alignment stride = 57 bytes (24x19 mask)\nOK  top blitter collision flag starts clear\nOK  top blitter detects framebuffer-mask overlap\nOK  top blitter XORs sprite mask into framebuffer\nOK  EGASPACE = 12 images x 8 exact bit-shift variants x 32x19\nOK  EGAFIGHT = 7 images x 8 exact bit-shift variants x 24x19\nOK  star raster is 19x18 values {0,1,2}\nOK  base raster is 20x20 binary mask\nOK  Ultima world raster is 21x18 values {0..4}\nTraceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m17_data.py\", line 55, in <module>\n    proj=Path(__file__).resolve().parents[1]; h=(proj/'src/SpaceSystem.h').read_text(); c=(proj/'src/SpaceSystem.cpp').read_text(); m=(proj/'src/main.cpp').read_text(); allsrc='\\n'.join((h,c,m))\n                                                                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_local.py\", line 546, in read_text\n    return PathBase.read_text(self, encoding, errors, newline)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_abc.py\", line 633, in read_text\n    return f.read()\n           ~~~~~~^^\nUnicodeDecodeError: 'cp949' codec can't decode byte 0xec in position 16686: illegal multibyte sequence\n"
+  },
+  {
+    "m": 18,
+    "file": "audit_m18_data.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "OK  SPACE.EXE size = 39,824 bytes\nOK  space frame defaults to colour 7 before EGA foreground selection\nOK  top frame bar = (8,8)..(311,15)\nOK  bottom frame bar = (8,144)..(311,151)\nOK  frame top/bottom notch x = i*15+10\nOK  frame side notch y = i*15+3\nOK  gunsight horizontal endpoints = crosshairX +/- 2\nOK  gunsight vertical endpoints = crosshairY +/- 2\nOK  front starfield contains 40 stars\nOK  star X expansion uses signed divide by 8\nOK  star Y expansion uses signed divide by 6\nOK  reticle X bounds are 20..300\nOK  reticle Y bounds are 20..140\nOK  HyperJump command name print\nOK  HyperJump appends ellipsis before animation\nOK  HyperJump appends Lightspeed during jump\nOK  HyperJump completion suffix print\nOK  HyperJump trail mode = 1\nOK  HyperJump trail loop runs counters 0..200 (201 updates)\nOK  HyperJump erase/move mode = 3\nOK  HyperJump erase loop runs counters 0..199 (200 updates)\nOK  HyperJump restores normal star mode = 2\nOK  HyperJump deducts 100 fuel after animation\nOK  front speed maps to 8..1 retrace waits\nOK  normal front loop indexes retrace table and calls wait helper\nOK  front wait helper counts port 03DAh vertical retraces\nOK  front speed command computes delta from DS:0126\nOK  front speed change costs abs(delta)*4 fuel\nOK  Speed command prints DS:0BCA `Speed ` in command colour\nOK  Speed command prints the selected numeric speed on the same row\nOK  Fire draws red beam from (20,140) to crosshair\nOK  Fire draws red beam from (300,140) to crosshair\nOK  Fire erases lower-left beam with colour 0\nOK  Fire erases lower-right beam with colour 0\nOK  alien hit beam endpoint = (159,135)\nOK  alien upper miss endpoint = (159,20)\nOK  alien left miss endpoint = (20,79)\nOK  alien right miss endpoint = (290,79)\nOK  top craft blitter XORs mask with EGA framebuffer\nOK  scan popup clears logical (31,23)..(287,127)\nOK  scan popup top edge uses y=26, x=34..284\nOK  EGA scan popup frame colour = blue (1)\nOK  EGA scan title colour = light cyan (11)\nOK  Sector Scan title selects light-cyan colour then string\nOK  Sector Scan popup frame selects blue colour\nOK  scan X anchor = sectorX*10 + 132\nOK  scan Y anchor = sectorY*10 + 46\nOK  scan visible phase waits 7 BIOS timer ticks before erase\nOK  scan blink erases the current 8x9 sector-symbol cell with colour 0\nOK  scan blank phase waits 7 BIOS timer ticks before redraw\nOK  scan blink redraws the current sector glyph itself\nTraceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m18_data.py\", line 99, in <module>\n    h=(proj/'src/SpaceSystem.h').read_text(); c=(proj/'src/SpaceSystem.cpp').read_text(); m=(proj/'src/main.cpp').read_text(); allsrc='\\n'.join((h,c,m))\n                                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_local.py\", line 546, in read_text\n    return PathBase.read_text(self, encoding, errors, newline)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_abc.py\", line 633, in read_text\n    return f.read()\n           ~~~~~~^^\nUnicodeDecodeError: 'cp949' codec can't decode byte 0xec in position 16686: illegal multibyte sequence\n"
+  },
+  {
+    "m": 19,
+    "file": "audit_m19_data.py",
+    "status": "FAIL",
+    "sec": 0.1,
+    "out": "OK  OUT.EXE size = 69,858 bytes\nOK  Open is dungeon-only\nOK  Open checks current marker == coffin(5)\nOK  coffin trap roll = rng(1,255)\nOK  coffin trap branch threshold = 104\nOK  Steal recognizes food marker 0x39\nOK  Steal recognizes weapon marker 0x3B\nOK  Steal recognizes armour marker 0x37\nOK  Steal caught helper roll = rng(1,255)\nOK  Steal escape threshold = 38\nOK  Steal class special-case = class 3\nOK  food theft amount = rng(2,31)\nOK  armour theft index = rng(1,5)\nOK  weapon theft index = rng(1,15)\nOK  View routine prints DS:1637 = View?\nOK  Unlock dispatch has dungeon mode branch\nOK  Unlock dispatch has local/castle branch\nOK  local Unlock accepts key tile 0x3C\nOK  local Unlock accepts key tile 0x3D\nOK  local Unlock requires key flag\nOK  local Unlock compares against randomized correct-key tile\nOK  castle setup can select key tile 0x3D\nOK  castle setup can select key tile 0x3C\nTraceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m19_data.py\", line 45, in <module>\n    main=(project/'src/main.cpp').read_text(); local=(project/'src/LocalSimulation.cpp').read_text(); dun=(project/'src/DungeonSystem.cpp').read_text()\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_local.py\", line 546, in read_text\n    return PathBase.read_text(self, encoding, errors, newline)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_abc.py\", line 633, in read_text\n    return f.read()\n           ~~~~~~^^\nUnicodeDecodeError: 'cp949' codec can't decode byte 0xeb in position 16582: illegal multibyte sequence\n"
+  },
+  {
+    "m": 20,
+    "file": "audit_m20_data.py",
+    "status": "FAIL",
+    "sec": 0.1,
+    "out": "OK  OUT.EXE size = 69,858 bytes\nOK  main dispatcher G calls Get routine 0x5750\nOK  main dispatcher H calls HyperJump? routine 0x579A\nOK  Get requires castle mode 2\nOK  Get food marker = 0x39\nOK  Get armour marker = 0x37\nOK  Get weapon marker = 0x3B\nOK  Get decrements storeroom allowance\nOK  king storeroom reward sets allowance = 9\nOK  OUT HyperJump command prints DS:0C2F only\nTraceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m20_data.py\", line 32, in <module>\n    main=(project/'src/main.cpp').read_text(); local=(project/'src/LocalSimulation.cpp').read_text(); king=(project/'src/KingSystem.cpp').read_text()\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_local.py\", line 546, in read_text\n    return PathBase.read_text(self, encoding, errors, newline)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_abc.py\", line 633, in read_text\n    return f.read()\n           ~~~~~~^^\nUnicodeDecodeError: 'cp949' codec can't decode byte 0xeb in position 16582: illegal multibyte sequence\n"
+  },
+  {
+    "m": 21,
+    "file": "audit_m21_data.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "OK  OUT.EXE size = 69,858 bytes\nOK  Cast rejects town mode 1\nOK  Cast rejects castle mode 2\nOK  Cast rejects runtime mode 4\nOK  Cast consumes ready spell inventory\nOK  Magic Missile spell id = 3\nOK  Kill spell id = 10\nOK  Magic Missile base damage uses Intelligence\nOK  ready Wand id 9 doubles spell damage\nOK  ready Amulet id 8 multiplies spell damage by 3/2\nOK  Drop permits town mode 1\nOK  Drop permits castle mode 2\nOK  Drop category P = Pence\nOK  Drop category W = Weapon\nOK  Drop category A = Armour\nOK  Drop weapon decrements inventory\nOK  Drop armour decrements inventory\nOK  Drop Pence subtracts coin first\nOK  castle marker 0x33 random stat 1..6\nOK  castle marker 0x34 random weapon 1..15\nOK  Ready category W = Weapon\nOK  Ready category A = Armour\nOK  Ready category S = Spell\nOK  Ready weapon writes DS:3AA2\nOK  Ready armour writes DS:3AA6\nOK  Ready spell writes DS:3AA4\nTraceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m21_data.py\", line 49, in <module>\n    main=(project/'src/main.cpp').read_text(); cmd=(project/'src/CommandSystem.cpp').read_text(); local=(project/'src/LocalSimulation.cpp').read_text(); dung=(project/'src/DungeonSystem.cpp').read_text()\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_local.py\", line 546, in read_text\n    return PathBase.read_text(self, encoding, errors, newline)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_abc.py\", line 633, in read_text\n    return f.read()\n           ~~~~~~^^\nUnicodeDecodeError: 'cp949' codec can't decode byte 0xeb in position 16582: illegal multibyte sequence\n"
+  },
+  {
+    "m": 22,
+    "file": "audit_m22_data.py",
+    "status": "FAIL",
+    "sec": 0.1,
+    "out": "OK  OUT.EXE size = 69,858 bytes\nOK  castle-local mode = 2 on exit\nOK  castle exit calls princess-adjacent then rescue\nOK  princess tile = 0x16\nOK  Space Ace condition requires 20 kills\nOK  extra gift requires EXP >= 7000\nOK  princess reward coin += 500\nOK  princess reward hits += 500\nOK  princess reward EXP += 500\nOK  Time Machine inventory capped at 9\nOK  Time Machine inventory increment\nOK  spawn X range 12..21\nOK  spawn Y range 11..15\nOK  spawn requires terrain class 2\nOK  spawn object class 2 / tile 0x12\nOK  level = EXP/1000 + 1\nOK  Hits helper compares against 9999\nOK  Hits helper clamps to 9999\nOK  Food helper compares against 9999\nOK  Food helper clamps to 9999\nOK  EXP helper compares against 9999\nOK  EXP helper clamps to 9999\nOK  Coin helper compares against 9999\nOK  Coin helper clamps to 9999\nTraceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m22_data.py\", line 41, in <module>\n    main=(project/'src/main.cpp').read_text(); local=(project/'src/LocalSimulation.cpp').read_text(); odh=(project/'src/OriginalData.h').read_text(); odc=(project/'src/OriginalData.cpp').read_text()\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_local.py\", line 546, in read_text\n    return PathBase.read_text(self, encoding, errors, newline)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_abc.py\", line 633, in read_text\n    return f.read()\n           ~~~~~~^^\nUnicodeDecodeError: 'cp949' codec can't decode byte 0xeb in position 16582: illegal multibyte sequence\n"
+  },
+  {
+    "m": 23,
+    "file": "audit_m23_data.py",
+    "status": "FAIL",
+    "sec": 0.13,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m23_data.py\", line 105, in <module>\n    src=(Path(__file__).parents[1]/'src'/'VehicleSystem.cpp').read_text()\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_local.py\", line 546, in read_text\n    return PathBase.read_text(self, encoding, errors, newline)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_abc.py\", line 633, in read_text\n    return f.read()\n           ~~~~~~^^\nUnicodeDecodeError: 'cp949' codec can't decode byte 0xec in position 180: illegal multibyte sequence\n"
+  },
+  {
+    "m": 24,
+    "file": "audit_m24_data.py",
+    "status": "PASS",
+    "sec": 0.1,
+    "out": "M24 oracle audit OK\n  arena initial player=(3,4), Mondain=(15,4) OK\n  Mondain initial HP=1000                    OK\n  arena dimensions/indexing 19x9 x-major      OK\n  movement occupancy/bounds signatures         OK\n  Get Gem = adjacent tile 6                    OK\n  Gem destruction current-HP 3/4 damage        OK\n  death / false-death / victory anchors         OK\n"
+  },
+  {
+    "m": 25,
+    "file": "audit_m25_data.py",
+    "status": "PASS",
+    "sec": 0.12,
+    "out": "M25 oracle audit OK\n  EGAMOND = 19 * 128-byte EGA tiles          OK\n  initial arena / Time Machine / Gem cells   OK\n  EGA blitter DS:238C + tile*128             OK\n  Mondain melee formula signature             OK\n  three-spell selector/effect signatures      OK\n  HP-state / melee / spell / flee AI branches OK\n  transient creation gate                     OK\n"
+  },
+  {
+    "m": 26,
+    "file": "audit_m26_data.py",
+    "status": "FAIL",
+    "sec": 0.14,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m26_data.py\", line 29, in <module>\n    src=(Path(__file__).parents[1]/'src'/'MondainSystem.cpp').read_text()\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_local.py\", line 546, in read_text\n    return PathBase.read_text(self, encoding, errors, newline)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_abc.py\", line 633, in read_text\n    return f.read()\n           ~~~~~~^^\nUnicodeDecodeError: 'cp949' codec can't decode byte 0xec in position 550: illegal multibyte sequence\n"
+  },
+  {
+    "m": 27,
+    "file": "audit_m27_data.py",
+    "status": "FAIL",
+    "sec": 0.12,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m27_data.py\", line 22, in <module>\n    s=main.read_text()\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_local.py\", line 546, in read_text\n    return PathBase.read_text(self, encoding, errors, newline)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_abc.py\", line 633, in read_text\n    return f.read()\n           ~~~~~~^^\nUnicodeDecodeError: 'cp949' codec can't decode byte 0xeb in position 16582: illegal multibyte sequence\n"
+  },
+  {
+    "m": 28,
+    "file": "audit_m28_data.py",
+    "status": "FAIL",
+    "sec": 0.13,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m28_data.py\", line 41, in <module>\n    front=(root/'src/FrontendSystem.cpp').read_text()\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_local.py\", line 546, in read_text\n    return PathBase.read_text(self, encoding, errors, newline)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_abc.py\", line 633, in read_text\n    return f.read()\n           ~~~~~~^^\nUnicodeDecodeError: 'cp949' codec can't decode byte 0xec in position 814: illegal multibyte sequence\n"
+  },
+  {
+    "m": 29,
+    "file": "audit_m29_data.py",
+    "status": "FAIL",
+    "sec": 0.1,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m29_data.py\", line 33, in <module>\n    front=(root/\"src/FrontendSystem.cpp\").read_text()\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_local.py\", line 546, in read_text\n    return PathBase.read_text(self, encoding, errors, newline)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_abc.py\", line 633, in read_text\n    return f.read()\n           ~~~~~~^^\nUnicodeDecodeError: 'cp949' codec can't decode byte 0xec in position 814: illegal multibyte sequence\n"
+  },
+  {
+    "m": 30,
+    "file": "audit_m30_data.py",
+    "status": "PASS",
+    "sec": 0.08,
+    "out": "M30 character-generation presentation audit: PASS\n"
+  },
+  {
+    "m": 31,
+    "file": "audit_m31_data.py",
+    "status": "FAIL",
+    "sec": 0.09,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m31_data.py\", line 51, in <module>\n    front=(root/'src/FrontendSystem.cpp').read_text()\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_local.py\", line 546, in read_text\n    return PathBase.read_text(self, encoding, errors, newline)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_abc.py\", line 633, in read_text\n    return f.read()\n           ~~~~~~^^\nUnicodeDecodeError: 'cp949' codec can't decode byte 0xec in position 814: illegal multibyte sequence\n"
+  },
+  {
+    "m": 32,
+    "file": "audit_m32_data.py",
+    "status": "FAIL",
+    "sec": 0.1,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m32_data.py\", line 62, in <module>\n    front=(root/'src/FrontendSystem.cpp').read_text()\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_local.py\", line 546, in read_text\n    return PathBase.read_text(self, encoding, errors, newline)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_abc.py\", line 633, in read_text\n    return f.read()\n           ~~~~~~^^\nUnicodeDecodeError: 'cp949' codec can't decode byte 0xec in position 814: illegal multibyte sequence\n"
+  },
+  {
+    "m": 33,
+    "file": "audit_m33_data.py",
+    "status": "PASS",
+    "sec": 13.23,
+    "out": "M33 campaign prerequisite audit OK\n  GEN-compatible space-universe hostile minimum: 17\n  even-castle quadrants: [0, 1, 2, 3]\n  Time Machine woods per quadrant: [24, 27, 18, 14]\n  fresh-position nearby grass: 6\n  princess-path door markers: [['0x3d'], ['0x3c']]\n  GEN-seed dungeon descent guarantee: level 9 reachable in at least one original dungeon\n"
+  },
+  {
+    "m": 34,
+    "file": "audit_m34_data.py",
+    "status": "PASS",
+    "sec": 0.13,
+    "out": "M34 live-path campaign audit OK\n"
+  },
+  {
+    "m": 35,
+    "file": "audit_m35_data.py",
+    "status": "FAIL",
+    "sec": 0.13,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m35_data.py\", line 4, in <module>\n    space=(root/'src/SpaceSystem.cpp').read_text()\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_local.py\", line 546, in read_text\n    return PathBase.read_text(self, encoding, errors, newline)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_abc.py\", line 633, in read_text\n    return f.read()\n           ~~~~~~^^\nUnicodeDecodeError: 'cp949' codec can't decode byte 0xec in position 16686: illegal multibyte sequence\n"
+  },
+  {
+    "m": 36,
+    "file": "audit_m36_data.py",
+    "status": "PASS",
+    "sec": 0.1,
+    "out": "M36 oracle audit OK\n"
+  },
+  {
+    "m": 37,
+    "file": "audit_m37_data.py",
+    "status": "PASS",
+    "sec": 0.07,
+    "out": "OK  OUT.EXE size = 69,858 bytes\nOK  castle setup derives location/castle index\nOK  castle setup stores (location-1)%2 layout parity\nOK  castle setup mutates TCD/local-map bytes\nOK  castle key roll uses rng(1,255)\nOK  castle setup can choose key type 0x3D\nOK  castle setup can choose key type 0x3C\nOK  Unlock accepts both key markers\nOK  Unlock compares marker with DS:AD4E\nOK  campaign kills the real Jester through gameplay combat\nOK  campaign uses the real local Unlock handler\nOK  campaign leads the real Princess to the castle exit\nOK  campaign models wrong-door leave/re-entry\nOK  final castle regression RNG is deterministic\nOK  castle exit calls the real Princess rescue predicate\nOK  synthetic Princess-adjacent placement removed\nM37 oracle audit OK\n"
+  },
+  {
+    "m": 38,
+    "file": "audit_m38_data.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m38_data.py\", line 11, in <module>\n    d=(project/'src/DungeonSystem.cpp').read_text()\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_local.py\", line 546, in read_text\n    return PathBase.read_text(self, encoding, errors, newline)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_abc.py\", line 633, in read_text\n    return f.read()\n           ~~~~~~^^\nUnicodeDecodeError: 'cp949' codec can't decode byte 0xeb in position 1023: illegal multibyte sequence\n"
+  },
+  {
+    "m": 39,
+    "file": "audit_m39_data.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m39_data.py\", line 7, in <module>\n    s=(project/'tools/campaign_smoke_m39.cpp').read_text()\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_local.py\", line 546, in read_text\n    return PathBase.read_text(self, encoding, errors, newline)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_abc.py\", line 633, in read_text\n    return f.read()\n           ~~~~~~^^\nUnicodeDecodeError: 'cp949' codec can't decode byte 0xed in position 51075: illegal multibyte sequence\n"
+  },
+  {
+    "m": 40,
+    "file": "audit_m40_data.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m40_data.py\", line 14, in <module>\n    cpp=(root/'src/LocalSimulation.cpp').read_text()\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_local.py\", line 546, in read_text\n    return PathBase.read_text(self, encoding, errors, newline)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_abc.py\", line 633, in read_text\n    return f.read()\n           ~~~~~~^^\nUnicodeDecodeError: 'cp949' codec can't decode byte 0xec in position 310: illegal multibyte sequence\n"
+  },
+  {
+    "m": 41,
+    "file": "audit_m41_data.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m41_data.py\", line 26, in <module>\n    front=(root/'src/FrontendSystem.cpp').read_text()\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_local.py\", line 546, in read_text\n    return PathBase.read_text(self, encoding, errors, newline)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_abc.py\", line 633, in read_text\n    return f.read()\n           ~~~~~~^^\nUnicodeDecodeError: 'cp949' codec can't decode byte 0xec in position 814: illegal multibyte sequence\n"
+  },
+  {
+    "m": 42,
+    "file": "audit_m42_data.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m42_data.py\", line 32, in <module>\n    front=(root/'src/FrontendSystem.cpp').read_text()\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_local.py\", line 546, in read_text\n    return PathBase.read_text(self, encoding, errors, newline)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_abc.py\", line 633, in read_text\n    return f.read()\n           ~~~~~~^^\nUnicodeDecodeError: 'cp949' codec can't decode byte 0xec in position 814: illegal multibyte sequence\n"
+  },
+  {
+    "m": 43,
+    "file": "audit_m43_data.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m43_data.py\", line 34, in <module>\n    front=(root/'src/FrontendSystem.cpp').read_text()\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_local.py\", line 546, in read_text\n    return PathBase.read_text(self, encoding, errors, newline)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_abc.py\", line 633, in read_text\n    return f.read()\n           ~~~~~~^^\nUnicodeDecodeError: 'cp949' codec can't decode byte 0xec in position 814: illegal multibyte sequence\n"
+  },
+  {
+    "m": 44,
+    "file": "audit_m44_data.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m44_data.py\", line 23, in <module>\n    front=(root/'src/FrontendSystem.cpp').read_text()\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_local.py\", line 546, in read_text\n    return PathBase.read_text(self, encoding, errors, newline)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_abc.py\", line 633, in read_text\n    return f.read()\n           ~~~~~~^^\nUnicodeDecodeError: 'cp949' codec can't decode byte 0xec in position 814: illegal multibyte sequence\n"
+  },
+  {
+    "m": 45,
+    "file": "audit_m45_data.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m45_data.py\", line 24, in <module>\n    s=(root/'src'/'main.cpp').read_text()\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_local.py\", line 546, in read_text\n    return PathBase.read_text(self, encoding, errors, newline)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_abc.py\", line 633, in read_text\n    return f.read()\n           ~~~~~~^^\nUnicodeDecodeError: 'cp949' codec can't decode byte 0xeb in position 16582: illegal multibyte sequence\n"
+  },
+  {
+    "m": 46,
+    "file": "audit_m46_data.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m46_data.py\", line 31, in <module>\n    s=(root/'src'/'main.cpp').read_text()\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_local.py\", line 546, in read_text\n    return PathBase.read_text(self, encoding, errors, newline)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_abc.py\", line 633, in read_text\n    return f.read()\n           ~~~~~~^^\nUnicodeDecodeError: 'cp949' codec can't decode byte 0xeb in position 16582: illegal multibyte sequence\n"
+  },
+  {
+    "m": 47,
+    "file": "audit_m47_data.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m47_data.py\", line 21, in <module>\n    main=(root/'src'/'main.cpp').read_text()\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_local.py\", line 546, in read_text\n    return PathBase.read_text(self, encoding, errors, newline)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_abc.py\", line 633, in read_text\n    return f.read()\n           ~~~~~~^^\nUnicodeDecodeError: 'cp949' codec can't decode byte 0xeb in position 16582: illegal multibyte sequence\n"
+  },
+  {
+    "m": 48,
+    "file": "audit_m48_data.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m48_data.py\", line 5, in <module>\n    main=(root/'src/main.cpp').read_text()\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_local.py\", line 546, in read_text\n    return PathBase.read_text(self, encoding, errors, newline)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_abc.py\", line 633, in read_text\n    return f.read()\n           ~~~~~~^^\nUnicodeDecodeError: 'cp949' codec can't decode byte 0xeb in position 16582: illegal multibyte sequence\n"
+  },
+  {
+    "m": 49,
+    "file": "audit_m49_input.py",
+    "status": "PASS",
+    "sec": 0.06,
+    "out": "M49 input audit OK\n"
+  },
+  {
+    "m": 50,
+    "file": "audit_m50_ui.py",
+    "status": "PASS",
+    "sec": 0.06,
+    "out": "M50 Korean name UI audit OK (M51-compatible)\n"
+  },
+  {
+    "m": 51,
+    "file": "audit_m51_localization.py",
+    "status": "PASS",
+    "sec": 0.07,
+    "out": "M51 GEN Korean localization audit OK\n"
+  },
+  {
+    "m": 52,
+    "file": "audit_m52_typography.py",
+    "status": "PASS",
+    "sec": 0.06,
+    "out": "M52 frontend typography audit OK\n"
+  },
+  {
+    "m": 53,
+    "file": "audit_m53_data.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m53_data.py\", line 37, in <module>\n    front=(root/'src/FrontendSystem.cpp').read_text()\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_local.py\", line 546, in read_text\n    return PathBase.read_text(self, encoding, errors, newline)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_abc.py\", line 633, in read_text\n    return f.read()\n           ~~~~~~^^\nUnicodeDecodeError: 'cp949' codec can't decode byte 0xec in position 814: illegal multibyte sequence\n"
+  },
+  {
+    "m": 54,
+    "file": "audit_m54_data.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m54_data.py\", line 2, in <module>\n    front=Path('src/FrontendSystem.cpp').read_text()\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_local.py\", line 546, in read_text\n    return PathBase.read_text(self, encoding, errors, newline)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_abc.py\", line 633, in read_text\n    return f.read()\n           ~~~~~~^^\nUnicodeDecodeError: 'cp949' codec can't decode byte 0xec in position 814: illegal multibyte sequence\n"
+  },
+  {
+    "m": 55,
+    "file": "audit_m55_startup.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m55_startup.py\", line 2, in <module>\n    s=(Path(__file__).resolve().parents[1]/'src'/'FrontendSystem.cpp').read_text()\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_local.py\", line 546, in read_text\n    return PathBase.read_text(self, encoding, errors, newline)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_abc.py\", line 633, in read_text\n    return f.read()\n           ~~~~~~^^\nUnicodeDecodeError: 'cp949' codec can't decode byte 0xec in position 814: illegal multibyte sequence\n"
+  },
+  {
+    "m": 56,
+    "file": "audit_m56_launcher.py",
+    "status": "PASS",
+    "sec": 0.07,
+    "out": "M56 ORIGIN launcher animation audit OK\n"
+  },
+  {
+    "m": 57,
+    "file": "audit_m57_ui.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m57_ui.py\", line 4, in <module>\n    front=(root/'src/FrontendSystem.cpp').read_text()\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_local.py\", line 546, in read_text\n    return PathBase.read_text(self, encoding, errors, newline)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_abc.py\", line 633, in read_text\n    return f.read()\n           ~~~~~~^^\nUnicodeDecodeError: 'cp949' codec can't decode byte 0xec in position 814: illegal multibyte sequence\n"
+  },
+  {
+    "m": 58,
+    "file": "audit_m58_ui.py",
+    "status": "PASS",
+    "sec": 0.06,
+    "out": "M58 startup dwell + centered localized GEN menu audit OK\n"
+  },
+  {
+    "m": 59,
+    "file": "audit_m59_ui.py",
+    "status": "PASS",
+    "sec": 0.07,
+    "out": "M59 localized centered attribute-distribution UI audit OK\n"
+  },
+  {
+    "m": 60,
+    "file": "audit_m60_ui.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m60_ui.py\", line 2, in <module>\n    front=Path('src/FrontendSystem.cpp').read_text()\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_local.py\", line 546, in read_text\n    return PathBase.read_text(self, encoding, errors, newline)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_abc.py\", line 633, in read_text\n    return f.read()\n           ~~~~~~^^\nUnicodeDecodeError: 'cp949' codec can't decode byte 0xec in position 814: illegal multibyte sequence\n"
+  },
+  {
+    "m": 61,
+    "file": "audit_m61_ui.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m61_ui.py\", line 19, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in m\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 62,
+    "file": "audit_m62_ui.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m62_ui.py\", line 27, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 63,
+    "file": "audit_m63_ui.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m63_ui.py\", line 16, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 64,
+    "file": "audit_m64_ui.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m64_ui.py\", line 28, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 65,
+    "file": "audit_m65_ui.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m65_ui.py\", line 38, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 66,
+    "file": "audit_m66_ui.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m66_ui.py\", line 22, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 67,
+    "file": "audit_m67_ui.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m67_ui.py\", line 19, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 68,
+    "file": "audit_m68_ui.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m68_ui.py\", line 14, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 69,
+    "file": "audit_m69_ui.py",
+    "status": "FAIL",
+    "sec": 0.12,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m69_ui.py\", line 6, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 70,
+    "file": "audit_m70_ui.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m70_ui.py\", line 36, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 71,
+    "file": "audit_m71_ui.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m71_ui.py\", line 32, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 72,
+    "file": "audit_m72_ui.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m72_ui.py\", line 23, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 73,
+    "file": "audit_m73_ui.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m73_ui.py\", line 38, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 74,
+    "file": "audit_m74_ui.py",
+    "status": "FAIL",
+    "sec": 0.09,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m74_ui.py\", line 35, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 75,
+    "file": "audit_m75_ui.py",
+    "status": "FAIL",
+    "sec": 0.09,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m75_ui.py\", line 24, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 76,
+    "file": "audit_m76_ui.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m76_ui.py\", line 22, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 77,
+    "file": "audit_m77_ui.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m77_ui.py\", line 23, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 78,
+    "file": "audit_m78_ui.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m78_ui.py\", line 15, in <module>\n    assert q in main, q\n           ^^^^^^^^^\nAssertionError: const SDL_Rect dst{PRESENT_X,PRESENT_Y,PRESENT_W,PRESENT_H};\n"
+  },
+  {
+    "m": 79,
+    "file": "audit_m79_ui.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m79_ui.py\", line 75, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 80,
+    "file": "audit_m80_ui.py",
+    "status": "FAIL",
+    "sec": 0.09,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m80_ui.py\", line 90, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 81,
+    "file": "audit_m81_ui.py",
+    "status": "FAIL",
+    "sec": 0.09,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m81_ui.py\", line 78, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 82,
+    "file": "audit_m82_ui.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m82_ui.py\", line 41, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 83,
+    "file": "audit_m83_ui.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m83_ui.py\", line 82, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 84,
+    "file": "audit_m84_ui.py",
+    "status": "FAIL",
+    "sec": 0.09,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m84_ui.py\", line 55, in <module>\n    assert ('log.pushCommand(\"Open what?\")' in main or\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n            'log.pushCommand(inCastle ? \"����?\" : \"Open what?\")' in main or\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n            'log.pushCommand(inCastle ? \"����?\" : \"����?\")' in main)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 85,
+    "file": "audit_m85_ui.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m85_ui.py\", line 41, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 86,
+    "file": "audit_m86_ui.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m86_ui.py\", line 73, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 87,
+    "file": "audit_m87_gameplay.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m87_gameplay.py\", line 88, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 88,
+    "file": "audit_m88_king_ui.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m88_king_ui.py\", line 70, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 89,
+    "file": "audit_m89_localization.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m89_localization.py\", line 140, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 90,
+    "file": "audit_m90_ui.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m90_ui.py\", line 105, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 91,
+    "file": "audit_m91_build.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m91_build.py\", line 10, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 92,
+    "file": "audit_m92_campaign.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m92_campaign.py\", line 27, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 93,
+    "file": "audit_m93_batchim.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m93_batchim.py\", line 40, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 94,
+    "file": "audit_m94_particles.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m94_particles.py\", line 60, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 95,
+    "file": "audit_m95_castle_combat.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m95_castle_combat.py\", line 78, in <module>\n    assert 'out.push_back(\"Attacked by guard!\");' in local\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 96,
+    "file": "audit_m96_actor_names.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m96_actor_names.py\", line 67, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 97,
+    "file": "audit_m97_ready_ui.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m97_ready_ui.py\", line 163, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 98,
+    "file": "audit_m98_particles_ready_title.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m98_particles_ready_title.py\", line 39, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 99,
+    "file": "audit_m99_ready_armour_bow.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m99_ready_armour_bow.py\", line 44, in <module>\n    assert '\"Steal\"' in cmd\n           ^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 100,
+    "file": "audit_m100_spell_names.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m100_spell_names.py\", line 16, in <module>\n    assert cmd_literal in cmd\n           ^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 101,
+    "file": "audit_m101_steal_localization.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m101_steal_localization.py\", line 43, in <module>\n    assert '\"Steal\"' in source\n           ^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 102,
+    "file": "audit_m102_steal_ready.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m102_steal_ready.py\", line 59, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 103,
+    "file": "audit_m103_location_entry.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m103_location_entry.py\", line 39, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 104,
+    "file": "audit_m104_ztats_ui.py",
+    "status": "PASS",
+    "sec": 0.07,
+    "out": "M104 original Ztats/Inventory + Enter/Steal prompt audit OK\n"
+  },
+  {
+    "m": 105,
+    "file": "audit_m105_ztats_localized_layout.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m105_ztats_localized_layout.py\", line 86, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 106,
+    "file": "audit_m106_ztats_dense_columns.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m106_ztats_dense_columns.py\", line 40, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 107,
+    "file": "audit_m107_quit.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m107_quit.py\", line 81, in <module>\n    assert q in main,q\n           ^^^^^^^^^\nAssertionError: log.appendLast(saved?quitSavedSuffix():\"save failed\");\n"
+  },
+  {
+    "m": 108,
+    "file": "audit_m108_castle_labels.py",
+    "status": "FAIL",
+    "sec": 0.09,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m108_castle_labels.py\", line 102, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 109,
+    "file": "audit_m109_attack.py",
+    "status": "PASS",
+    "sec": 0.07,
+    "out": "M109 Attack input-turn/direction delay/castle wording/world projectile audit OK\n"
+  },
+  {
+    "m": 110,
+    "file": "audit_m110_attack_cursor.py",
+    "status": "PASS",
+    "sec": 0.06,
+    "out": "M110 Attack live-row cursor/two-space direction prompt audit OK\n"
+  },
+  {
+    "m": 111,
+    "file": "audit_m111_attack_translation.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m111_attack_translation.py\", line 73, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 112,
+    "file": "audit_m112_overworld_combat_translation.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m112_overworld_combat_translation.py\", line 29, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 113,
+    "file": "audit_m113_command_wrap.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m113_command_wrap.py\", line 51, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 114,
+    "file": "audit_m114_overworld_combat_short.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m114_overworld_combat_short.py\", line 31, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 115,
+    "file": "audit_m115_overworld_combat_stream.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m115_overworld_combat_stream.py\", line 81, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 116,
+    "file": "audit_m116_ready_frame_thief.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m116_ready_frame_thief.py\", line 48, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 117,
+    "file": "audit_m117_world_sprite_animation.py",
+    "status": "FAIL",
+    "sec": 0.09,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m117_world_sprite_animation.py\", line 96, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 118,
+    "file": "audit_m118_enemy_projectile.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m118_enemy_projectile.py\", line 114, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 119,
+    "file": "audit_m119_combat_message_layout.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m119_combat_message_layout.py\", line 63, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 120,
+    "file": "audit_m120_actor_regression.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m120_actor_regression.py\", line 23, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 121,
+    "file": "audit_m121_drop_ready_popup.py",
+    "status": "PASS",
+    "sec": 0.06,
+    "out": "M121 Drop/Ready popup + two-space cursor + �� �Ѵ� audit OK\n"
+  },
+  {
+    "m": 122,
+    "file": "audit_m122_castle_commands.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m122_castle_commands.py\", line 67, in <module>\n    assert q in main,q\n           ^^^^^^^^^\nAssertionError: else log.pushCommand(inCastle ? \"����?\" : \"����?\")\n"
+  },
+  {
+    "m": 123,
+    "file": "audit_m123_castle_inform.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m123_castle_inform.py\", line 64, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 124,
+    "file": "audit_m124_local_actor_dialogue_delay.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m124_local_actor_dialogue_delay.py\", line 66, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 125,
+    "file": "audit_m125_actor_dialogue_delay.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m125_actor_dialogue_delay.py\", line 31, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 126,
+    "file": "audit_m126_visible_dialogue_hold.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m126_visible_dialogue_hold.py\", line 50, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 127,
+    "file": "audit_m127_actor_dialogue_two_sided_delay.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m127_actor_dialogue_two_sided_delay.py\", line 63, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 128,
+    "file": "audit_m128_historical_audit_compat.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m128_historical_audit_compat.py\", line 16, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 129,
+    "file": "audit_m129_princess_unlock_dialogue.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m129_princess_unlock_dialogue.py\", line 140, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 130,
+    "file": "audit_m130_princess_layout.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m130_princess_layout.py\", line 54, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 131,
+    "file": "audit_m131_king_landmarks.py",
+    "status": "FAIL",
+    "sec": 0.09,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m131_king_landmarks.py\", line 86, in <module>\n    assert 'KingSystem::visitLandmark(loc->id,p,lastLandmarkIndex,m);' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 132,
+    "file": "audit_m132_king_reward_popup.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m132_king_reward_popup.py\", line 66, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 133,
+    "file": "audit_m133_localization_ladder.py",
+    "status": "FAIL",
+    "sec": 0.09,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m133_localization_ladder.py\", line 49, in <module>\n    assert '{\"���� �պ���\",\"Type-1 ship\",\"Type-2 ship\"}' in space\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 134,
+    "file": "audit_m134_secret_door_renderer.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m134_secret_door_renderer.py\", line 46, in <module>\n    assert 'Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 135,
+    "file": "audit_m135_vehicle_board_access.py",
+    "status": "PASS",
+    "sec": 0.06,
+    "out": "M135 Frigate/Raft boarding-access oracle audit OK\n"
+  },
+  {
+    "m": 136,
+    "file": "audit_m136_transport_localization.py",
+    "status": "PASS",
+    "sec": 0.06,
+    "out": "M136 transport localization / command prompt / vehicle-facing audit OK\n"
+  },
+  {
+    "m": 137,
+    "file": "audit_m137_frigate_input_facing.py",
+    "status": "PASS",
+    "sec": 0.07,
+    "out": "M137 generalized vehicle input-facing audit OK\n"
+  },
+  {
+    "m": 138,
+    "file": "audit_m138_landmark_paragraphs.py",
+    "status": "PASS",
+    "sec": 0.06,
+    "out": "M138 landmark paragraph-break audit OK\n"
+  },
+  {
+    "m": 139,
+    "file": "audit_m139_princess_time_machine_korean.py",
+    "status": "PASS",
+    "sec": 0.06,
+    "out": "M139 princess Time-Machine Korean translation audit OK\n"
+  },
+  {
+    "m": 140,
+    "file": "audit_m140_enemy_projectile_direction.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m140_enemy_projectile_direction.py\", line 3, in <module>\n    s=(p/'src/OverworldSimulation.cpp').read_text()\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_local.py\", line 546, in read_text\n    return PathBase.read_text(self, encoding, errors, newline)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_abc.py\", line 633, in read_text\n    return f.read()\n           ~~~~~~^^\nUnicodeDecodeError: 'cp949' codec can't decode byte 0xeb in position 475: illegal multibyte sequence\n"
+  },
+  {
+    "m": 141,
+    "file": "audit_m141_world_cast.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "OK  OUT.EXE size = 69,858 bytes\nOK  Cast no-effect mode 1\nOK  Cast no-effect mode 2\nOK  Cast no-effect mode 4\nOK  Prayer ready-spell id 0\nOK  real spell is consumed\nOK  Magic Missile id 3\nOK  Kill id 10\nOK  invalid direction refunds spell\nOK  class 1 auto-success check\nOK  Wisdom + 50 threshold\nOK  Prayer low Hits threshold 15\nOK  Prayer low Food threshold 15\nOK  Prayer monster-removal roll is <25\nTraceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m141_world_cast.py\", line 26, in <module>\n    main=(project/'src/main.cpp').read_text(); ow=(project/'src/OverworldSimulation.cpp').read_text(); oh=(project/'src/OverworldSimulation.h').read_text()\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_local.py\", line 546, in read_text\n    return PathBase.read_text(self, encoding, errors, newline)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_abc.py\", line 633, in read_text\n    return f.read()\n           ~~~~~~^^\nUnicodeDecodeError: 'cp949' codec can't decode byte 0xeb in position 16582: illegal multibyte sequence\n"
+  },
+  {
+    "m": 142,
+    "file": "audit_m142_cast_localization.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m142_cast_localization.py\", line 4, in <module>\n    main=(p/'src/main.cpp').read_text()\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_local.py\", line 546, in read_text\n    return PathBase.read_text(self, encoding, errors, newline)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_abc.py\", line 633, in read_text\n    return f.read()\n           ~~~~~~^^\nUnicodeDecodeError: 'cp949' codec can't decode byte 0xeb in position 16582: illegal multibyte sequence\n"
+  },
+  {
+    "m": 145,
+    "file": "audit_m145_cast_direction_prompt.py",
+    "status": "PASS",
+    "sec": 0.06,
+    "out": "M145 directional Cast live-prompt oracle audit OK\n"
+  },
+  {
+    "m": 146,
+    "file": "audit_m146_local_cast_scope.py",
+    "status": "PASS",
+    "sec": 0.07,
+    "out": "M146 local Cast scope audit OK\n"
+  },
+  {
+    "m": 147,
+    "file": "audit_m147_field_noeffect_commands.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m147_field_noeffect_commands.py\", line 26, in <module>\n    assert q in main, q\n           ^^^^^^^^^\nAssertionError: if(!local.active) log.pushCommand(\"����?\");\n"
+  },
+  {
+    "m": 148,
+    "file": "audit_m148_field_inform.py",
+    "status": "PASS",
+    "sec": 0.06,
+    "out": "M148 outdoor Inform/Search location and continent audit OK\n"
+  },
+  {
+    "m": 149,
+    "file": "audit_m149_town_commands_shop.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m149_town_commands_shop.py\", line 25, in <module>\n    ]: assert q in main,q\n              ^^^^^^^^^\nAssertionError: log.pushCommand(local.inTown ? \"�����ϱ�?\" : \"Fire?\")\n"
+  },
+  {
+    "m": 151,
+    "file": "audit_m151_town_inform_trade_iolo.py",
+    "status": "PASS",
+    "sec": 0.07,
+    "out": "M151 town Inform/transaction/Iolo audit OK\n"
+  },
+  {
+    "m": 152,
+    "file": "audit_m152_sold_popup.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m152_sold_popup.py\", line 3, in <module>\n    shop=(root/'src/ShopSystem.cpp').read_text()\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_local.py\", line 546, in read_text\n    return PathBase.read_text(self, encoding, errors, newline)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_abc.py\", line 633, in read_text\n    return f.read()\n           ~~~~~~^^\nUnicodeDecodeError: 'cp949' codec can't decode byte 0xeb in position 169: illegal multibyte sequence\n"
+  },
+  {
+    "m": 156,
+    "file": "audit_m156_shop_localization.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m156_shop_localization.py\", line 11, in <module>\n    assert 'Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 157,
+    "file": "audit_m157_shop_original_timing.py",
+    "status": "PASS",
+    "sec": 0.07,
+    "out": "M157 shop original-timing audit OK\n"
+  },
+  {
+    "m": 158,
+    "file": "audit_m158_shop_messages_done_popup.py",
+    "status": "PASS",
+    "sec": 0.07,
+    "out": "M158 shop messages / Done popup audit OK\n"
+  },
+  {
+    "m": 159,
+    "file": "audit_m159_pub_food_popup.py",
+    "status": "PASS",
+    "sec": 0.06,
+    "out": "M159 pub/food modal popup + pub rumor timing audit OK\n"
+  },
+  {
+    "m": 160,
+    "file": "audit_m160_town_shop_original.py",
+    "status": "FAIL",
+    "sec": 0.09,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m160_town_shop_original.py\", line 21, in <module>\n    assert re.search(r'Ultima I KR clean-room M\\d+', main)\n           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 161,
+    "file": "audit_m161_town_shop_original.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m161_town_shop_original.py\", line 21, in <module>\n    assert re.search(r'Ultima I KR clean-room M\\d+', main)\n           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 163,
+    "file": "audit_m163_town_sign_inverse_blocks.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m163_town_sign_inverse_blocks.py\", line 7, in <module>\n    assert re.search(r'Ultima I KR clean-room M\\d+', main)\n           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 164,
+    "file": "audit_m164_miss_noise_pub_seduction.py",
+    "status": "FAIL",
+    "sec": 0.09,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m164_miss_noise_pub_seduction.py\", line 10, in <module>\n    assert 'Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 165,
+    "file": "audit_m165_seduction_localization.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m165_seduction_localization.py\", line 8, in <module>\n    assert re.search(r'Ultima I KR clean-room M\\d+', main)\n           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 166,
+    "file": "audit_m166_town_sign_glyph_blocks.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m166_town_sign_glyph_blocks.py\", line 6, in <module>\n    assert 'Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 168,
+    "file": "audit_m168_pub_rumor_localization.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m168_pub_rumor_localization.py\", line 32, in <module>\n    for q in need: assert q in shop,q\n                          ^^^^^^^^^\nAssertionError: \"���� ȣ���� ��������\"\n"
+  },
+  {
+    "m": 169,
+    "file": "audit_m169_location_names.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m169_location_names.py\", line 53, in <module>\n    assert re.search(r'Ultima I KR clean-room M\\d+',main)\n           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 170,
+    "file": "audit_m170_status_spacing.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m170_status_spacing.py\", line 4, in <module>\n    main=(root/'src/main.cpp').read_text()\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_local.py\", line 546, in read_text\n    return PathBase.read_text(self, encoding, errors, newline)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_abc.py\", line 633, in read_text\n    return f.read()\n           ~~~~~~^^\nUnicodeDecodeError: 'cp949' codec can't decode byte 0xeb in position 16582: illegal multibyte sequence\n"
+  },
+  {
+    "m": 171,
+    "file": "audit_m171_dungeon_attack_localization.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m171_dungeon_attack_localization.py\", line 7, in <module>\n    assert 'Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 172,
+    "file": "audit_m172_dungeon_movement_prompts.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m172_dungeon_movement_prompts.py\", line 7, in <module>\n    assert 'Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 173,
+    "file": "audit_m173_enemy_attack_stream.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m173_enemy_attack_stream.py\", line 7, in <module>\n    assert 'Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 174,
+    "file": "audit_m174_dungeon_frame_and_sight.py",
+    "status": "PASS",
+    "sec": 0.06,
+    "out": "M174 dungeon frame + visible-entity message audit OK\n"
+  },
+  {
+    "m": 175,
+    "file": "audit_m175_m48_compat.py",
+    "status": "PASS",
+    "sec": 0.06,
+    "out": "M175 M48 compatibility audit OK\n"
+  },
+  {
+    "m": 176,
+    "file": "audit_m176_dungeon_overlap_and_sight_stream.py",
+    "status": "PASS",
+    "sec": 0.07,
+    "out": "M176 dungeon overlap order + visible-entity one-stream audit OK\n"
+  },
+  {
+    "m": 177,
+    "file": "audit_m177_dungeon_sight_occlusion.py",
+    "status": "PASS",
+    "sec": 0.06,
+    "out": "M177 dungeon sight occlusion regression OK\n"
+  },
+  {
+    "m": 178,
+    "file": "audit_m178_monster_feature_exclusion.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m178_monster_feature_exclusion.py\", line 5, in <module>\n    dun=(root/'src'/'DungeonSystem.cpp').read_text()\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_local.py\", line 546, in read_text\n    return PathBase.read_text(self, encoding, errors, newline)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_abc.py\", line 633, in read_text\n    return f.read()\n           ~~~~~~^^\nUnicodeDecodeError: 'cp949' codec can't decode byte 0xeb in position 1023: illegal multibyte sequence\n"
+  },
+  {
+    "m": 179,
+    "file": "audit_m179_dungeon_depth_and_blocked_forward_stream.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m179_dungeon_depth_and_blocked_forward_stream.py\", line 15, in <module>\n    assert 'm.back()+=\" - path blocked!\";' in fwd\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 180,
+    "file": "audit_m180_monster_blocker_side_extension.py",
+    "status": "PASS",
+    "sec": 0.11,
+    "out": "M180 occluding-monster side-extension audit OK\n  monster stays at logical depth\n  side cells beside blocker are rendered once more at far+1\n  ordinary far caps remain on the non-extension branch\n"
+  },
+  {
+    "m": 181,
+    "file": "audit_m181_m133_compat.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m181_m133_compat.py\", line 13, in <module>\n    assert 'Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 182,
+    "file": "audit_m182_dungeon_frame_hud.py",
+    "status": "PASS",
+    "sec": 0.06,
+    "out": "M182 dungeon frame-title raster + HUD cyan-label audit OK\n"
+  },
+  {
+    "m": 183,
+    "file": "audit_m183_historical_hud_compat.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m183_historical_hud_compat.py\", line 17, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 184,
+    "file": "audit_m184_dungeon_commands.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m184_dungeon_commands.py\", line 68, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 185,
+    "file": "audit_m185_dungeon_monster_names.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m185_dungeon_monster_names.py\", line 31, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 186,
+    "file": "audit_m186_enemy_special_stream_localization.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m186_enemy_special_stream_localization.py\", line 7, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 187,
+    "file": "audit_m187_dungeon_cast.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m187_dungeon_cast.py\", line 3, in <module>\n    main=(root/'src/main.cpp').read_text()\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_local.py\", line 546, in read_text\n    return PathBase.read_text(self, encoding, errors, newline)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_abc.py\", line 633, in read_text\n    return f.read()\n           ~~~~~~^^\nUnicodeDecodeError: 'cp949' codec can't decode byte 0xeb in position 16582: illegal multibyte sequence\n"
+  },
+  {
+    "m": 188,
+    "file": "audit_m188_time_machine_king_quest.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m188_time_machine_king_quest.py\", line 3, in <module>\n    k=(root/'src/KoreanText.h').read_text()\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_local.py\", line 546, in read_text\n    return PathBase.read_text(self, encoding, errors, newline)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_abc.py\", line 633, in read_text\n    return f.read()\n           ~~~~~~^^\nUnicodeDecodeError: 'cp949' codec can't decode byte 0xb0 in position 171: illegal multibyte sequence\n"
+  },
+  {
+    "m": 189,
+    "file": "audit_m189_resurrection.py",
+    "status": "PASS",
+    "sec": 0.07,
+    "out": "M189 resurrection audit OK\n"
+  },
+  {
+    "m": 190,
+    "file": "audit_m190_resurrection_bitmap.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m190_resurrection_bitmap.py\", line 8, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 191,
+    "file": "audit_m191_shuttle_resurrection.py",
+    "status": "PASS",
+    "sec": 0.06,
+    "out": "M191 shuttle/resurrection audit OK\n"
+  },
+  {
+    "m": 192,
+    "file": "audit_m192_m88_compat.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m192_m88_compat.py\", line 6, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 193,
+    "file": "audit_m193_ready_category_none.py",
+    "status": "PASS",
+    "sec": 0.06,
+    "out": "M193 Ready category invalid-key one-row localization audit OK\n"
+  },
+  {
+    "m": 194,
+    "file": "audit_m194_xit_restriction.py",
+    "status": "PASS",
+    "sec": 0.06,
+    "out": "M194 X-it terrain/shore restriction audit OK\n"
+  },
+  {
+    "m": 195,
+    "file": "audit_m195_xit_all_transport.py",
+    "status": "PASS",
+    "sec": 0.07,
+    "out": "M195 X-it all-transport / Horse-Cart parity audit OK\n"
+  },
+  {
+    "m": 196,
+    "file": "audit_m196_movement_failure_prompt.py",
+    "status": "PASS",
+    "sec": 0.07,
+    "out": "M196 movement-failure prompt/original-flow audit OK\n"
+  },
+  {
+    "m": 197,
+    "file": "audit_m197_move_on_land_localization.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m197_move_on_land_localization.py\", line 13, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 198,
+    "file": "audit_m198_audit_version_compat.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m198_audit_version_compat.py\", line 5, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 199,
+    "file": "audit_m199_space_frame_hud_earth.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m199_space_frame_hud_earth.py\", line 6, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 200,
+    "file": "audit_m200_shuttle_countdown_localization.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m200_shuttle_countdown_localization.py\", line 7, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 201,
+    "file": "audit_m201_space_localization_ship_choice.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m201_space_localization_ship_choice.py\", line 9, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 202,
+    "file": "audit_m202_space_docking_flight_timing.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m202_space_docking_flight_timing.py\", line 10, in <module>\n    assert 'SDL_CreateWindow(\"Ultima I KR clean-room M' in main\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 203,
+    "file": "audit_m203_space_command_rows_hyperjump.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m203_space_command_rows_hyperjump.py\", line 11, in <module>\n    assert mver and int(mver.group(1))>=203\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 204,
+    "file": "audit_m204_space_sector_scan.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m204_space_sector_scan.py\", line 12, in <module>\n    assert mver and int(mver.group(1))>=204\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 205,
+    "file": "audit_m205_space_front_retrace_timing.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m205_space_front_retrace_timing.py\", line 11, in <module>\n    assert mver and int(mver.group(1))>=205\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 206,
+    "file": "audit_m206_space_fire_speed_crunch.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m206_space_fire_speed_crunch.py\", line 12, in <module>\n    assert mver and int(mver.group(1))>=206\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 207,
+    "file": "audit_m207_space_command_localization.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m207_space_command_localization.py\", line 11, in <module>\n    assert mver and int(mver.group(1))>=207\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 208,
+    "file": "audit_m208_m35_dock_compat.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m208_m35_dock_compat.py\", line 11, in <module>\n    assert mver and int(mver.group(1))>=208\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 209,
+    "file": "audit_m209_m39_auto_dock_compat.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m209_m39_auto_dock_compat.py\", line 9, in <module>\n    assert mver and int(mver.group(1))>=209\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 210,
+    "file": "audit_m210_status_caps.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "OK  OUT.EXE canonical size\nOK  SPACE.EXE canonical size\nOK  MONDAIN.EXE canonical size\nOK  OUT Hits compares against 9999\nOK  OUT Hits stores 9999 on overflow\nOK  OUT Food compares against 9999\nOK  OUT Food stores 9999 on overflow\nOK  OUT Experience compares against 9999\nOK  OUT Experience stores 9999 on overflow\nOK  OUT Coin compares against 9999\nOK  OUT Coin stores 9999 on overflow\nOK  SPACE Hits compares against 9999\nOK  SPACE Hits stores 9999 on overflow\nOK  SPACE Food compares against 9999\nOK  SPACE Food stores 9999 on overflow\nOK  SPACE Experience compares against 9999\nOK  SPACE Experience stores 9999 on overflow\nOK  SPACE Coin compares against 9999\nOK  SPACE Coin stores 9999 on overflow\nOK  MONDAIN Hits compares against 9999\nOK  MONDAIN Hits stores 9999 on overflow\nOK  MONDAIN Food compares against 9999\nOK  MONDAIN Food stores 9999 on overflow\nOK  MONDAIN Experience compares against 9999\nOK  MONDAIN Experience stores 9999 on overflow\nOK  MONDAIN Coin compares against 9999\nOK  MONDAIN Coin stores 9999 on overflow\nTraceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m210_status_caps.py\", line 41, in <module>\n    local=(root/'src/LocalSimulation.cpp').read_text()\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_local.py\", line 546, in read_text\n    return PathBase.read_text(self, encoding, errors, newline)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Program Files\\Python313\\Lib\\pathlib\\_abc.py\", line 633, in read_text\n    return f.read()\n           ~~~~~~^^\nUnicodeDecodeError: 'cp949' codec can't decode byte 0xec in position 310: illegal multibyte sequence\n"
+  },
+  {
+    "m": 211,
+    "file": "audit_m211_localization_pass.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m211_localization_pass.py\", line 15, in <module>\n    assert m and int(m.group(1))>=211\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 212,
+    "file": "audit_m212_sfx_fire_laser.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m212_sfx_fire_laser.py\", line 5, in <module>\n    rt=read_runtime(); assert_m230_runtime(rt)\n                       ~~~~~~~~~~~~~~~~~~~^^^^\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\sfx_compat_m230.py\", line 31, in assert_m230_runtime\n    assert_milestone(main,230)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\sfx_compat_m230.py\", line 26, in assert_milestone\n    assert m and int(m.group(1)) >= at_least\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 213,
+    "file": "audit_m213_player_combat_sfx.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m213_player_combat_sfx.py\", line 5, in <module>\n    rt=read_runtime(); assert_m230_runtime(rt)\n                       ~~~~~~~~~~~~~~~~~~~^^^^\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\sfx_compat_m230.py\", line 31, in assert_m230_runtime\n    assert_milestone(main,230)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\sfx_compat_m230.py\", line 26, in assert_milestone\n    assert m and int(m.group(1)) >= at_least\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 214,
+    "file": "audit_m214_sfx_dosbox_timing.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m214_sfx_dosbox_timing.py\", line 4, in <module>\n    rt=read_runtime(); assert_m230_runtime(rt)\n                       ~~~~~~~~~~~~~~~~~~~^^^^\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\sfx_compat_m230.py\", line 31, in assert_m230_runtime\n    assert_milestone(main,230)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\sfx_compat_m230.py\", line 26, in assert_milestone\n    assert m and int(m.group(1)) >= at_least\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 215,
+    "file": "audit_m215_sfx_dosbox_speaker_async.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m215_sfx_dosbox_speaker_async.py\", line 4, in <module>\n    rt=read_runtime(); assert_m230_runtime(rt)\n                       ~~~~~~~~~~~~~~~~~~~^^^^\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\sfx_compat_m230.py\", line 31, in assert_m230_runtime\n    assert_milestone(main,230)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\sfx_compat_m230.py\", line 26, in assert_milestone\n    assert m and int(m.group(1)) >= at_least\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 216,
+    "file": "audit_m216_validated_pcm_sfx.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m216_validated_pcm_sfx.py\", line 4, in <module>\n    rt=read_runtime(); assert_m230_runtime(rt)\n                       ~~~~~~~~~~~~~~~~~~~^^^^\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\sfx_compat_m230.py\", line 31, in assert_m230_runtime\n    assert_milestone(main,230)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\sfx_compat_m230.py\", line 26, in assert_milestone\n    assert m and int(m.group(1)) >= at_least\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 217,
+    "file": "audit_m217_movement_sfx.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m217_movement_sfx.py\", line 4, in <module>\n    rt=read_runtime(); assert_m230_runtime(rt)\n                       ~~~~~~~~~~~~~~~~~~~^^^^\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\sfx_compat_m230.py\", line 31, in assert_m230_runtime\n    assert_milestone(main,230)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\sfx_compat_m230.py\", line 26, in assert_milestone\n    assert m and int(m.group(1)) >= at_least\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 218,
+    "file": "audit_m218_sfx_equivalence_groups.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m218_sfx_equivalence_groups.py\", line 4, in <module>\n    rt=read_runtime(); assert_m230_runtime(rt)\n                       ~~~~~~~~~~~~~~~~~~~^^^^\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\sfx_compat_m230.py\", line 31, in assert_m230_runtime\n    assert_milestone(main,230)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\sfx_compat_m230.py\", line 26, in assert_milestone\n    assert m and int(m.group(1)) >= at_least\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 219,
+    "file": "audit_m219_xit_occupied_cell.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m219_xit_occupied_cell.py\", line 11, in <module>\n    m=re.search(r'Ultima I KR clean-room M(\\d+)',main); assert m and int(m.group(1))>=219\n                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 220,
+    "file": "audit_m220_campaign_xit_compat.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m220_campaign_xit_compat.py\", line 11, in <module>\n    m=re.search(r'Ultima I KR clean-room M(\\d+)',main); assert m and int(m.group(1))>=220\n                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 221,
+    "file": "audit_m221_attack_effect_timing.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m221_attack_effect_timing.py\", line 4, in <module>\n    rt=read_runtime(); assert_m230_runtime(rt)\n                       ~~~~~~~~~~~~~~~~~~~^^^^\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\sfx_compat_m230.py\", line 31, in assert_m230_runtime\n    assert_milestone(main,230)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\sfx_compat_m230.py\", line 26, in assert_milestone\n    assert m and int(m.group(1)) >= at_least\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 222,
+    "file": "audit_m222_sfx_oracle_policy.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m222_sfx_oracle_policy.py\", line 3, in <module>\n    rt=read_runtime(); assert_m230_runtime(rt)\n                       ~~~~~~~~~~~~~~~~~~~^^^^\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\sfx_compat_m230.py\", line 31, in assert_m230_runtime\n    assert_milestone(main,230)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\sfx_compat_m230.py\", line 26, in assert_milestone\n    assert m and int(m.group(1)) >= at_least\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 224,
+    "file": "audit_m224_sfx_latency_fire.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m224_sfx_latency_fire.py\", line 4, in <module>\n    rt=read_runtime(); assert_m230_runtime(rt)\n                       ~~~~~~~~~~~~~~~~~~~^^^^\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\sfx_compat_m230.py\", line 31, in assert_m230_runtime\n    assert_milestone(main,230)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\sfx_compat_m230.py\", line 26, in assert_milestone\n    assert m and int(m.group(1)) >= at_least\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 225,
+    "file": "audit_m225_capture_oracle_sfx.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m225_capture_oracle_sfx.py\", line 4, in <module>\n    rt=read_runtime(); assert_m230_runtime(rt)\n                       ~~~~~~~~~~~~~~~~~~~^^^^\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\sfx_compat_m230.py\", line 31, in assert_m230_runtime\n    assert_milestone(main,230)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\sfx_compat_m230.py\", line 26, in assert_milestone\n    assert m and int(m.group(1)) >= at_least\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 226,
+    "file": "audit_m226_invalid_attack_weapon.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m226_invalid_attack_weapon.py\", line 83, in <module>\n    m=re.search(r'Ultima I KR clean-room M(\\d+)',main); assert m and int(m.group(1))>=226\n                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 227,
+    "file": "audit_m227_sfx_overlap_input_pacing.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m227_sfx_overlap_input_pacing.py\", line 3, in <module>\n    rt=read_runtime(); assert_m230_runtime(rt)\n                       ~~~~~~~~~~~~~~~~~~~^^^^\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\sfx_compat_m230.py\", line 31, in assert_m230_runtime\n    assert_milestone(main,230)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\sfx_compat_m230.py\", line 26, in assert_milestone\n    assert m and int(m.group(1)) >= at_least\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 228,
+    "file": "audit_m228_queued_overlap_backend.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m228_queued_overlap_backend.py\", line 3, in <module>\n    rt=read_runtime(); assert_m230_runtime(rt)\n                       ~~~~~~~~~~~~~~~~~~~^^^^\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\sfx_compat_m230.py\", line 31, in assert_m230_runtime\n    assert_milestone(main,230)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\sfx_compat_m230.py\", line 26, in assert_milestone\n    assert m and int(m.group(1)) >= at_least\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 229,
+    "file": "audit_m229_streaming_queue_audio.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m229_streaming_queue_audio.py\", line 3, in <module>\n    rt=read_runtime(); assert_m230_runtime(rt)\n                       ~~~~~~~~~~~~~~~~~~~^^^^\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\sfx_compat_m230.py\", line 31, in assert_m230_runtime\n    assert_milestone(main,230)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\sfx_compat_m230.py\", line 26, in assert_milestone\n    assert m and int(m.group(1)) >= at_least\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 230,
+    "file": "audit_m230_pc_speaker_emulator.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m230_pc_speaker_emulator.py\", line 5, in <module>\n    rt=read_runtime(); assert_m230_runtime(rt)\n                       ~~~~~~~~~~~~~~~~~~~^^^^\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\sfx_compat_m230.py\", line 31, in assert_m230_runtime\n    assert_milestone(main,230)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\sfx_compat_m230.py\", line 26, in assert_milestone\n    assert m and int(m.group(1)) >= at_least\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 231,
+    "file": "audit_m231_audio_lead_probe.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m231_audio_lead_probe.py\", line 9, in <module>\n    m=re.search(r'Ultima I KR clean-room M(\\d+)',main); assert m and int(m.group(1))>=231\n                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 232,
+    "file": "audit_m232_audio_latency_pitch.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m232_audio_latency_pitch.py\", line 9, in <module>\n    m=re.search(r'Ultima I KR clean-room M(\\d+)',main); assert m and int(m.group(1))>=232\n                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 233,
+    "file": "audit_m233_m231_transport_m232_pitch.py",
+    "status": "FAIL",
+    "sec": 0.09,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m233_m231_transport_m232_pitch.py\", line 10, in <module>\n    m=re.search(r'Ultima I KR clean-room M(\\d+)',main); assert m and int(m.group(1))>=233\n                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 234,
+    "file": "audit_m234_direct_callback_impulse.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m234_direct_callback_impulse.py\", line 10, in <module>\n    m=re.search(r'Ultima I KR clean-room M(\\d+)',main); assert m and int(m.group(1))>=234\n                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 235,
+    "file": "audit_m235_callback_source_sync.py",
+    "status": "FAIL",
+    "sec": 0.07,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m235_callback_source_sync.py\", line 10, in <module>\n    m=re.search(r'Ultima I KR clean-room M(\\d+)',main); assert m and int(m.group(1))>=235\n                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 236,
+    "file": "audit_m236_windows_wasapi.py",
+    "status": "FAIL",
+    "sec": 0.11,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m236_windows_wasapi.py\", line 11, in <module>\n    m=re.search(r'Ultima I KR clean-room M(\\d+)',main); assert m and int(m.group(1))>=236\n                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 237,
+    "file": "audit_m237_windows_low_latency.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m237_windows_low_latency.py\", line 13, in <module>\n    m=re.search(r'Ultima I KR clean-room M(\\d+)',main); assert m and int(m.group(1))>=237\n                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+    "m": 238,
+    "file": "audit_m238_hotfix1_incomplete_state.py",
+    "status": "PASS",
+    "sec": 0.06,
+    "out": "M238 hotfix1 incomplete audio-state constructor audit OK\n"
+  },
+  {
+    "m": 238,
+    "file": "audit_m238_wsl_direct_pulse.py",
+    "status": "FAIL",
+    "sec": 0.08,
+    "out": "Traceback (most recent call last):\n  File \"C:\\Users\\hojun\\Downloads\\Ultima1_KR_1.0K_Source_HF38\\tools\\audit_m238_wsl_direct_pulse.py\", line 13, in <module>\n    m=re.search(r'Ultima I KR clean-room M(\\d+)',main); assert m and int(m.group(1))>=238\n                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  }
+]
