@@ -11,7 +11,8 @@ done
 "$cxx" "${flags[@]}" -Isrc/HF97/src -c src/HF97/src/DungeonSystem.cpp -o "$d/DungeonSystem_HF97.o" > "$d/DungeonSystem.compile.log" 2>&1
 echo COMPILE_OK DungeonSystem_HF97
 for n in OriginalData OverworldSimulation; do
- "$cxx" "${flags[@]}" -Isrc/HF97/src -c "src/HF97/src/$n.cpp" -o "$d/${n}_HF99.o" > "$d/$n.compile.log" 2>&1
+ if [ "$n" = OriginalData ]; then src="$d/source/$n.cpp"; else src="src/HF97/src/$n.cpp"; fi
+ "$cxx" "${flags[@]}" -Isrc/HF97/src -c "$src" -o "$d/${n}_HF99.o" > "$d/$n.compile.log" 2>&1
  echo "COMPILE_OK $n"
 done
 objects=()
