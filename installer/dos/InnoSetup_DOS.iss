@@ -25,6 +25,9 @@ UninstallDisplayName={#AppName}
 SetupLogging=yes
 ArchitecturesAllowed=x86 x64compatible
 
+[Languages]
+Name: "korean"; MessagesFile: "compiler:Languages\Korean.isl"
+
 [Files]
 Source: "{#Payload}\ULTIHF99.EXE"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#Payload}\CWSDPMI.EXE"; DestDir: "{app}"; Flags: ignoreversion
