@@ -11,8 +11,8 @@ $names = @('ULTIMA.EXE','GEN.EXE','OUT.EXE','MONDAIN.EXE','SPACE.EXE','MAP.BIN',
 foreach ($name in $names) { [IO.File]::WriteAllBytes((Join-Path $original $name),[byte[]](1,2,3)) }
 $sentinel = Join-Path $target 'SAVEGAME\must-survive.txt'
 Set-Content $sentinel 'do not overwrite' -Encoding ascii
-& $installer /VERYSILENT /SUPPRESSMSGBOXES /NORESTART "/DIR=$target" "/ORIGINAL=$original" "/LOG=$(Join-Path $base 'setup.log')"
-if ($LASTEXITCODE -ne 0) { throw "DOS silent install failed: $LASTEXITCODE" }
+$process = Start-Process -FilePath $installer -ArgumentList @('/VERYSILENT','/SUPPRESSMSGBOXES','/NORESTART',"/DIR=$target","/ORIGINAL=$original","/LOG=$(Join-Path $base 'setup.log')") -Wait -PassThru
+if ($process.ExitCode -ne 0) { throw "DOS silent install failed: $($process.ExitCode)" }
 foreach ($p in @('ULTIHF99.EXE','CWSDPMI.EXE','DOSBox\DOSBox.exe','FONTS\H12.FNT','FONTS\ROBO.FNT','GAMEDATA\ULTIMA.EXE','SAVEGAME\must-survive.txt')) {
   if (!(Test-Path (Join-Path $target $p))) { throw "Missing after install: $p" }
 }
