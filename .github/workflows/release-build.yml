@@ -12,6 +12,10 @@ on:
   release:
     types: [published]
 
+concurrency:
+  group: ultima1-source-build-and-release
+  cancel-in-progress: true
+
 permissions:
   contents: read
 
