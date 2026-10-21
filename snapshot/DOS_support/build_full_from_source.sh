@@ -6,8 +6,8 @@ PORT="$ROOT/snapshot/DOS_support/V1_0K"
 UPDATED="$ROOT/snapshot/HF97/src"
 RESUME="$ROOT/snapshot/DOS_RESUME_20261017_DIAG/source"
 OUT="${U1_DOS_BUILD_DIR:-${TMPDIR:-/tmp}/ultima1-dos-source-check}"
-CXX="${DJGPP_CXX:-/mnt/c/Users/hojun/.cache/ultima1-build/djgpp/djgpp/bin/i586-pc-msdosdjgpp-g++}"
-"$ROOT/snapshot/DOS_support/build_objects_from_source.sh"
+CXX="${DJGPP_CXX:-$(command -v i586-pc-msdosdjgpp-g++ || true)}"
+bash "$ROOT/snapshot/DOS_support/build_objects_from_source.sh"
 flags=(-std=gnu++17 -O1 -ffunction-sections -fdata-sections -I"$RESUME" -I"$PORT" -I"$SRC" -include "$PORT/dos_singlethread_mutex.h")
 compile() {
  local file="$1" name="$2"
