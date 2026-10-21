@@ -1,3 +1,21 @@
+# Ultima I 한국어판 1.0K — 현재 개발·배포 기준
+
+**GitHub가 유일한 개발 소스 기준입니다.** 기존 개발 PC의 백업 폴더나 임시 빌드 폴더는 필요하지 않습니다.
+
+- **최신 게임 소스:** [snapshot/HF97](snapshot/HF97) 및 [snapshot/DOS_support](snapshot/DOS_support) (HF99 동기화 상태)
+- **Windows·DOS 자동 빌드:** [GitHub Actions](../../actions/workflows/release-build.yml)
+- **영구 다운로드:** [GitHub Releases — 1.0K source build](../../releases/tag/v1.0K-source-build)
+- **재현 가능한 빌드 설명:** [ci/README.md](ci/README.md)
+- **설치기 소스:** [installer/NativeInstaller.cs](installer/NativeInstaller.cs), [installer/dos/InnoSetup_DOS.iss](installer/dos/InnoSetup_DOS.iss)
+
+GitHub Actions는 빈 빌드 환경에서 컴파일러·SDL2·DOSBox·CWSDPMI·Inno Setup을 설치하고, 두 게임 실행파일과 설치 EXE를 생성한 뒤 **각각 7z로 압축하고 무결성을 검사**합니다. DOS 설치기는 가상 원본 게임 데이터로 설치·저장파일 보존 시험도 수행합니다. 별도의 정품 Ultima I 원본 게임 파일은 사용자가 설치 시 지정해야 하며 저장소·배포파일에 포함하지 않습니다.
+
+**주의:** GitHub에서 새로 컴파일한 배포본은 이전 PC에서 바이러스 검사를 승인받은 EXE와 해시가 다릅니다. 자동 빌드 및 설치 시험 통과와 실제 게임 전 구간 검증·보안업체 평판 승인은 별개입니다. 영구 릴리스는 이를 구분하기 위해 사전 릴리스(candidate)로 표시합니다.
+
+---
+
+## 이전 개발 기록 (보존)
+
 # HF78 — Quest Status (Shift-Q)
 
 Windows HF78 build: `Ultima1_KR_Work/packages/HF78_QUEST_STATUS_KOREAN_TITLE.zip` on the connected PC. Source changes are provided as [HF78/hf78_quest_changes.patch](HF78/hf78_quest_changes.patch) against the HF77 source; HF77 itself is based on HF76 with a Shift-Q key interception (no more legacy Q Save fallthrough).
