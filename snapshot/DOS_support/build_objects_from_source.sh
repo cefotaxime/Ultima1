@@ -5,8 +5,8 @@ SRC="$ROOT/snapshot/DOS_support/HF93_src"
 PORT="$ROOT/snapshot/DOS_support/V1_0K"
 AUDIO="$ROOT/snapshot/DOS_support/audio"
 OUT="${U1_DOS_BUILD_DIR:-${TMPDIR:-/tmp}/ultima1-dos-source-check}"
-CXX="${DJGPP_CXX:-/mnt/c/Users/hojun/.cache/ultima1-build/djgpp/djgpp/bin/i586-pc-msdosdjgpp-g++}"
-[[ -x "$CXX" ]] || { echo 'Missing DJGPP compiler; set DJGPP_CXX' >&2; exit 2; }
+CXX="${DJGPP_CXX:-$(command -v i586-pc-msdosdjgpp-g++ || true)}"
+[[ -n "$CXX" && -x "$CXX" ]] || { echo 'Missing DJGPP compiler; set DJGPP_CXX' >&2; exit 2; }
 mkdir -p "$OUT"
 flags=(-std=gnu++17 -O1 -ffunction-sections -fdata-sections -I"$SRC" -I"$PORT" -include "$PORT/dos_singlethread_mutex.h")
 compile() {
