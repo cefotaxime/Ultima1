@@ -22,7 +22,7 @@ if [[ -z "${SDL2_DIR:-}" ]]; then
   unzip -q "$WORK/SDL2.zip" -d "$WORK"
   export SDL2_DIR="$WORK/SDL2-2.30.0/x86_64-w64-mingw32/lib/cmake/SDL2"
 fi
-test -f "$SDL2_DIR/SDL2Config.cmake"
+test -f "$SDL2_DIR/sdl2-config.cmake"
 cmake -S "$ROOT/snapshot/HF97" -B "$WORK/windows-build" \
   -DCMAKE_SYSTEM_NAME=Windows \
   -DCMAKE_C_COMPILER=x86_64-w64-mingw32-gcc \
