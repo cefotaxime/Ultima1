@@ -1,0 +1,82 @@
+name: Build Windows and DOS installers from GitHub
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'snapshot/**'
+      - 'assets/**'
+      - 'installer/**'
+      - 'ci/**'
+      - '.github/workflows/release-build.yml'
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+jobs:
+  compile:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install clean build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake g++-mingw-w64-x86-64 curl unzip bzip2
+      - name: Compile both games from repository sources
+        run: bash ci/build_sources.sh
+      - name: Verify absence of original commercial data
+        run: |
+          test -s dist/stage-win/Ultima1KR.exe
+          test -s dist/stage-dos/ULTIHF99.EXE
+          test ! -d dist/stage-win/GAMEDATA
+          test ! -d dist/stage-dos/GAMEDATA
+          test ! -d dist/stage-win/SAVEGAME
+          test ! -d dist/stage-dos/SAVEGAME
+      - uses: actions/upload-artifact@v4
+        with:
+          name: source-built-windows-stage
+          path: dist/stage-win/
+          if-no-files-found: error
+          retention-days: 30
+      - uses: actions/upload-artifact@v4
+        with:
+          name: source-built-dos-stage
+          path: dist/stage-dos/
+          if-no-files-found: error
+          retention-days: 30
+
+  installers:
+    needs: compile
+    runs-on: windows-2022
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: source-built-windows-stage
+          path: dist/stage-win/
+      - uses: actions/download-artifact@v4
+        with:
+          name: source-built-dos-stage
+          path: dist/stage-dos/
+      - name: Build installers and test archives
+        shell: pwsh
+        run: ./ci/package_installers.ps1
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Ultima1K-Windows-DOS-Installers-7z
+          path: dist/release/
+          if-no-files-found: error
+          retention-days: 90
+      - name: Publish versioned release assets
+        if: github.event_name == 'release'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          TAG: ${{ github.event.release.tag_name }}
+        shell: pwsh
+        run: |
+          gh release upload $env:TAG "dist/release/Ultima1K(Win)_Setup.7z" "dist/release/Ultima1K(DOS)_Setup.7z" "dist/release/SHA256SUMS.txt" --clobber
