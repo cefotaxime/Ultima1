@@ -38,11 +38,27 @@ $dosboxExe = Get-ChildItem -Path @('C:\Program Files (x86)','C:\Program Files','
 if (!$dosboxExe) { throw 'DOSBox.exe not found after package installation' }
 $dosboxDest = Join-Path $dos 'DOSBox'
 New-Item -ItemType Directory -Force $dosboxDest | Out-Null
-foreach ($name in @('DOSBox.exe','SDL.dll','SDL_net.dll','COPYING.txt','AUTHORS.txt')) {
+foreach ($name in @('DOSBox.exe','SDL.dll','SDL_net.dll')) {
   $src = Join-Path $dosboxExe.DirectoryName $name
   if (!(Test-Path $src)) { throw "Missing DOSBox distribution component: $src" }
   Copy-Item $src (Join-Path $dosboxDest $name)
 }
+# Chocolatey's DOSBox installer omits the upstream source distribution's license and credits.
+# Supply the GPL-2.0 license and original DOSBox team credits explicitly.
+Invoke-WebRequest 'https://www.gnu.org/licenses/old-licenses/gpl-2.0.txt' -OutFile (Join-Path $dosboxDest 'COPYING.txt')
+@'
+The DOSBox Team
+---------------
+Sjoerd v.d. Berg <harekiet>
+Peter Veenstra <qbix79>
+Ulf Wohlers <finsterr>
+Tommy Frössman <fanskapet>
+Dean Beeler <canadacow>
+Sebastian Strohhöcker <c2woody>
+Ralf Grillenberger <h-a-l-9000>
+nick_without_<> @ users.sourceforge.net
+'@ | Set-Content (Join-Path $dosboxDest 'AUTHORS.txt') -Encoding utf8
+
 # CWSDPMI is distributed separately by the DJGPP project.
 $csZip = Join-Path $dist 'csdpmi7b.zip'
 Invoke-WebRequest 'https://www.delorie.com/pub/djgpp/current/v2misc/csdpmi7b.zip' -OutFile $csZip
