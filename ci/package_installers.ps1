@@ -33,8 +33,12 @@ if ($LASTEXITCODE -ne 0 -or !(Test-Path $winExe)) { throw 'Windows installer com
 # DOSBox is a separately licensed open-source runtime, installed from the package manager.
 choco install dosbox -y --no-progress --limit-output
 if ($LASTEXITCODE -ne 0) { throw 'DOSBox installation failed' }
-$dosboxExe = Get-ChildItem -Path @('C:\Program Files (x86)','C:\Program Files','C:\tools') -Filter DOSBox.exe -File -Recurse -ErrorAction SilentlyContinue |
-  Where-Object { $_.FullName -match 'DOSBox' } | Select-Object -First 1
+$dosboxExe = @('C:\Program Files (x86)\DOSBox-0.74-3\DOSBox.exe',
+  'C:\Program Files\DOSBox-0.74-3\DOSBox.exe') | Where-Object { Test-Path $_ } |
+  ForEach-Object { Get-Item $_ } | Select-Object -First 1
+if (!$dosboxExe) {
+  $dosboxExe = Get-ChildItem -Path @('C:\Program Files (x86)','C:\Program Files') -Filter DOSBox.exe -File -Recurse -ErrorAction SilentlyContinue | Select-Object -First 1
+}
 if (!$dosboxExe) { throw 'DOSBox.exe not found after package installation' }
 $dosboxDest = Join-Path $dos 'DOSBox'
 New-Item -ItemType Directory -Force $dosboxDest | Out-Null
