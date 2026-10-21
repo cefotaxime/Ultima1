@@ -3,8 +3,8 @@
 **GitHub가 유일한 개발 소스 기준입니다.** 기존 개발 PC의 백업 폴더나 임시 빌드 폴더는 필요하지 않습니다.
 
 - **최신 게임 소스:** [snapshot/HF97](snapshot/HF97) 및 [snapshot/DOS_support](snapshot/DOS_support) (HF99 동기화 상태)
-- **Windows·DOS 자동 빌드:** [GitHub Actions](../../actions/workflows/release-build.yml)
-- **영구 다운로드:** [GitHub Releases — 1.0K source build](../../releases/tag/v1.0K-source-build)
+- **Windows·DOS 자동 빌드:** [GitHub Actions](https://github.com/cefotaxime/Ultima1/actions/workflows/release-build.yml)
+- **영구 다운로드:** [GitHub Releases — 1.0K source build](https://github.com/cefotaxime/Ultima1/releases/tag/v1.0K-source-build)
 - **재현 가능한 빌드 설명:** [ci/README.md](ci/README.md)
 - **설치기 소스:** [installer/NativeInstaller.cs](installer/NativeInstaller.cs), [installer/dos/InnoSetup_DOS.iss](installer/dos/InnoSetup_DOS.iss)
 
