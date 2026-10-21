@@ -37,6 +37,7 @@ for name in libgcc_s_seh-1.dll libstdc++-6.dll libwinpthread-1.dll; do
   found="$(find /usr/lib/gcc /usr/x86_64-w64-mingw32 /usr/lib -name "$name" -type f 2>/dev/null | head -n 1 || true)"
   [[ -n "$found" ]] || { echo "Missing MinGW runtime $name" >&2; exit 3; }
   cp "$found" "$ROOT/dist/stage-win/$name"
+  x86_64-w64-mingw32-strip --strip-debug "$ROOT/dist/stage-win/$name"
 done
 for dir in "$ROOT/dist/stage-win/FONTS" "$ROOT/dist/stage-dos/FONTS"; do
   mkdir -p "$dir"
