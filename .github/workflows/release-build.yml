@@ -51,6 +51,8 @@ jobs:
   installers:
     needs: compile
     runs-on: windows-2022
+    permissions:
+      contents: write
     timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
@@ -71,6 +73,21 @@ jobs:
           path: dist/release/
           if-no-files-found: error
           retention-days: 90
+      - name: Publish persistent rolling source-build release
+        if: github.event_name != 'release'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        shell: pwsh
+        run: |
+          $tag = 'v1.0K-source-build'
+          gh release view $tag --repo $env:GH_REPO *> $null
+          if ($LASTEXITCODE -ne 0) {
+            gh release create $tag --repo $env:GH_REPO --target $env:GITHUB_SHA --title 'Ultima I Korean 1.0K - GitHub source build (candidate)' --notes 'Automated Windows/DOS builds from a clean GitHub checkout. Requires separately licensed original Ultima I game files. These binaries are new build candidates, not the previously antivirus-approved hashes.' --prerelease
+            if ($LASTEXITCODE -ne 0) { throw 'Could not create rolling GitHub release' }
+          }
+          gh release upload $tag 'dist/release/Ultima1K(Win)_Setup.7z' 'dist/release/Ultima1K(DOS)_Setup.7z' 'dist/release/SHA256SUMS.txt' --repo $env:GH_REPO --clobber
+          if ($LASTEXITCODE -ne 0) { throw 'Release asset upload failed' }
       - name: Publish versioned release assets
         if: github.event_name == 'release'
         env:
