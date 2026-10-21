@@ -30,6 +30,7 @@ cmake -S "$ROOT/snapshot/HF97" -B "$WORK/windows-build" \
   -DSDL2_DIR="$SDL2_DIR"
 cmake --build "$WORK/windows-build" --target u1kr_clean -j 4
 cp "$WORK/windows-build/u1kr_clean.exe" "$ROOT/dist/stage-win/Ultima1KR.exe"
+x86_64-w64-mingw32-strip --strip-debug "$ROOT/dist/stage-win/Ultima1KR.exe"
 sdk_root="$(cd "$SDL2_DIR/../../.." && pwd)"
 cp "$sdk_root/bin/SDL2.dll" "$ROOT/dist/stage-win/SDL2.dll"
 for name in libgcc_s_seh-1.dll libstdc++-6.dll libwinpthread-1.dll; do
