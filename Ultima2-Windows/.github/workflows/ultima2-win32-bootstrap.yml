@@ -1,0 +1,23 @@
+name: Ultima II original Windows bootstrap
+on:
+  push:
+    branches: [ultima2/original-win32-bootstrap]
+    paths: ['Ultima2-Windows/**']
+  pull_request:
+    paths: ['Ultima2-Windows/**']
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure MSVC build
+        run: cmake -S Ultima2-Windows -B build-u2 -A x64
+      - name: Build
+        run: cmake --build build-u2 --config Release --parallel
+      - name: Upload executable
+        uses: actions/upload-artifact@v4
+        with:
+          name: Ultima2Win-bootstrap-not-playable
+          path: build-u2/Release/Ultima2Win.exe
+          if-no-files-found: error
